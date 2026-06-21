@@ -71,7 +71,7 @@ export function GovDashboardView() {
     </div>
 
     <!-- Top stats -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px">
+    <div style="class="rg-4" style="margin-bottom:22px">
       ${[
         ["Total Schools",       schools.length,              "#1e40af","#eff6ff","#bfdbfe","🏫"],
         ["Total Students",      students.length,             "#065f46","#ecfdf5","#6ee7b7","🎓"],
@@ -89,7 +89,7 @@ export function GovDashboardView() {
     </div>
 
     <!-- Secondary stats row -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px">
+    <div style="class="rg-3" style="margin-bottom:22px">
       ${[
         ["Regions Covered",     regions.length,               "#0369a1","#f0f9ff","#bae6fd","🗺"],
         ["Approved Applications",apps.filter(a=>a.status==="approved").length,"#065f46","#ecfdf5","#6ee7b7","✅"],
@@ -106,7 +106,7 @@ export function GovDashboardView() {
     </div>
 
     <!-- Schools list + Type breakdown -->
-    <div style="display:grid;grid-template-columns:1fr 240px;gap:20px;margin-bottom:24px">
+    <div style="class="rg-sidebar-sm" style="margin-bottom:24px">
 
       <!-- All schools -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">

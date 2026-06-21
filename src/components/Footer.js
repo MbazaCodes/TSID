@@ -1,9 +1,13 @@
 export function Footer() {
   return `
-  <footer class="bg-slate-900 text-white py-6 mt-10">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <p>© 2026 Tanzania Student Identification System · Jamhuri ya Muungano wa Tanzania</p>
-      <p style="font-size:11px;opacity:.6;margin-top:4px">verify.tsid.go.tz · For official use only</p>
-    </div>
+  <footer style="
+    background:#0f172a;color:#94a3b8;
+    padding:20px 24px;margin-top:32px;text-align:center">
+    <p style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">
+      Tanzania Student Identification System
+    </p>
+    <p style="font-size:11px;opacity:.6">
+      © 2026 Jamhuri ya Muungano wa Tanzania · verify.tsid.go.tz · For official use only
+    </p>
   </footer>`;
 }

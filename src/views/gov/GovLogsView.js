@@ -79,7 +79,7 @@ export function GovLogsView() {
     </div>
 
     <!-- Stats row -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px">
+    <div style="class="rg-4" style="margin-bottom:22px">
       ${[
         ["Total Logs",       logs.length,       "#1e40af","#eff6ff","#bfdbfe","📋"],
         ["Today's Activity", todayLogs.length,  "#065f46","#ecfdf5","#6ee7b7","📅"],

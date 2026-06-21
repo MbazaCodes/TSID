@@ -1,13 +1,14 @@
 // ============================================================================
 //  PublicSearchView — public student/school verification portal
 // ============================================================================
-import { Navbar } from "../../components/Navbar.js";
+import { Navbar, initNavbar } from "../../components/Navbar.js";
 import { Footer } from "../../components/Footer.js";
 import { db } from "../../store/db.js";
 import { MiniIDCard } from "../../components/IDCard.js";
 import { escapeHtml } from "../../lib/util.js";
 
 export function PublicSearchView() {
+  setTimeout(initNavbar, 0);
   const schools  = db.getSchools();
   const students = db.getStudents();
 

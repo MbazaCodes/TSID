@@ -82,7 +82,7 @@ export function StudentRequestLetterView() {
     </div>
 
     <!-- ── Stats row ────────────────────────────────────────────────────── -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px">
+    <div style="class="rg-4" style="margin-bottom:22px">
       ${[
         ["Total",    letters.length, "#1e40af", "#eff6ff", "#bfdbfe", "📋"],
         ["Approved", approved,       "#065f46", "#ecfdf5", "#6ee7b7", "✅"],
@@ -101,7 +101,7 @@ export function StudentRequestLetterView() {
     </div>
 
     <!-- ── Two-column: form + summary ───────────────────────────────────── -->
-    <div style="display:grid;grid-template-columns:1fr 300px;gap:22px;align-items:flex-start;margin-bottom:28px">
+    <div style="class="rg-sidebar" style="margin-bottom:28px">
 
       <!-- Form card -------------------------------------------------------->
       <div style="

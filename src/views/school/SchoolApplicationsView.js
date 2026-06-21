@@ -82,7 +82,7 @@ export function SchoolApplicationsView() {
     </div>
 
     <!-- Stats -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px">
+    <div style="class="rg-3" style="margin-bottom:22px">
       ${[
         ["Pending Review", pending.length,  "#92400e","#fffbeb","#fcd34d","⏳"],
         ["Approved",       approved.length, "#065f46","#ecfdf5","#6ee7b7","✅"],

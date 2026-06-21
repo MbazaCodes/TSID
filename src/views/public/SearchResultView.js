@@ -1,7 +1,7 @@
 // ============================================================================
 //  SearchResultView — student + school verification result pages
 // ============================================================================
-import { Navbar } from "../../components/Navbar.js";
+import { Navbar, initNavbar } from "../../components/Navbar.js";
 import { Footer } from "../../components/Footer.js";
 import { db } from "../../store/db.js";
 import { FullIDCardPair, initCardQRs } from "../../components/IDCard.js";
@@ -62,7 +62,7 @@ export function StudentResultView(tsid) {
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:flex-start">
+    <div style="class="rg-card-result" style="align-items:flex-start">
 
       <!-- Left: ID card -->
       <div class="print-area" style="flex-shrink:0">
@@ -166,7 +166,7 @@ export function SchoolResultView(code) {
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:360px 1fr;gap:24px;align-items:flex-start">
+    <div style="class="rg-school-result" style="align-items:flex-start">
 
       <!-- Left: school ID card -->
       <div>
@@ -290,5 +290,6 @@ function notFound(kind, ref) {
 }
 
 export function initResultView() {
+  initNavbar();
   initCardQRs();
 }
