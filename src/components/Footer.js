@@ -5,8 +5,8 @@
 const EDU_BODIES = [
   {
     category: "Serikali / Government",
-    color: "#003366",
-    bg: "#eff6ff",
+    color: "#1B8F3A",
+    bg: "#dcfce7",
     icon: "🏛️",
     links: [
       { name: "Wizara ya Elimu, Sayansi na Teknolojia", short: "MoEST", url: "https://www.moe.go.tz" },
@@ -116,7 +116,7 @@ export function Footer() {
           display:flex;align-items:center;gap:10px;margin-bottom:20px">
           <div style="
             width:2px;height:20px;
-            background:linear-gradient(180deg,#059669,#003366);
+            background:linear-gradient(180deg,#059669,#1B8F3A);
             border-radius:99px"></div>
           <div style="font-size:12px;font-weight:800;color:#fff;
             text-transform:uppercase;letter-spacing:.6px">

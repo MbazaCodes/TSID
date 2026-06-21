@@ -1,9 +1,12 @@
 /* ============================================================================
-   TSID — Role-based UI design system (extends the original card CSS)
+   TSID — Role-based UI design system (green-primary Tanzania theme)
    ========================================================================== */
 
 :root {
-  --tz-blue-primary: #003366;
+  --tz-primary: #1B8F3A;
+  --tz-primary-dark: #15702c;
+  --tz-primary-light: #dcfce7;
+  --tz-navy: #003366;
   --tz-green-primary: #1B8F3A;
   --tz-yellow-accent: #F5C400;
   --tz-blue-light: #007AFF;
@@ -20,19 +23,20 @@ body.tsid-app {
   color: var(--text-dark);
 }
 
-/* ---------------- Top navbar (role-aware) ---------------- */
+/* ---------------- Top navbar (white/light, logo-friendly) ---------------- */
 .tsid-navbar {
-  background: var(--tz-blue-primary);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: var(--text-dark);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   position: sticky;
   top: 0;
   z-index: 50;
+  border-bottom: 1px solid var(--border-soft);
 }
 .tsid-navbar .inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 14px 24px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,11 +50,12 @@ body.tsid-app {
   font-weight: 900;
   font-size: 22px;
   letter-spacing: -0.3px;
+  color: var(--tz-navy);
 }
 .tsid-navbar .brand .badge {
   font-size: 10px;
   font-weight: 700;
-  background: var(--tz-green-primary);
+  background: var(--tz-primary);
   color: #fff;
   padding: 2px 8px;
   border-radius: 999px;
@@ -58,12 +63,12 @@ body.tsid-app {
 }
 .tsid-navbar .nav-links {
   display: flex;
-  gap: 6px;
+  gap: 2px;
   align-items: center;
   flex-wrap: wrap;
 }
 .tsid-navbar .nav-links a {
-  color: #cbd5e1;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
   padding: 7px 12px;
@@ -71,9 +76,12 @@ body.tsid-app {
   text-decoration: none;
   transition: all 0.15s;
 }
-.tsid-navbar .nav-links a:hover,
+.tsid-navbar .nav-links a:hover {
+  background: var(--tz-primary-light);
+  color: var(--tz-primary-dark);
+}
 .tsid-navbar .nav-links a.active {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--tz-primary);
   color: #fff;
 }
 .tsid-navbar .session-chip {
@@ -81,16 +89,17 @@ body.tsid-app {
   align-items: center;
   gap: 10px;
   font-size: 13px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #f8fafc;
   padding: 6px 12px;
   border-radius: 999px;
+  border: 1px solid var(--border-soft);
 }
 .tsid-navbar .session-chip .avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--tz-yellow-accent);
-  color: var(--tz-blue-primary);
+  background: var(--tz-primary);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,7 +151,7 @@ body.tsid-app {
   background: #f1f5f9;
 }
 .tsid-sidebar a.active {
-  background: var(--tz-blue-primary);
+  background: var(--tz-primary);
   color: #fff;
 }
 .tsid-sidebar a .ic {
@@ -167,7 +176,7 @@ body.tsid-app {
 .tsid-page-head h1 {
   font-size: 24px;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   letter-spacing: -0.3px;
 }
 .tsid-page-head p {
@@ -187,7 +196,7 @@ body.tsid-app {
 .tsid-card h3 {
   font-size: 15px;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-navy);
   margin-bottom: 12px;
 }
 .tsid-stat-grid {
@@ -216,9 +225,9 @@ body.tsid-app {
   color: #fff;
   flex-shrink: 0;
 }
-.tsid-stat .icon.blue { background: var(--tz-blue-primary); }
+.tsid-stat .icon.blue { background: var(--tz-primary); }
 .tsid-stat .icon.green { background: var(--tz-green-primary); }
-.tsid-stat .icon.yellow { background: var(--tz-yellow-accent); color: var(--tz-blue-primary); }
+.tsid-stat .icon.yellow { background: var(--tz-yellow-accent); color: var(--tz-primary-dark); }
 .tsid-stat .icon.red { background: #DC2626; }
 .tsid-stat .label {
   font-size: 11px;
@@ -253,7 +262,7 @@ body.tsid-app {
 .tsid-table-wrap .table-head h3 {
   font-size: 15px;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-navy);
 }
 .tsid-table {
   width: 100%;
@@ -286,7 +295,7 @@ body.tsid-app {
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: 12px;
   font-weight: 700;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
 }
 
 /* ---------------- Badges ---------------- */
@@ -322,18 +331,18 @@ body.tsid-app {
   text-decoration: none;
   transition: all 0.15s;
 }
-.btn-primary { background: var(--tz-blue-primary); color: #fff; }
-.btn-primary:hover { background: #002b54; }
+.btn-primary { background: var(--tz-primary); color: #fff; }
+.btn-primary:hover { background: var(--tz-primary-dark); }
 .btn-green { background: var(--tz-green-primary); color: #fff; }
 .btn-green:hover { background: #15702c; }
 .btn-red { background: #DC2626; color: #fff; }
 .btn-red:hover { background: #b21d1d; }
 .btn-outline {
   background: transparent;
-  color: var(--tz-blue-primary);
-  border: 1.5px solid var(--tz-blue-primary);
+  color: var(--tz-primary);
+  border: 1.5px solid var(--tz-primary);
 }
-.btn-outline:hover { background: var(--tz-blue-primary); color: #fff; }
+.btn-outline:hover { background: var(--tz-primary); color: #fff; }
 .btn-ghost {
   background: #f1f5f9;
   color: var(--text-dark);
@@ -370,7 +379,7 @@ body.tsid-app {
 .tsid-form select:focus,
 .tsid-form textarea:focus {
   outline: none;
-  border-color: var(--tz-blue-primary);
+  border-color: var(--tz-primary);
 }
 .tsid-form .grid-2 {
   display: grid;
@@ -391,7 +400,7 @@ body.tsid-app {
 .tsid-form legend {
   font-size: 13px;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   padding: 0 8px;
 }
 
@@ -416,9 +425,9 @@ body.tsid-app {
   gap: 10px;
 }
 .role-card:hover {
-  border-color: var(--tz-blue-primary);
+  border-color: var(--tz-primary);
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0, 51, 102, 0.12);
+  box-shadow: 0 12px 28px rgba(27, 143, 58, 0.12);
 }
 .role-card .ic {
   width: 52px;
@@ -429,15 +438,15 @@ body.tsid-app {
   justify-content: center;
   font-size: 26px;
   color: #fff;
-  background: var(--tz-blue-primary);
+  background: var(--tz-primary);
 }
 .role-card .ic.green { background: var(--tz-green-primary); }
-.role-card .ic.yellow { background: var(--tz-yellow-accent); color: var(--tz-blue-primary); }
+.role-card .ic.yellow { background: var(--tz-yellow-accent); color: var(--tz-primary-dark); }
 .role-card .ic.blue { background: var(--tz-blue-light); }
 .role-card h3 {
   font-size: 18px;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   margin-top: 8px;
 }
 .role-card p {
@@ -482,7 +491,7 @@ body.tsid-app {
 .id-result-meta h2 {
   font-size: 18px;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   margin-bottom: 12px;
 }
 .id-result-meta .row {
@@ -509,7 +518,7 @@ body.tsid-app {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--tz-blue-primary);
+  background: var(--tz-primary);
   color: #fff;
   padding: 12px 22px;
   border-radius: 10px;
@@ -590,8 +599,8 @@ body.tsid-app {
   margin-bottom: -1px;
 }
 .tabs button.active {
-  color: var(--tz-blue-primary);
-  border-bottom-color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
+  border-bottom-color: var(--tz-primary);
 }
 
 /* ---------------- Login ---------------- */
@@ -607,7 +616,7 @@ body.tsid-app {
 .login-wrap h2 {
   font-size: 22px;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   text-align: center;
   margin-bottom: 6px;
 }
@@ -644,7 +653,7 @@ body.tsid-app {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 .mini-id-card .header {
-  background: var(--tz-blue-primary);
+  background: var(--tz-primary);
   color: #fff;
   padding: 10px 14px;
   display: flex;
@@ -692,7 +701,7 @@ body.tsid-app {
 .mini-id-card .info .name {
   font-size: 14px;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-primary-dark);
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -821,8 +830,8 @@ body.tsid-app {
     justify-content: center;
     width: 36px; height: 36px;
     border-radius: 8px;
-    background: rgba(255,255,255,.12);
-    border: none; cursor: pointer; color: #fff;
+    background: var(--tz-primary-light);
+    border: none; cursor: pointer; color: var(--tz-primary-dark);
     font-size: 18px; flex-shrink: 0;
   }
   /* Mobile nav drawer */
@@ -836,7 +845,7 @@ body.tsid-app {
   .tsid-mobile-nav-panel {
     position: absolute; top: 0; right: 0;
     width: min(300px, 85vw); height: 100vh;
-    background: #003366;
+    background: var(--tz-primary-dark);
     padding: 0;
     overflow-y: auto;
     box-shadow: -8px 0 32px rgba(0,0,0,.25);

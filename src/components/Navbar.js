@@ -56,7 +56,7 @@ export function Navbar(activeHref) {
            <span style="font-weight:800;font-size:12px">${escapeHtml(session.name)}</span>
            <span style="font-size:10px;opacity:.8">${meta ? meta.label : role}</span>
          </div>
-         <a href="#/logout" style="margin-left:6px;color:#fca5a5;font-size:12px;font-weight:700;text-decoration:none">Out</a>
+         <a href="#/logout" style="margin-left:6px;color:#ef4444;font-size:12px;font-weight:700;text-decoration:none">Out</a>
        </div>`
     : `<a href="#/" class="btn btn-green btn-sm">Sign In</a>`;
 
