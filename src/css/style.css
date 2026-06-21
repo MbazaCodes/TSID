@@ -16,7 +16,7 @@
      font-family: 'Inter', sans-serif;
 }
 
-body {
+.card-preview-body {
      background-color: #ECEFF1;
      padding: 30px 10px;
      display: flex;
@@ -518,6 +518,10 @@ body {
           padding: 0;
           margin: 0;
      }
+     .card-preview-body {
+          background: #ffffff;
+          padding: 0;
+     }
      .control-dashboard, .card-direction-label {
           display: none !important;
      }
@@ -696,7 +700,7 @@ height:16mm !important;
 
 @media print{
 
-body{
+.card-preview-body{
 margin:0 !important;
 padding:0 !important;
 background:#fff !important;

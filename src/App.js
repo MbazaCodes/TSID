@@ -1,8 +1,14 @@
 import { router } from "./routes/router.js";
 
-window.addEventListener("hashchange", router);
+// Remove old listeners on HMR to prevent duplicates
+if (typeof window.__tsidRouterInit === "undefined") {
+  window.__tsidRouterInit = true;
+  window.addEventListener("hashchange", router);
+}
 
-document.addEventListener(
-"DOMContentLoaded",
-router
-);
+// Always run router on load (covers both initial load and HMR)
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", router);
+} else {
+  router();
+}

@@ -1,61 +1,50 @@
-﻿document.getElementById("tsidForm").addEventListener("submit",function(e){
+export function initForm() {
+  // Expose form handler globally for inline onsubmit
+  window.__tsidSubmitForm = function (e) {
+    e.preventDefault();
 
-e.preventDefault();
+    const photoInput = document.getElementById("studentPhoto");
+    const reader = new FileReader();
 
-const photoInput =
-document.getElementById("studentPhoto");
+    reader.onload = function () {
+      const data = {
+        tsid: document.getElementById("tsid").value,
+        fullname: document.getElementById("fullname").value,
+        dob: document.getElementById("dob").value,
+        gender: document.getElementById("gender").value,
+        nationality: document.getElementById("nationality").value,
 
-const reader = new FileReader();
+        schoolName: document.getElementById("schoolName").value,
+        schoolId: document.getElementById("schoolId").value,
+        region: document.getElementById("region").value,
+        district: document.getElementById("district").value,
+        ward: document.getElementById("ward").value,
+        schoolContact: document.getElementById("schoolContact").value,
 
-reader.onload = function(){
+        enrollmentDate: document.getElementById("enrollmentDate").value,
+        level: document.getElementById("level").value,
+        bloodGroup: document.getElementById("bloodGroup").value,
 
-const data = {
+        parentName: document.getElementById("parentName").value,
+        parentNida: document.getElementById("parentNida").value,
+        relationship: document.getElementById("relationship").value,
+        parentPhone: document.getElementById("parentPhone").value,
 
-tsid:document.getElementById("tsid").value,
-fullname:document.getElementById("fullname").value,
-dob:document.getElementById("dob").value,
-gender:document.getElementById("gender").value,
-nationality:document.getElementById("nationality").value,
+        issueDate: document.getElementById("issueDate").value,
 
-schoolName:document.getElementById("schoolName").value,
-schoolId:document.getElementById("schoolId").value,
-region:document.getElementById("region").value,
-district:document.getElementById("district").value,
-ward:document.getElementById("ward").value,
-schoolContact:document.getElementById("schoolContact").value,
+        photo: reader.result,
+      };
 
-enrollmentDate:document.getElementById("enrollmentDate").value,
-level:document.getElementById("level").value,
-bloodGroup:document.getElementById("bloodGroup").value,
+      localStorage.setItem("tsidData", JSON.stringify(data));
+      window.location.hash = "#/id";
+    };
 
-parentName:document.getElementById("parentName").value,
-parentNida:document.getElementById("parentNida").value,
-relationship:document.getElementById("relationship").value,
-parentPhone:document.getElementById("parentPhone").value,
+    if (photoInput.files.length) {
+      reader.readAsDataURL(photoInput.files[0]);
+    } else {
+      reader.onload();
+    }
 
-issueDate:document.getElementById("issueDate").value,
-
-photo:reader.result
-
-};
-
-localStorage.setItem(
-"tsidData",
-JSON.stringify(data)
-);
-
-window.location.href="id.html";
-
-};
-
-if(photoInput.files.length){
-reader.readAsDataURL(
-photoInput.files[0]
-);
+    return false;
+  };
 }
-else{
-reader.onload();
-}
-
-});
-

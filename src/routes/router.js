@@ -1,29 +1,25 @@
-﻿import { LandingView } from "../views/LandingView.js";
+import { LandingView } from "../views/LandingView.js";
 import { FormView } from "../views/FormView.js";
 import { IDView } from "../views/IDView.js";
+import { initForm } from "../js/form.js";
+import { initCard } from "../js/script.js";
 
-export function router(){
+export function router() {
+  const path = window.location.hash || "#/";
+  const app = document.getElementById("app");
 
-```
-const path =
-    window.location.hash || "#/";
-
-const app =
-    document.getElementById("app");
-
-switch(path){
-
+  switch (path) {
     case "#/create":
-        app.innerHTML = FormView();
-        break;
+      app.innerHTML = FormView();
+      initForm();
+      break;
 
     case "#/id":
-        app.innerHTML = IDView();
-        break;
+      app.innerHTML = IDView();
+      initCard();
+      break;
 
     default:
-        app.innerHTML = LandingView();
-}
-```
-
+      app.innerHTML = LandingView();
+  }
 }
