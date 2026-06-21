@@ -1,13 +1,201 @@
+// ============================================================================
+//  Footer — Tanzania education bodies + TSID links
+// ============================================================================
+
+const EDU_BODIES = [
+  {
+    category: "Serikali / Government",
+    color: "#003366",
+    bg: "#eff6ff",
+    icon: "🏛️",
+    links: [
+      { name: "Wizara ya Elimu, Sayansi na Teknolojia", short: "MoEST", url: "https://www.moe.go.tz" },
+      { name: "Ofisi ya Rais — TAMISEMI", short: "TAMISEMI", url: "https://www.tamisemi.go.tz" },
+      { name: "Ofisi ya Rais — PO-RALG", short: "PO-RALG", url: "https://www.poralg.go.tz" },
+    ],
+  },
+  {
+    category: "Mitihani / Examinations",
+    color: "#065f46",
+    bg: "#ecfdf5",
+    icon: "📋",
+    links: [
+      { name: "National Examinations Council of Tanzania", short: "NECTA", url: "https://www.necta.go.tz" },
+      { name: "National Council for Technical Education", short: "NACTE", url: "https://www.nacte.go.tz" },
+      { name: "Tanzania National Qualifications Framework", short: "TNQF", url: "https://www.nacte.go.tz/tnqf" },
+    ],
+  },
+  {
+    category: "Elimu ya Juu / Higher Education",
+    color: "#5b21b6",
+    bg: "#f5f3ff",
+    icon: "🎓",
+    links: [
+      { name: "Tanzania Commission for Universities", short: "TCU", url: "https://www.tcu.go.tz" },
+      { name: "University of Dar es Salaam", short: "UDSM", url: "https://www.udsm.ac.tz" },
+      { name: "Open University of Tanzania", short: "OUT", url: "https://www.out.ac.tz" },
+      { name: "Sokoine University of Agriculture", short: "SUA", url: "https://www.sua.ac.tz" },
+    ],
+  },
+  {
+    category: "Mafunzo ya Ufundi / Vocational",
+    color: "#92400e",
+    bg: "#fffbeb",
+    icon: "🔧",
+    links: [
+      { name: "Vocational Education Training Authority", short: "VETA", url: "https://www.veta.go.tz" },
+      { name: "Business Registration and Licensing Agency", short: "BRELA", url: "https://www.brela.go.tz" },
+    ],
+  },
+  {
+    category: "Maktaba na Utafiti / Research",
+    color: "#0369a1",
+    bg: "#f0f9ff",
+    icon: "📚",
+    links: [
+      { name: "Tanzania Library Services Board", short: "TLSB", url: "https://www.tlsb.or.tz" },
+      { name: "Tanzania Commission for Science & Technology", short: "COSTECH", url: "https://www.costech.or.tz" },
+      { name: "National Institute for Medical Research", short: "NIMR", url: "https://www.nimr.or.tz" },
+    ],
+  },
+  {
+    category: "Mifumo ya Kitaifa / National Systems",
+    color: "#374151",
+    bg: "#f8fafc",
+    icon: "🖥️",
+    links: [
+      { name: "National Identification Authority", short: "NIDA", url: "https://www.nida.go.tz" },
+      { name: "e-Government Authority Tanzania", short: "eGA", url: "https://www.ega.go.tz" },
+      { name: "Tanzania Revenue Authority", short: "TRA", url: "https://www.tra.go.tz" },
+    ],
+  },
+];
+
 export function Footer() {
+  const bodyLinks = EDU_BODIES.map(group => `
+    <div style="margin-bottom:0">
+      <div style="
+        display:flex;align-items:center;gap:8px;
+        font-size:11px;font-weight:800;text-transform:uppercase;
+        letter-spacing:.5px;color:#94a3b8;margin-bottom:10px">
+        <span>${group.icon}</span>
+        <span>${group.category}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${group.links.map(l => `
+          <a href="${l.url}" target="_blank" rel="noopener noreferrer" style="
+            display:flex;align-items:center;gap:8px;
+            text-decoration:none;group:true">
+            <span style="
+              background:${group.bg};color:${group.color};
+              font-size:9.5px;font-weight:800;padding:2px 7px;
+              border-radius:5px;white-space:nowrap;flex-shrink:0;
+              border:1px solid ${group.color}22">
+              ${l.short}
+            </span>
+            <span style="
+              font-size:12px;color:#94a3b8;line-height:1.4;
+              transition:color .15s"
+              class="footer-link-text">
+              ${l.name}
+            </span>
+            <span style="color:#64748b;font-size:10px;margin-left:auto;flex-shrink:0">↗</span>
+          </a>`).join("")}
+      </div>
+    </div>`).join("");
+
   return `
-  <footer style="
-    background:#0f172a;color:#94a3b8;
-    padding:20px 24px;margin-top:32px;text-align:center">
-    <p style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">
-      Tanzania Student Identification System
-    </p>
-    <p style="font-size:11px;opacity:.6">
-      © 2026 Jamhuri ya Muungano wa Tanzania · verify.tsid.go.tz · For official use only
-    </p>
-  </footer>`;
+  <footer style="background:#0f172a;padding:0;margin-top:40px">
+
+    <!-- Partners header -->
+    <div style="
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding:24px 24px 0">
+      <div style="max-width:1100px;margin:0 auto">
+        <div style="
+          display:flex;align-items:center;gap:10px;margin-bottom:20px">
+          <div style="
+            width:2px;height:20px;
+            background:linear-gradient(180deg,#059669,#003366);
+            border-radius:99px"></div>
+          <div style="font-size:12px;font-weight:800;color:#fff;
+            text-transform:uppercase;letter-spacing:.6px">
+            Taasisi za Elimu Tanzania
+          </div>
+          <div style="height:1px;flex:1;background:rgba(255,255,255,.08)"></div>
+          <div style="font-size:11px;color:#475569">Tanzania Education Bodies</div>
+        </div>
+
+        <!-- Links grid -->
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+          gap:24px 32px;
+          padding-bottom:28px">
+          ${bodyLinks}
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick links bar -->
+    <div style="
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding:14px 24px">
+      <div style="
+        max-width:1100px;margin:0 auto;
+        display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font-size:11px;font-weight:700;color:#475569;
+          text-transform:uppercase;letter-spacing:.4px">TSID</span>
+        ${[
+          ["#/",             "Home"],
+          ["#/search",       "Verify Student"],
+          ["#/login/school", "School Login"],
+          ["#/login/gov",    "Gov Login"],
+          ["#/login/student","Student Login"],
+        ].map(([href, label]) => `
+          <a href="${href}" style="
+            font-size:12px;color:#64748b;text-decoration:none;
+            transition:color .15s;font-weight:500"
+            onmouseover="this.style.color='#059669'"
+            onmouseout="this.style.color='#64748b'">
+            ${label}
+          </a>`).join(`<span style="color:#1e293b">·</span>`)}
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="padding:16px 24px">
+      <div style="
+        max-width:1100px;margin:0 auto;
+        display:flex;align-items:center;justify-content:space-between;
+        flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#fff;margin-bottom:2px">
+            Tanzania Student Identification System
+          </div>
+          <div style="font-size:11px;color:#475569">
+            © 2026 Jamhuri ya Muungano wa Tanzania · For official use only
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <a href="https://www.moe.go.tz" target="_blank" rel="noopener" style="
+            font-size:11px;color:#475569;text-decoration:none">
+            🌐 verify.tsid.go.tz
+          </a>
+          <span style="
+            background:rgba(5,150,105,.15);color:#34d399;
+            font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;
+            border:1px solid rgba(5,150,105,.3)">
+            ✓ OFFICIAL SYSTEM
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <style>
+    footer a:hover .footer-link-text { color:#fff !important; }
+  </style>
+  `;
 }
