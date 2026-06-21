@@ -168,7 +168,7 @@ export function GovSchoolsView() {
                   <div style="font-size:11.5px;font-family:ui-monospace">
                     <span style="color:#374151;font-weight:700">${escapeHtml(sc.username)}</span>
                     <span style="color:#94a3b8"> / </span>
-                    <span style="color:#059669;font-weight:700">${escapeHtml(sc.password)}</span>
+                    <span style="color:#059669;font-weight:700">••••••</span>
                   </div>
                 </td>
                 <td>

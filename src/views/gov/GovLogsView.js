@@ -1,6 +1,8 @@
 import { Shell } from "../../components/Shell.js";
 import { currentSession, db } from "../../store/db.js";
 import { fmtDateTime, escapeHtml } from "../../lib/util.js";
+import { supabase } from "../../store/supabase.js";
+import { toast } from "../../lib/toast.js";
 
 const LINKS = [
   { href: "#/gov/dashboard", label: "Dashboard",     icon: "▣" },
@@ -236,9 +238,12 @@ export function initGovLogs() {
     clearModal.style.display = "none";
   });
   document.getElementById("clearConfirm")?.addEventListener("click", () => {
-    localStorage.setItem("tsid:logs", JSON.stringify([]));
     clearModal.style.display = "none";
-    setTimeout(() => window.location.reload(), 300);
+    // Clear logs from Supabase
+    supabase.from("activity_logs").delete().neq("id", "IMPOSSIBLE_ID").then(() => {
+      toast("All logs cleared.", "success");
+      setTimeout(() => window.location.reload(), 300);
+    });
   });
   clearModal?.addEventListener("click", e => {
     if (e.target === clearModal) clearModal.style.display = "none";

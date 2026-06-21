@@ -54,7 +54,7 @@ export function SchoolDashboardView() {
     </div>
 
     <!-- Stats -->
-    <div style="class="rg-4" style="margin-bottom:22px">
+    <div class="rg-4" style="margin-bottom:22px">
       ${[
         ["Total Students",    students.length,     "#1e40af","#eff6ff","#bfdbfe","🎓"],
         ["Pending Apps",      pendingApps.length,  "#92400e","#fffbeb","#fcd34d","📋"],
@@ -72,7 +72,7 @@ export function SchoolDashboardView() {
     </div>
 
     <!-- Two-column: recent students + level breakdown -->
-    <div style="class="rg-sidebar-sm" style="margin-bottom:24px">
+    <div class="rg-sidebar-sm" style="margin-bottom:24px">
 
       <!-- Recent students table -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">

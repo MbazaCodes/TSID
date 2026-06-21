@@ -329,7 +329,7 @@ export function initSchoolStudentDB() {
           <div style="font-weight:800;font-size:12px;color:#1e40af;margin-bottom:6px">🔑 Student Login Credentials</div>
           <div style="font-size:12px;color:#1e40af">
             Username: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">${escapeHtml(student.credentials?.username || student.tsid)}</code><br>
-            Password: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">${escapeHtml(student.credentials?.password || "student123")}</code>
+            Password: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">••••••••</code>
           </div>
         </div>
 

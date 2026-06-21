@@ -1,4 +1,5 @@
 import { currentSession } from "../store/db.js";
+import { escapeHtml } from "../lib/util.js";
 
 const ROLE_META = {
   school:  { label: "School",       color: "green"  },
@@ -16,10 +17,10 @@ const LINKS = {
     { href: "#/school/settings",       label: "Settings",        icon: "⚙" },
   ],
   gov: [
-    { href: "#/gov/dashboard", label: "Dashboard",        icon: "▣" },
-    { href: "#/gov/students",  label: "Students Database",icon: "☰" },
-    { href: "#/gov/schools",   label: "Create School",    icon: "✚" },
-    { href: "#/gov/logs",      label: "Activity Logs",    icon: "⌷" },
+    { href: "#/gov/dashboard", label: "Dashboard",     icon: "▣" },
+    { href: "#/gov/students",  label: "Students",      icon: "🎓" },
+    { href: "#/gov/schools",   label: "Schools",       icon: "🏫" },
+    { href: "#/gov/logs",      label: "Activity Logs", icon: "📋" },
   ],
   student: [
     { href: "#/student/dashboard",      label: "Dashboard",           icon: "▣" },
@@ -29,11 +30,6 @@ const LINKS = {
     { href: "#/student/payments",       label: "Payments",            icon: "₵" },
   ],
 };
-
-function escapeHtml(s) {
-  if (!s) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
 
 export function Navbar(activeHref) {
   const session = currentSession();
@@ -76,10 +72,10 @@ export function Navbar(activeHref) {
       { href:"#/school/payments",        label:"Payments",        icon:"₵" },
       { href:"#/school/settings",        label:"Settings",        icon:"⚙" },
     ] : role === "gov" ? [
-      { href:"#/gov/dashboard", label:"Dashboard",        icon:"▣" },
-      { href:"#/gov/students",  label:"Students Database",icon:"☰" },
-      { href:"#/gov/schools",   label:"Create School",    icon:"✚" },
-      { href:"#/gov/logs",      label:"Activity Logs",    icon:"⌷" },
+      { href:"#/gov/dashboard", label:"Dashboard",     icon:"▣" },
+      { href:"#/gov/students",  label:"Students",      icon:"🎓" },
+      { href:"#/gov/schools",   label:"Schools",       icon:"🏫" },
+      { href:"#/gov/logs",      label:"Activity Logs", icon:"📋" },
     ] : role === "student" ? [
       { href:"#/student/dashboard",       label:"Dashboard",           icon:"▣" },
       { href:"#/student/id",              label:"My ID Card",          icon:"▤" },

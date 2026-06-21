@@ -158,7 +158,7 @@ create table activity_logs (
   created_at timestamptz not null default now()
 );
 
--- ── RLS: disable for anon access (demo mode — tighten per role in production) ──
+-- ── RLS: enable for all tables ──────────────────────────────────────────────────
 alter table gov_users       enable row level security;
 alter table schools         enable row level security;
 alter table students        enable row level security;
@@ -168,15 +168,60 @@ alter table certificates    enable row level security;
 alter table request_letters enable row level security;
 alter table activity_logs   enable row level security;
 
--- Allow anon full access for demo (replace with proper auth policies in production)
-create policy "anon_all" on gov_users       for all to anon using (true) with check (true);
-create policy "anon_all" on schools         for all to anon using (true) with check (true);
-create policy "anon_all" on students        for all to anon using (true) with check (true);
-create policy "anon_all" on applications    for all to anon using (true) with check (true);
-create policy "anon_all" on payments        for all to anon using (true) with check (true);
-create policy "anon_all" on certificates    for all to anon using (true) with check (true);
-create policy "anon_all" on request_letters for all to anon using (true) with check (true);
-create policy "anon_all" on activity_logs   for all to anon using (true) with check (true);
+-- ── RLS Policies ──────────────────────────────────────────────────────────────
+-- NOTE: These policies are designed for demo/anon access.
+-- In production, replace anon with authenticated users and add
+-- role-based policies using Supabase Auth JWT claims.
+
+-- Everyone can read (needed for public search/verify)
+create policy "anon_select" on gov_users       for select to anon using (true);
+create policy "anon_select" on schools         for select to anon using (true);
+create policy "anon_select" on students        for select to anon using (true);
+create policy "anon_select" on applications    for select to anon using (true);
+create policy "anon_select" on payments        for select to anon using (true);
+create policy "anon_select" on certificates    for select to anon using (true);
+create policy "anon_select" on request_letters for select to anon using (true);
+create policy "anon_select" on activity_logs   for select to anon using (true);
+
+-- Only allow inserts/updates/deletes through service_role (backend)
+-- Anon role gets NO write access to any table
+create policy "anon_no_insert" on gov_users       for insert to anon with check (false);
+create policy "anon_no_insert" on schools         for insert to anon with check (false);
+create policy "anon_no_insert" on students        for insert to anon with check (false);
+create policy "anon_no_insert" on applications    for insert to anon with check (false);
+create policy "anon_no_insert" on payments        for insert to anon with check (false);
+create policy "anon_no_insert" on certificates    for insert to anon with check (false);
+create policy "anon_no_insert" on request_letters for insert to anon with check (false);
+create policy "anon_no_insert" on activity_logs   for insert to anon with check (false);
+
+create policy "anon_no_update" on gov_users       for update to anon using (false) with check (false);
+create policy "anon_no_update" on schools         for update to anon using (false) with check (false);
+create policy "anon_no_update" on students        for update to anon using (false) with check (false);
+create policy "anon_no_update" on applications    for update to anon using (false) with check (false);
+create policy "anon_no_update" on payments        for update to anon using (false) with check (false);
+create policy "anon_no_update" on certificates    for update to anon using (false) with check (false);
+create policy "anon_no_update" on request_letters for update to anon using (false) with check (false);
+create policy "anon_no_update" on activity_logs   for update to anon using (false) with check (false);
+
+create policy "anon_no_delete" on gov_users       for delete to anon using (false);
+create policy "anon_no_delete" on schools         for delete to anon using (false);
+create policy "anon_no_delete" on students        for delete to anon using (false);
+create policy "anon_no_delete" on applications    for delete to anon using (false);
+create policy "anon_no_delete" on payments        for delete to anon using (false);
+create policy "anon_no_delete" on certificates    for delete to anon using (false);
+create policy "anon_no_delete" on request_letters for delete to anon using (false);
+create policy "anon_no_delete" on activity_logs   for delete to anon using (false);
+
+-- ── IMPORTANT: For full write access, add service_role policies ──────────────
+-- Uncomment below to grant full CRUD to the service_role key (used by backend):
+-- create policy "service_all" on gov_users       for all to service_role using (true) with check (true);
+-- create policy "service_all" on schools         for all to service_role using (true) with check (true);
+-- create policy "service_all" on students        for all to service_role using (true) with check (true);
+-- create policy "service_all" on applications    for all to service_role using (true) with check (true);
+-- create policy "service_all" on payments        for all to service_role using (true) with check (true);
+-- create policy "service_all" on certificates    for all to service_role using (true) with check (true);
+-- create policy "service_all" on request_letters for all to service_role using (true) with check (true);
+-- create policy "service_all" on activity_logs   for all to service_role using (true) with check (true);
 
 -- ── Seed data ────────────────────────────────────────────────────────────────
 

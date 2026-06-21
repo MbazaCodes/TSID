@@ -71,7 +71,7 @@ export function StudentDashboardView() {
     </div>
 
     <!-- Stats -->
-    <div style="class="rg-4" style="margin-bottom:22px">
+    <div class="rg-4" style="margin-bottom:22px">
       ${[
         ["Certificates",     certs.length,           "#1e40af","#eff6ff","#bfdbfe","★"],
         ["Letters Issued",   letters.filter(l=>l.status==="approved").length, "#065f46","#ecfdf5","#6ee7b7","✉"],
@@ -89,7 +89,7 @@ export function StudentDashboardView() {
     </div>
 
     <!-- Two-column: account info + ID card -->
-    <div style="class="rg-sidebar" style="margin-bottom:24px">
+    <div class="rg-sidebar" style="margin-bottom:24px">
 
       <!-- Account info -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">

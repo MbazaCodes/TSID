@@ -1,3 +1,5 @@
+import html2canvas from "html2canvas";
+
 function downloadPNG() {
   const card = document.querySelector(".preview-grid");
   if (!card) return;

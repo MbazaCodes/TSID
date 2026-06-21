@@ -1,6 +1,6 @@
 import { Navbar, initNavbar } from "../../components/Navbar.js";
 import { Footer }  from "../../components/Footer.js";
-import { db, login } from "../../store/db.js";
+import { db, login, verifyPassword } from "../../store/db.js";
 import { toast }   from "../../lib/toast.js";
 
 const META = {
@@ -12,13 +12,13 @@ const META = {
 function demoCreds(role) {
   if (role === "school")
     return db.getSchools().slice(0,3).map(s =>
-      `<div style="padding:4px 0;font-size:12px">🏫 <b>${s.name.split(" ").slice(0,3).join(" ")}</b> — <code>${s.username}</code> / <code>${s.password}</code></div>`).join("");
+      `<div style="padding:4px 0;font-size:12px">🏫 <b>${s.name.split(" ").slice(0,3).join(" ")}</b> — <code>${s.username}</code> / <code>••••••</code></div>`).join("");
   if (role === "gov")
     return db.getGovUsers().map(u =>
-      `<div style="padding:4px 0;font-size:12px">🏛️ <b>${u.name.split(" ").slice(0,2).join(" ")}</b> — <code>${u.username}</code> / <code>${u.password}</code></div>`).join("");
+      `<div style="padding:4px 0;font-size:12px">🏛️ <b>${u.name.split(" ").slice(0,2).join(" ")}</b> — <code>${u.username}</code> / <code>••••••</code></div>`).join("");
   if (role === "student")
     return db.getStudents().slice(0,3).map(st =>
-      `<div style="padding:4px 0;font-size:12px">🎓 <b>${st.fullname.split(" ").slice(0,2).join(" ")}</b> — <code>${st.credentials.username}</code> / <code>${st.credentials.password}</code></div>`).join("");
+      `<div style="padding:4px 0;font-size:12px">🎓 <b>${st.fullname.split(" ").slice(0,2).join(" ")}</b> — <code>${st.credentials.username}</code> / <code>••••••</code></div>`).join("");
   return "";
 }
 
@@ -109,7 +109,7 @@ export function initLogin(role) {
   const btn = document.getElementById("loginBtn");
   if (!btn) return;
 
-  function doLogin() {
+  async function doLogin() {
     const u = (document.getElementById("loginUser")?.value || "").trim();
     const p =  document.getElementById("loginPass")?.value || "";
     if (!u || !p) { toast("Please enter your username and password.", "error"); return; }
@@ -119,14 +119,14 @@ export function initLogin(role) {
 
     let identity = null;
     if (role === "school") {
-      const s = db.getSchools().find(s => s.username===u && s.password===p);
-      if (s) identity = { name:s.name, ref:s.code };
+      const s = db.getSchools().find(s => s.username===u);
+      if (s && await verifyPassword(p, s.password)) identity = { name:s.name, ref:s.code };
     } else if (role === "gov") {
-      const g = db.getGovUsers().find(g => g.username===u && g.password===p);
-      if (g) identity = { name:g.name, ref:g.id };
+      const g = db.getGovUsers().find(g => g.username===u);
+      if (g && await verifyPassword(p, g.password)) identity = { name:g.name, ref:g.id };
     } else if (role === "student") {
-      const st = db.getStudents().find(s => s.credentials?.username===u && s.credentials?.password===p);
-      if (st) identity = { name:st.fullname, ref:st.tsid };
+      const st = db.getStudents().find(s => s.credentials?.username===u);
+      if (st && await verifyPassword(p, st.credentials?.password)) identity = { name:st.fullname, ref:st.tsid };
     }
 
     if (!identity) {
@@ -135,7 +135,7 @@ export function initLogin(role) {
       btn.style.opacity = "1";
       return;
     }
-    login(role, identity);
+    await login(role, identity);
     toast(`Karibu, ${identity.name}!`, "success");
     setTimeout(() => { window.location.hash = META[role].redirect; }, 400);
   }

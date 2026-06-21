@@ -1,6 +1,5 @@
 import { Navbar } from "../components/Navbar.js";
 import { Footer } from "../components/Footer.js";
-import { ActionButtons } from "../components/ActionButtons.js";
 
 export function IDView() {
   return `
