@@ -33,7 +33,7 @@ export function GovSchoolsView() {
 
       <!-- Form header -->
       <div style="
-        background:linear-gradient(135deg,#003366,#059669);
+        background:linear-gradient(135deg,#1B8F3A,#059669);
         padding:18px 22px;display:flex;align-items:center;gap:12px">
         <div style="
           width:42px;height:42px;border-radius:12px;
@@ -107,7 +107,7 @@ export function GovSchoolsView() {
               <div class="group">
                 <label>School Code</label>
                 <input id="code" disabled placeholder="Auto: e.g. MW1234"
-                  style="background:#fff;font-family:ui-monospace;font-weight:700;color:#003366">
+                  style="background:#fff;font-family:ui-monospace;font-weight:700;color:#1B8F3A">
               </div>
               <div class="group">
                 <label>Username</label>
@@ -154,7 +154,7 @@ export function GovSchoolsView() {
             ${schools.map(sc => {
               const cnt = students.filter(st=>st.schoolCode===sc.code).length;
               return `<tr>
-                <td class="mono" style="font-size:11.5px;color:#003366;font-weight:800">
+                <td class="mono" style="font-size:11.5px;color:#1B8F3A;font-weight:800">
                   ${escapeHtml(sc.code)}
                 </td>
                 <td>

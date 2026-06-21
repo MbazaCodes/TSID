@@ -41,7 +41,7 @@ export function GovDashboardView() {
   const recentLogs = logs.slice(0, 6);
 
   const LOG_COLORS = {
-    "auth:login":"#059669","auth:logout":"#94a3b8","student:create":"#1e40af",
+    "auth:login":"#059669","auth:logout":"#94a3b8","student:create":"#15702c",
     "application:approve":"#059669","application:reject":"#dc2626",
     "school:create":"#7c3aed","letter:request":"#d97706","letter:download":"#059669",
     "system:seed":"#94a3b8","payment:markPaid":"#059669"
@@ -56,7 +56,7 @@ export function GovDashboardView() {
   const html = `
     <!-- Welcome banner -->
     <div style="
-      background:linear-gradient(135deg,#003366 0%,#059669 100%);
+      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
       border-radius:18px;padding:22px 24px;margin-bottom:22px;
       display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <div>
@@ -73,7 +73,7 @@ export function GovDashboardView() {
         </div>
       </div>
       <a href="#/gov/schools" style="
-        background:#fff;color:#003366;text-decoration:none;
+        background:#fff;color:#1B8F3A;text-decoration:none;
         padding:11px 20px;border-radius:12px;font-size:13px;font-weight:800;
         display:flex;align-items:center;gap:6px;white-space:nowrap;
         box-shadow:0 4px 14px rgba(0,0,0,.15);flex-shrink:0">
@@ -84,7 +84,7 @@ export function GovDashboardView() {
     <!-- Primary stats: 2×2 on mobile, 4-col on desktop -->
     <div class="rg-4" style="margin-bottom:16px">
       ${[
-        ["Total Schools",    schools.length,                "#003366","#eff6ff","#bfdbfe","🏫"],
+        ["Total Schools",    schools.length,                "#1B8F3A","#dcfce7","#86efac","🏫"],
         ["Total Students",   students.length,               "#065f46","#ecfdf5","#6ee7b7","🎓"],
         ["Pending Apps",     pendingApps.length,            "#92400e","#fffbeb","#fcd34d","📋"],
         ["Revenue (TZS)",    collected.toLocaleString(),    "#5b21b6","#f5f3ff","#c4b5fd","₵"],
@@ -171,7 +171,7 @@ export function GovDashboardView() {
         <!-- School types -->
         <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
           <div style="
-            background:linear-gradient(135deg,#003366,#1e40af);
+            background:linear-gradient(135deg,#1B8F3A,#15702c);
             padding:13px 16px">
             <div style="font-weight:800;font-size:13px;color:#fff">🏫 Schools by Type</div>
           </div>
@@ -183,10 +183,10 @@ export function GovDashboardView() {
                   <div style="display:flex;justify-content:space-between;
                     font-size:12.5px;font-weight:600;margin-bottom:4px">
                     <span style="color:#374151">${escapeHtml(type)}</span>
-                    <span style="color:#003366;font-weight:800">${count}</span>
+                    <span style="color:#1B8F3A;font-weight:800">${count}</span>
                   </div>
                   <div style="background:#f1f5f9;border-radius:99px;height:6px;overflow:hidden">
-                    <div style="background:linear-gradient(90deg,#003366,#059669);
+                    <div style="background:linear-gradient(90deg,#1B8F3A,#059669);
                       height:100%;width:${pct}%;border-radius:99px"></div>
                   </div>
                 </div>`;

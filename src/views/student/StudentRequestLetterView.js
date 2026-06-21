@@ -84,7 +84,7 @@ export function StudentRequestLetterView() {
     <!-- ── Stats row ────────────────────────────────────────────────────── -->
     <div style="class="rg-4" style="margin-bottom:22px">
       ${[
-        ["Total",    letters.length, "#1e40af", "#eff6ff", "#bfdbfe", "📋"],
+        ["Total",    letters.length, "#15702c", "#dcfce7", "#86efac", "📋"],
         ["Approved", approved,       "#065f46", "#ecfdf5", "#6ee7b7", "✅"],
         ["Pending",  pending,        "#92400e", "#fffbeb", "#fcd34d", "⏳"],
         ["Rejected", rejected,       "#991b1b", "#fef2f2", "#fca5a5", "❌"],

@@ -84,7 +84,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
   <rect x="672" y="200" width="46" height="90" fill="#92400e" rx="4"/>
   <circle cx="713" cy="248" r="3.5" fill="#fcd34d"/>
   <!-- Sign -->
-  <rect x="622" y="112" width="136" height="16" fill="#003366" rx="3"/>
+  <rect x="622" y="112" width="136" height="16" fill="#1B8F3A" rx="3"/>
   <text x="690" y="124" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" font-family="Arial,sans-serif">SHULE YA MSINGI TSID</text>
 
   <!-- Ground -->
@@ -125,7 +125,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
     <!-- Backpack -->
     <rect x="39" y="82" width="20" height="36" rx="6" fill="#2563eb"/>
     <rect x="41" y="87" width="16" height="10" rx="3" fill="#1d4ed8"/>
-    <line x1="41" y1="84" x2="41" y2="118" stroke="#1e40af" stroke-width="2.5"/>
+    <line x1="41" y1="84" x2="41" y2="118" stroke="#15702c" stroke-width="2.5"/>
     <!-- Arms: left waving UP -->
     <path d="M9,90 Q-14,66 -18,44" stroke="#b45309" stroke-width="12" stroke-linecap="round" fill="none"/>
     <!-- Hand waving -->
@@ -141,9 +141,9 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
     <ellipse cx="9" cy="42" rx="7" ry="12" fill="#1c1917"/>
     <ellipse cx="45" cy="42" rx="7" ry="12" fill="#1c1917"/>
     <!-- School cap -->
-    <rect x="2" y="26" width="50" height="10" rx="4" fill="#003366"/>
-    <ellipse cx="27" cy="26" rx="27" ry="9" fill="#003366"/>
-    <ellipse cx="45" cy="31" rx="10" ry="5" fill="#1e40af"/>
+    <rect x="2" y="26" width="50" height="10" rx="4" fill="#1B8F3A"/>
+    <ellipse cx="27" cy="26" rx="27" ry="9" fill="#1B8F3A"/>
+    <ellipse cx="45" cy="31" rx="10" ry="5" fill="#15702c"/>
     <!-- Eyes -->
     <circle cx="20" cy="49" r="4" fill="white"/>
     <circle cx="34" cy="49" r="4" fill="white"/>
@@ -300,8 +300,8 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
 
   <!-- Floating TSID card -->
   <g transform="rotate(-9,110,142)">
-    <rect x="80" y="128" width="46" height="30" rx="5" fill="#003366" opacity=".9"/>
-    <rect x="82" y="130" width="42" height="26" rx="4" fill="#1e40af" opacity=".8"/>
+    <rect x="80" y="128" width="46" height="30" rx="5" fill="#1B8F3A" opacity=".9"/>
+    <rect x="82" y="130" width="42" height="26" rx="4" fill="#15702c" opacity=".8"/>
     <text x="103" y="146" text-anchor="middle" fill="white" font-size="8" font-weight="900" font-family="Arial,sans-serif">TSID</text>
     <text x="103" y="154" text-anchor="middle" fill="#a7f3d0" font-size="5.5" font-family="Arial,sans-serif">STUDENT ID</text>
   </g>
@@ -346,7 +346,7 @@ export function LandingView() {
        HERO SECTION
   ══════════════════════════════════════════════════════════════════════════ -->
   <section class="landing-hero-wrap" style="
-    background:linear-gradient(150deg,#002855 0%,#0a4d30 55%,#059669 100%);
+    background:linear-gradient(150deg,#1B8F3A 0%,#0a4d30 55%,#059669 100%);
     overflow:hidden;position:relative">
 
     <!-- ── Government header bar ── -->
@@ -429,7 +429,7 @@ export function LandingView() {
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px">
           <a href="#/search" style="
             display:inline-flex;align-items:center;gap:8px;
-            background:#fff;color:#002855;
+            background:#fff;color:#1B8F3A;
             padding:14px 28px;border-radius:12px;
             font-weight:800;font-size:14px;text-decoration:none;
             box-shadow:0 6px 24px rgba(0,0,0,.3);
@@ -493,7 +493,7 @@ export function LandingView() {
       <div class="rg-landing" style="gap:18px">
         ${[
           { href:"#/login/school",  icon:"🏫", grad:"135deg,#059669,#047857", title:"Shule",       en:"School",    desc:"Register students, manage applications & payments" },
-          { href:"#/login/gov",     icon:"🏛️", grad:"135deg,#002855,#1e40af", title:"Serikali",    en:"Government",desc:"National oversight of all schools and students" },
+          { href:"#/login/gov",     icon:"🏛️", grad:"135deg,#1B8F3A,#15702c", title:"Serikali",    en:"Government",desc:"National oversight of all schools and students" },
           { href:"#/login/student", icon:"🎓", grad:"135deg,#7c3aed,#5b21b6", title:"Mwanafunzi",  en:"Student",   desc:"View your ID card, certificates and letters" },
         ].map(c=>`
           <a href="${c.href}" style="text-decoration:none">

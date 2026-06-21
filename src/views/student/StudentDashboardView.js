@@ -51,7 +51,7 @@ export function StudentDashboardView() {
 
     <!-- Welcome header -->
     <div style="
-      background:linear-gradient(135deg,#003366 0%,#059669 100%);
+      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
       border-radius:16px;padding:22px 26px;margin-bottom:22px;
       display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
       <div>
@@ -64,7 +64,7 @@ export function StudentDashboardView() {
         </div>
       </div>
       <a href="#/student/id" class="btn" style="
-        background:#fff;color:#003366;font-weight:800;
+        background:#fff;color:#1B8F3A;font-weight:800;
         box-shadow:0 4px 12px rgba(0,0,0,.15)">
         🪪 View My ID Card →
       </a>
@@ -73,7 +73,7 @@ export function StudentDashboardView() {
     <!-- Stats -->
     <div class="rg-4" style="margin-bottom:22px">
       ${[
-        ["Certificates",     certs.length,           "#1e40af","#eff6ff","#bfdbfe","★"],
+        ["Certificates",     certs.length,           "#15702c","#dcfce7","#86efac","★"],
         ["Letters Issued",   letters.filter(l=>l.status==="approved").length, "#065f46","#ecfdf5","#6ee7b7","✉"],
         ["Payments Made",    paidPays.length,         "#5b21b6","#f5f3ff","#c4b5fd","✓"],
         ["Pending Payments", pendingPays.length,      "#991b1b","#fef2f2","#fca5a5","!"],
@@ -93,9 +93,9 @@ export function StudentDashboardView() {
 
       <!-- Account info -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#003366,#1e40af);padding:14px 20px">
+        <div style="background:linear-gradient(135deg,#1B8F3A,#15702c);padding:14px 20px">
           <div style="font-weight:800;font-size:14px;color:#fff">📋 Student Information</div>
-          <div style="font-size:11.5px;color:#bfdbfe;margin-top:2px">Your registered details with TSID</div>
+          <div style="font-size:11.5px;color:#86efac;margin-top:2px">Your registered details with TSID</div>
         </div>
         <div style="padding:14px 20px">${infoRows}</div>
       </div>

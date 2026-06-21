@@ -57,7 +57,7 @@ export function StudentResultView(tsid) {
 
     <!-- ── Hero profile card ── -->
     <div style="
-      background:linear-gradient(135deg,#003366 0%,#059669 100%);
+      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
       border-radius:20px;padding:24px;margin-bottom:20px;
       display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
 
@@ -92,7 +92,7 @@ export function StudentResultView(tsid) {
           ${[
             [`📚 ${escapeHtml(student.level||"—")}`,"rgba(255,255,255,.15)","#fff"],
             [`📍 ${escapeHtml(student.region||"—")}`,"rgba(255,255,255,.12)","#a7f3d0"],
-            [`${student.gender==="Female"?"♀":"♂"} ${escapeHtml(student.gender||"—")}`,"rgba(255,255,255,.12)","#bfdbfe"],
+            [`${student.gender==="Female"?"♀":"♂"} ${escapeHtml(student.gender||"—")}`,"rgba(255,255,255,.12)","#86efac"],
           ].map(([t,bg,c])=>`
             <span style="background:${bg};color:${c};font-size:11.5px;font-weight:700;
               padding:4px 10px;border-radius:8px">${t}</span>`).join("")}
@@ -102,7 +102,7 @@ export function StudentResultView(tsid) {
       <!-- Actions -->
       <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
         <button onclick="window.print()" style="
-          background:#fff;color:#003366;border:none;cursor:pointer;
+          background:#fff;color:#1B8F3A;border:none;cursor:pointer;
           padding:10px 16px;border-radius:10px;font-size:13px;font-weight:800;
           display:flex;align-items:center;gap:6px">
           🖨️ Print / PDF
@@ -122,7 +122,7 @@ export function StudentResultView(tsid) {
 
       <!-- Student info -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#003366,#1e40af);
+        <div style="background:linear-gradient(135deg,#1B8F3A,#15702c);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:18px">🎓</span>
           <span style="font-weight:800;font-size:13px;color:#fff">Student Details</span>
@@ -266,7 +266,7 @@ export function SchoolResultView(code) {
 
     <!-- ── School hero banner ── -->
     <div style="
-      background:linear-gradient(135deg,#003366 0%,#059669 100%);
+      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
       border-radius:20px;padding:28px 24px;margin-bottom:20px">
 
       <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
@@ -313,7 +313,7 @@ export function SchoolResultView(code) {
         <!-- Actions -->
         <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
           <button onclick="window.print()" style="
-            background:#fff;color:#003366;border:none;cursor:pointer;
+            background:#fff;color:#1B8F3A;border:none;cursor:pointer;
             padding:10px 16px;border-radius:10px;font-size:13px;font-weight:800">
             🖨️ Print
           </button>
@@ -338,7 +338,7 @@ export function SchoolResultView(code) {
     <!-- ── Stats row ── -->
     <div class="rg-4" style="margin-bottom:16px">
       ${[
-        ["Total Students", students.length,             "#1e40af","#eff6ff","#bfdbfe","🎓"],
+        ["Total Students", students.length,             "#15702c","#dcfce7","#86efac","🎓"],
         ["Revenue (TZS)",  revenue.toLocaleString(),    "#065f46","#ecfdf5","#6ee7b7","₵"],
         ["Paid Payments",  paid.length,                 "#5b21b6","#f5f3ff","#c4b5fd","✓"],
         ["Pending Fees",   pending.length,              "#92400e","#fffbeb","#fcd34d","⏳"],
@@ -357,7 +357,7 @@ export function SchoolResultView(code) {
 
       <!-- School details -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#003366,#1e40af);
+        <div style="background:linear-gradient(135deg,#1B8F3A,#15702c);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:16px">🏛️</span>
           <span style="font-weight:800;font-size:13px;color:#fff">School Profile</span>

@@ -12,7 +12,7 @@ const LINKS = [
 ];
 
 const ACTION_META = {
-  "auth:login":           { label: "Login",             color: "#1e40af", bg: "#eff6ff", icon: "🔑" },
+  "auth:login":           { label: "Login",             color: "#15702c", bg: "#dcfce7", icon: "🔑" },
   "auth:logout":          { label: "Logout",            color: "#64748b", bg: "#f1f5f9", icon: "🚪" },
   "student:create":       { label: "Student Created",   color: "#065f46", bg: "#ecfdf5", icon: "🎓" },
   "application:approve":  { label: "App Approved",      color: "#065f46", bg: "#ecfdf5", icon: "✅" },
@@ -62,7 +62,7 @@ export function GovLogsView() {
     <!-- Stats -->
     <div class="rg-4" style="margin-bottom:20px">
       ${[
-        ["Total Logs",     logs.length,  "#1e40af","#eff6ff","#bfdbfe","📋"],
+        ["Total Logs",     logs.length,  "#15702c","#dcfce7","#86efac","📋"],
         ["Today",          todayN,       "#065f46","#ecfdf5","#6ee7b7","📅"],
         ["Auth Events",    authN,        "#92400e","#fffbeb","#fcd34d","🔑"],
         ["System Actions", actionN,      "#5b21b6","#f5f3ff","#c4b5fd","⚡"],

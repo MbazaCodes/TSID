@@ -56,7 +56,7 @@ export function SchoolDashboardView() {
     <!-- Stats -->
     <div class="rg-4" style="margin-bottom:22px">
       ${[
-        ["Total Students",    students.length,     "#1e40af","#eff6ff","#bfdbfe","🎓"],
+        ["Total Students",    students.length,     "#15702c","#dcfce7","#86efac","🎓"],
         ["Pending Apps",      pendingApps.length,  "#92400e","#fffbeb","#fcd34d","📋"],
         ["Collected (TZS)",   collected.toLocaleString(), "#065f46","#ecfdf5","#6ee7b7","₵"],
         ["Pending Payments",  pendingPays.length,  "#991b1b","#fef2f2","#fca5a5","⚠"],

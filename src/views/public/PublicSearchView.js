@@ -17,7 +17,7 @@ export function PublicSearchView() {
 
   <!-- Hero / search section -->
   <section style="
-    background:linear-gradient(135deg,#003366 0%,#059669 100%);
+    background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
     padding:52px 20px 40px;text-align:center">
     <div style="max-width:620px;margin:0 auto">
       <div style="
@@ -90,7 +90,7 @@ export function PublicSearchView() {
         padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700">
         e.g. "Juma"
       </span>
-      <span style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;
+      <span style="background:#dcfce7;color:#15702c;border:1px solid #86efac;
         padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;font-family:ui-monospace">
         TSID-2026-A7K9P2X
       </span>
@@ -193,7 +193,7 @@ export function initPublicSearch() {
           <div style="display:flex;gap:5px;flex-wrap:wrap">
             <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px">📍 ${escapeHtml(sc.region)}</span>
-            <span style="background:#eff6ff;color:#1e40af;font-size:11px;font-weight:700;
+            <span style="background:#dcfce7;color:#15702c;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px;font-family:ui-monospace">${escapeHtml(sc.code)}</span>
             <span style="background:#f5f3ff;color:#5b21b6;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px">🎓 ${cnt} student${cnt!==1?"s":""}</span>
