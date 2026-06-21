@@ -1,5 +1,5 @@
 // ── Styles ────────────────────────────────────────────────────────────────
-import "./styles/main.css";
+
 import "./css/style.css";
 import "./css/app.css";
 

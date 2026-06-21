@@ -1,5 +1,11 @@
+/* ============================================================================
+   TSID — ID Card Canvas Styles (physical card layout + print)
+   All colours now use the green primary theme
+   ============================================================================ */
+
 :root {
-  --tz-blue-primary: #003366;
+  /* Card-specific vars only — main theme vars live in app.css */
+  --tz-card-primary: #1B8F3A;   /* was #003366 navy → now green */
   --tz-green-primary: #1B8F3A;
   --tz-yellow-accent: #F5C400;
   --tz-blue-light: #007AFF;
@@ -34,7 +40,7 @@
 
 .dashboard-text h2 {
   font-size: 15px;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   font-weight: 800;
 }
 
@@ -45,7 +51,7 @@
 }
 
 .print-trigger-btn {
-  background: var(--tz-blue-primary);
+  background: var(--tz-card-primary);
   color: #ffffff;
   border: none;
   padding: 9px 18px;
@@ -112,7 +118,7 @@
 }
 
 .header-titles h1 {
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   font-size: 22pt;
   font-weight: 900;
   line-height: 0.85;
@@ -120,7 +126,7 @@
 }
 
 .header-titles p {
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   font-size: 4.2pt;
   font-weight: 800;
   letter-spacing: 0.05mm;
@@ -235,7 +241,7 @@
 .institution-name {
   font-size: 5.8pt;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   line-height: 1.1;
   display: none;
 }
@@ -290,10 +296,11 @@
   width: 100%;
 }
 
+/* Card footer bar — green theme */
 .front-footer-status-bar {
   width: 100%;
   height: 7.2mm;
-  background-color: var(--tz-blue-primary);
+  background-color: var(--tz-card-primary);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -324,8 +331,9 @@
   background-color: #F4F7F9;
 }
 
+/* Card back header strip — green */
 .back-id-header-strip {
-  background-color: var(--tz-blue-primary);
+  background-color: var(--tz-card-primary);
   color: #ffffff;
   height: 9mm;
   line-height: 9mm;
@@ -358,7 +366,7 @@
 .segment-title-header {
   font-size: 4.6pt;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   text-transform: uppercase;
   border-bottom: 0.25mm solid var(--tz-green-primary);
   padding-bottom: 0.2mm;
@@ -403,7 +411,7 @@
 .official-security-stamp {
   width: 13mm;
   height: 13mm;
-  border: 0.25mm solid var(--tz-blue-primary);
+  border: 0.25mm solid var(--tz-card-primary);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -416,14 +424,14 @@
 .stamp-top-txt {
   font-size: 2pt;
   font-weight: 800;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   text-transform: uppercase;
 }
 
 .stamp-center-txt {
   font-size: 3.4pt;
   font-weight: 900;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
   letter-spacing: 0.1mm;
   line-height: 1.1;
 }
@@ -488,7 +496,7 @@
 .footnote-val {
   font-size: 4.4pt;
   font-weight: 700;
-  color: var(--tz-blue-primary);
+  color: var(--tz-card-primary);
 }
 
 .hyperlink-color {
@@ -500,10 +508,11 @@
   margin-left: auto;
 }
 
+/* Card back security strip — green */
 .back-base-security-strip {
   width: 100%;
   height: 6mm;
-  background-color: var(--tz-blue-primary);
+  background-color: var(--tz-card-primary);
   display: flex;
   justify-content: flex-start;
   align-items: center;
