@@ -67,7 +67,7 @@ export function SchoolCreateStudentView() {
               <!-- Preview box -->
               <div id="photoPreviewBox" style="
                 width:100px;height:128px;border-radius:8px;overflow:hidden;
-                border:2px dashed #d1fae5;background:#f0fdf4;
+                border:2px dashed #dce8f5;background:#f0fdf4;
                 display:flex;align-items:center;justify-content:center;
                 flex-shrink:0;position:relative;cursor:pointer"
                 onclick="document.getElementById('studentPhoto').click()">
@@ -75,7 +75,7 @@ export function SchoolCreateStudentView() {
                   width:100%;height:100%;object-fit:cover;display:none">
                 <div id="photoPlaceholder" style="text-align:center;padding:8px">
                   <div style="font-size:28px;color:#6ee7b7">👤</div>
-                  <div style="font-size:10px;color:#059669;font-weight:700;margin-top:4px">Click to upload</div>
+                  <div style="font-size:10px;color:#004f8a;font-weight:700;margin-top:4px">Click to upload</div>
                 </div>
                 <button id="photoRemoveBtn" onclick="event.stopPropagation();removePhoto()" style="
                   display:none;position:absolute;top:4px;right:4px;
@@ -100,7 +100,7 @@ export function SchoolCreateStudentView() {
                 </div>
                 <div id="photoFileName" style="
                   margin-top:8px;font-size:11.5px;font-weight:700;
-                  color:#059669;display:none">
+                  color:#004f8a;display:none">
                 </div>
               </div>
             </div>

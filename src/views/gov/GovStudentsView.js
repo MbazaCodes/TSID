@@ -37,7 +37,7 @@ export function GovStudentsView() {
       <!-- Quick stats -->
       <div class="rg-4" style="margin-bottom:16px">
         ${[
-          ["Total",       students.length,  "#1B8F3A","#dcfce7","#86efac","👥"],
+          ["Total",       students.length,  "#003860","#dce8f5","#a3c4dd","👥"],
           ["Active",      active,           "#065f46","#ecfdf5","#6ee7b7","✅"],
           ["With Photos", withPhoto,        "#7c3aed","#f5f3ff","#c4b5fd","📷"],
           ["Schools",     schools.length,   "#92400e","#fffbeb","#fcd34d","🏫"],

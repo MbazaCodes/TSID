@@ -84,7 +84,7 @@ export function StudentRequestLetterView() {
     <!-- ── Stats row ────────────────────────────────────────────────────── -->
     <div style="class="rg-4" style="margin-bottom:22px">
       ${[
-        ["Total",    letters.length, "#15702c", "#dcfce7", "#86efac", "📋"],
+        ["Total",    letters.length, "#002540", "#dce8f5", "#a3c4dd", "📋"],
         ["Approved", approved,       "#065f46", "#ecfdf5", "#6ee7b7", "✅"],
         ["Pending",  pending,        "#92400e", "#fffbeb", "#fcd34d", "⏳"],
         ["Rejected", rejected,       "#991b1b", "#fef2f2", "#fca5a5", "❌"],
@@ -105,12 +105,12 @@ export function StudentRequestLetterView() {
 
       <!-- Form card -------------------------------------------------------->
       <div style="
-        background:#fff;border:1.5px solid #d1fae5;border-radius:16px;
+        background:#fff;border:1.5px solid #dce8f5;border-radius:16px;
         box-shadow:0 2px 12px rgba(5,150,105,.07);overflow:hidden">
 
         <!-- Card header -->
         <div style="
-          background:linear-gradient(135deg,#059669 0%,#047857 100%);
+          background:linear-gradient(135deg,#004f8a 0%,#003860 100%);
           padding:16px 22px;display:flex;align-items:center;gap:12px">
           <div style="
             width:38px;height:38px;border-radius:10px;
@@ -129,7 +129,7 @@ export function StudentRequestLetterView() {
           <!-- Info banner -->
           <div style="
             display:flex;gap:12px;align-items:flex-start;
-            background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+            background:linear-gradient(135deg,#f0fdf4,#dce8f5);
             border:1px solid #bbf7d0;border-radius:12px;
             padding:14px 16px;margin-bottom:20px">
             <div style="font-size:20px;flex-shrink:0">ℹ️</div>
@@ -149,7 +149,7 @@ export function StudentRequestLetterView() {
             </label>
             <select id="rl-type" style="
               width:100%;padding:10px 14px;border-radius:10px;
-              border:1.5px solid #d1fae5;font-size:13px;color:#111827;
+              border:1.5px solid #dce8f5;font-size:13px;color:#111827;
               background:#f9fafb;appearance:auto;
               outline:none;transition:border-color .2s">
               <option value="">— Select letter type —</option>
@@ -168,7 +168,7 @@ export function StudentRequestLetterView() {
               placeholder="e.g. Required for opening a bank account at CRDB Bank Mwanza branch."
               style="
                 width:100%;padding:10px 14px;border-radius:10px;
-                border:1.5px solid #d1fae5;font-size:13px;color:#111827;
+                border:1.5px solid #dce8f5;font-size:13px;color:#111827;
                 background:#f9fafb;resize:vertical;min-height:88px;
                 line-height:1.55;font-family:inherit;
                 outline:none;transition:border-color .2s"></textarea>
@@ -188,7 +188,7 @@ export function StudentRequestLetterView() {
               placeholder="e.g. Branch Manager, CRDB Bank Mwanza"
               style="
                 width:100%;padding:10px 14px;border-radius:10px;
-                border:1.5px solid #d1fae5;font-size:13px;color:#111827;
+                border:1.5px solid #dce8f5;font-size:13px;color:#111827;
                 background:#f9fafb;outline:none;transition:border-color .2s">
           </div>
 
@@ -210,7 +210,7 @@ export function StudentRequestLetterView() {
           <!-- Submit -->
           <button id="rl-submit" style="
             width:100%;padding:13px;border-radius:12px;border:none;cursor:pointer;
-            background:linear-gradient(135deg,#059669,#047857);
+            background:linear-gradient(135deg,#004f8a,#003860);
             color:#fff;font-size:14px;font-weight:800;
             display:flex;align-items:center;justify-content:center;gap:8px;
             box-shadow:0 4px 12px rgba(5,150,105,.3);
@@ -229,10 +229,10 @@ export function StudentRequestLetterView() {
 
         <!-- Student summary -->
         <div style="
-          background:#fff;border:1.5px solid #d1fae5;border-radius:16px;
+          background:#fff;border:1.5px solid #dce8f5;border-radius:16px;
           box-shadow:0 2px 8px rgba(5,150,105,.06);overflow:hidden">
           <div style="
-            background:linear-gradient(135deg,#059669,#047857);
+            background:linear-gradient(135deg,#004f8a,#003860);
             padding:12px 16px">
             <div style="font-weight:800;font-size:13px;color:#fff">👤 Your Details</div>
             <div style="font-size:11px;color:#a7f3d0;margin-top:2px">These appear on the letter</div>
@@ -291,12 +291,12 @@ export function StudentRequestLetterView() {
         background:#f8fafc;color:#64748b;transition:all .15s;
       }
       .rl-pill.active-pill {
-        background:linear-gradient(135deg,#059669,#047857);
-        color:#fff;border-color:#047857;
+        background:linear-gradient(135deg,#004f8a,#003860);
+        color:#fff;border-color:#003860;
         box-shadow:0 3px 8px rgba(5,150,105,.25);
       }
       #rl-type:focus, #rl-reason:focus, #rl-addressee:focus {
-        border-color:#059669 !important;
+        border-color:#004f8a !important;
         box-shadow:0 0 0 3px rgba(5,150,105,.12);
       }
     </style>

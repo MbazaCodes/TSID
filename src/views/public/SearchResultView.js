@@ -57,7 +57,7 @@ export function StudentResultView(tsid) {
 
     <!-- ── Hero profile card ── -->
     <div style="
-      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
+      background:linear-gradient(135deg,#003860 0%,#004f8a 100%);
       border-radius:20px;padding:24px;margin-bottom:20px;
       display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
 
@@ -92,7 +92,7 @@ export function StudentResultView(tsid) {
           ${[
             [`📚 ${escapeHtml(student.level||"—")}`,"rgba(255,255,255,.15)","#fff"],
             [`📍 ${escapeHtml(student.region||"—")}`,"rgba(255,255,255,.12)","#a7f3d0"],
-            [`${student.gender==="Female"?"♀":"♂"} ${escapeHtml(student.gender||"—")}`,"rgba(255,255,255,.12)","#86efac"],
+            [`${student.gender==="Female"?"♀":"♂"} ${escapeHtml(student.gender||"—")}`,"rgba(255,255,255,.12)","#a3c4dd"],
           ].map(([t,bg,c])=>`
             <span style="background:${bg};color:${c};font-size:11.5px;font-weight:700;
               padding:4px 10px;border-radius:8px">${t}</span>`).join("")}
@@ -102,7 +102,7 @@ export function StudentResultView(tsid) {
       <!-- Actions -->
       <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
         <button onclick="window.print()" style="
-          background:#fff;color:#1B8F3A;border:none;cursor:pointer;
+          background:#fff;color:#003860;border:none;cursor:pointer;
           padding:10px 16px;border-radius:10px;font-size:13px;font-weight:800;
           display:flex;align-items:center;gap:6px">
           🖨️ Print / PDF
@@ -122,7 +122,7 @@ export function StudentResultView(tsid) {
 
       <!-- Student info -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#1B8F3A,#15702c);
+        <div style="background:linear-gradient(135deg,#003860,#002540);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:18px">🎓</span>
           <span style="font-weight:800;font-size:13px;color:#fff">Student Details</span>
@@ -141,7 +141,7 @@ export function StudentResultView(tsid) {
 
       <!-- School info -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#059669,#047857);
+        <div style="background:linear-gradient(135deg,#004f8a,#003860);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:18px">🏫</span>
           <span style="font-weight:800;font-size:13px;color:#fff">School Details</span>
@@ -180,7 +180,7 @@ export function StudentResultView(tsid) {
 
       <!-- Verification -->
       <div style="
-        background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+        background:linear-gradient(135deg,#ecfdf5,#dce8f5);
         border:1.5px solid #6ee7b7;border-radius:16px;
         padding:20px;display:flex;flex-direction:column;gap:14px;
         justify-content:center">
@@ -189,7 +189,7 @@ export function StudentResultView(tsid) {
           <div style="font-weight:800;font-size:14px;color:#065f46;margin-bottom:4px">
             Verified by TSID
           </div>
-          <div style="font-size:12px;color:#059669;line-height:1.6">
+          <div style="font-size:12px;color:#004f8a;line-height:1.6">
             This record is authenticated in Tanzania's national student registry.
           </div>
         </div>
@@ -199,7 +199,7 @@ export function StudentResultView(tsid) {
         </div>
         ${certs.length ? `
           <div style="background:#fff;border-radius:10px;padding:8px 12px;
-            text-align:center;font-size:12px;color:#059669;font-weight:700">
+            text-align:center;font-size:12px;color:#004f8a;font-weight:700">
             ★ ${certs.length} Official Certificate${certs.length>1?"s":""} on record
           </div>` : ""}
       </div>
@@ -248,10 +248,10 @@ export function SchoolResultView(code) {
         <div style="display:flex;justify-content:space-between;font-size:11.5px;
           font-weight:600;margin-bottom:3px">
           <span style="color:#374151">${escapeHtml(lvl)}</span>
-          <span style="color:#059669">${cnt}</span>
+          <span style="color:#004f8a">${cnt}</span>
         </div>
         <div style="background:#f1f5f9;border-radius:99px;height:6px;overflow:hidden">
-          <div style="background:linear-gradient(90deg,#059669,#047857);
+          <div style="background:linear-gradient(90deg,#004f8a,#003860);
             height:100%;width:${pct}%;border-radius:99px;
             transition:width .4s ease"></div>
         </div>
@@ -266,7 +266,7 @@ export function SchoolResultView(code) {
 
     <!-- ── School hero banner ── -->
     <div style="
-      background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
+      background:linear-gradient(135deg,#003860 0%,#004f8a 100%);
       border-radius:20px;padding:28px 24px;margin-bottom:20px">
 
       <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
@@ -313,7 +313,7 @@ export function SchoolResultView(code) {
         <!-- Actions -->
         <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
           <button onclick="window.print()" style="
-            background:#fff;color:#1B8F3A;border:none;cursor:pointer;
+            background:#fff;color:#003860;border:none;cursor:pointer;
             padding:10px 16px;border-radius:10px;font-size:13px;font-weight:800">
             🖨️ Print
           </button>
@@ -328,7 +328,7 @@ export function SchoolResultView(code) {
 
       <!-- Tanzania flag colour band -->
       <div style="height:4px;display:flex;border-radius:99px;overflow:hidden;margin-top:20px">
-        <div style="background:#1B8F3A;flex:4.5"></div>
+        <div style="background:#003860;flex:4.5"></div>
         <div style="background:#F5C400;flex:1"></div>
         <div style="background:#000;flex:1"></div>
         <div style="background:#007AFF;flex:3.5"></div>
@@ -338,7 +338,7 @@ export function SchoolResultView(code) {
     <!-- ── Stats row ── -->
     <div class="rg-4" style="margin-bottom:16px">
       ${[
-        ["Total Students", students.length,             "#15702c","#dcfce7","#86efac","🎓"],
+        ["Total Students", students.length,             "#002540","#dce8f5","#a3c4dd","🎓"],
         ["Revenue (TZS)",  revenue.toLocaleString(),    "#065f46","#ecfdf5","#6ee7b7","₵"],
         ["Paid Payments",  paid.length,                 "#5b21b6","#f5f3ff","#c4b5fd","✓"],
         ["Pending Fees",   pending.length,              "#92400e","#fffbeb","#fcd34d","⏳"],
@@ -357,7 +357,7 @@ export function SchoolResultView(code) {
 
       <!-- School details -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#1B8F3A,#15702c);
+        <div style="background:linear-gradient(135deg,#003860,#002540);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:16px">🏛️</span>
           <span style="font-weight:800;font-size:13px;color:#fff">School Profile</span>
@@ -377,7 +377,7 @@ export function SchoolResultView(code) {
 
       <!-- Students by level -->
       <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#059669,#047857);
+        <div style="background:linear-gradient(135deg,#004f8a,#003860);
           padding:12px 16px;display:flex;align-items:center;gap:8px">
           <span style="font-size:16px">📊</span>
           <span style="font-weight:800;font-size:13px;color:#fff">Students by Level</span>
@@ -442,7 +442,7 @@ export function SchoolResultView(code) {
 
   <style>
     .school-student-row:hover {
-      border-color:#059669 !important;
+      border-color:#004f8a !important;
       background:#f0fdf4 !important;
     }
   </style>
@@ -475,7 +475,7 @@ export function initResultView() {
   // Hover effect for school student rows
   document.querySelectorAll(".school-student-row").forEach(row => {
     row.addEventListener("mouseenter", () => {
-      row.style.borderColor = "#059669";
+      row.style.borderColor = "#004f8a";
       row.style.background  = "#f0fdf4";
     });
     row.addEventListener("mouseleave", () => {

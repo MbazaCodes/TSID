@@ -274,7 +274,7 @@ export function initSchoolApplications() {
         : `<span class="badge red">✗ Rejected</span>`;
 
       content.innerHTML = `
-        <div style="background:linear-gradient(135deg,#1B8F3A,#059669);
+        <div style="background:linear-gradient(135deg,#003860,#004f8a);
           padding:20px 22px;display:flex;align-items:center;justify-content:space-between">
           <div>
             <div style="font-weight:800;font-size:16px;color:#fff">${escapeHtml(app.fullname)}</div>
@@ -344,10 +344,10 @@ export function initSchoolApplications() {
           </div>
 
           <!-- Submitted + status -->
-          <div style="background:#dcfce7;border-radius:12px;padding:12px 14px;margin-bottom:18px;
+          <div style="background:#dce8f5;border-radius:12px;padding:12px 14px;margin-bottom:18px;
             font-size:12.5px;display:flex;justify-content:space-between;align-items:center">
             <div>
-              <span style="color:#15702c;font-weight:600">Submitted:</span>
+              <span style="color:#002540;font-weight:600">Submitted:</span>
               <span style="font-weight:700;margin-left:6px">${fmtDate(app.submittedAt)}</span>
             </div>
             <div>${statusBadge}</div>

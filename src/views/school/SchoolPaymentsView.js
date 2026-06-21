@@ -92,7 +92,7 @@ export function SchoolPaymentsView() {
     <!-- Add payment modal -->
     <div id="payModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
       <div style="background:#fff;border-radius:14px;padding:24px;width:90%;max-width:520px">
-        <h3 style="font-size:16px;font-weight:800;color:#1B8F3A;margin-bottom:14px">Record Payment</h3>
+        <h3 style="font-size:16px;font-weight:800;color:#003860;margin-bottom:14px">Record Payment</h3>
         <form class="tsid-form" id="payForm">
           <div class="group">
             <label>Student</label>

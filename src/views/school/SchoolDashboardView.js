@@ -37,7 +37,7 @@ export function SchoolDashboardView() {
       <div style="display:flex;justify-content:space-between;align-items:center;
         padding:7px 0;border-bottom:1px solid #f0fdf4;font-size:13px">
         <span style="color:#374151;font-weight:600">${escapeHtml(lvl)}</span>
-        <span style="font-weight:800;color:#059669;background:#d1fae5;
+        <span style="font-weight:800;color:#004f8a;background:#dce8f5;
           padding:2px 10px;border-radius:99px;font-size:12px">${cnt}</span>
       </div>`)
     .join("") || `<p style="font-size:13px;color:#94a3b8;text-align:center;padding:14px 0">No students yet.</p>`;
@@ -56,7 +56,7 @@ export function SchoolDashboardView() {
     <!-- Stats -->
     <div class="rg-4" style="margin-bottom:22px">
       ${[
-        ["Total Students",    students.length,     "#15702c","#dcfce7","#86efac","🎓"],
+        ["Total Students",    students.length,     "#002540","#dce8f5","#a3c4dd","🎓"],
         ["Pending Apps",      pendingApps.length,  "#92400e","#fffbeb","#fcd34d","📋"],
         ["Collected (TZS)",   collected.toLocaleString(), "#065f46","#ecfdf5","#6ee7b7","₵"],
         ["Pending Payments",  pendingPays.length,  "#991b1b","#fef2f2","#fca5a5","⚠"],
@@ -99,8 +99,8 @@ export function SchoolDashboardView() {
       </div>
 
       <!-- Level breakdown -->
-      <div style="background:#fff;border:1.5px solid #d1fae5;border-radius:16px;overflow:hidden">
-        <div style="background:linear-gradient(135deg,#059669,#047857);padding:14px 16px">
+      <div style="background:#fff;border:1.5px solid #dce8f5;border-radius:16px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#004f8a,#003860);padding:14px 16px">
           <div style="font-weight:800;font-size:13px;color:#fff">📊 Students by Level</div>
         </div>
         <div style="padding:12px 16px">${levelRows}</div>

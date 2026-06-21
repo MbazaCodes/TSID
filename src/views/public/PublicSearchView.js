@@ -17,7 +17,7 @@ export function PublicSearchView() {
 
   <!-- Hero / search section -->
   <section style="
-    background:linear-gradient(135deg,#1B8F3A 0%,#059669 100%);
+    background:linear-gradient(135deg,#003860 0%,#004f8a 100%);
     padding:52px 20px 40px;text-align:center">
     <div style="max-width:620px;margin:0 auto">
       <div style="
@@ -90,7 +90,7 @@ export function PublicSearchView() {
         padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700">
         e.g. "Juma"
       </span>
-      <span style="background:#dcfce7;color:#15702c;border:1px solid #86efac;
+      <span style="background:#dce8f5;color:#002540;border:1px solid #a3c4dd;
         padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;font-family:ui-monospace">
         TSID-2026-A7K9P2X
       </span>
@@ -144,7 +144,7 @@ export function PublicSearchView() {
 
   <style>
     .search-school-card:hover {
-      border-color:#059669 !important;
+      border-color:#004f8a !important;
       transform:translateY(-2px);
       box-shadow:0 6px 20px rgba(5,150,105,.12);
     }
@@ -180,7 +180,7 @@ export function initPublicSearch() {
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
             <div style="
               width:44px;height:44px;border-radius:10px;flex-shrink:0;
-              background:linear-gradient(135deg,#059669,#047857);
+              background:linear-gradient(135deg,#004f8a,#003860);
               display:flex;align-items:center;justify-content:center;font-size:20px">🏫</div>
             <span class="badge green" style="flex-shrink:0;font-size:10px">✓ Verified</span>
           </div>
@@ -193,12 +193,12 @@ export function initPublicSearch() {
           <div style="display:flex;gap:5px;flex-wrap:wrap">
             <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px">📍 ${escapeHtml(sc.region)}</span>
-            <span style="background:#dcfce7;color:#15702c;font-size:11px;font-weight:700;
+            <span style="background:#dce8f5;color:#002540;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px;font-family:ui-monospace">${escapeHtml(sc.code)}</span>
             <span style="background:#f5f3ff;color:#5b21b6;font-size:11px;font-weight:700;
               padding:3px 8px;border-radius:6px">🎓 ${cnt} student${cnt!==1?"s":""}</span>
           </div>
-          <div style="font-size:12px;color:#059669;font-weight:700">View school profile →</div>
+          <div style="font-size:12px;color:#004f8a;font-weight:700">View school profile →</div>
         </div>
       </a>`;
   }

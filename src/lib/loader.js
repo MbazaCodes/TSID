@@ -11,7 +11,7 @@ export function showSpinner(app) {
       min-height:60vh;flex-direction:column;gap:16px">
       <div style="
         width:44px;height:44px;border-radius:50%;
-        border:4px solid #e2e8f0;border-top-color:#059669;
+        border:4px solid #e2e8f0;border-top-color:#004f8a;
         animation:tsid-spin .7s linear infinite"></div>
       <div style="font-size:13px;font-weight:600;color:#64748b">Loading…</div>
       <style>

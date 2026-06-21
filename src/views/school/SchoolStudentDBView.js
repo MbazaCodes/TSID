@@ -151,7 +151,7 @@ export function SchoolStudentDBView() {
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
           <div style="
             width:38px;height:38px;border-radius:10px;
-            background:linear-gradient(135deg,#1B8F3A,#059669);
+            background:linear-gradient(135deg,#003860,#004f8a);
             display:flex;align-items:center;justify-content:center;font-size:18px">📝</div>
           <div>
             <div style="font-weight:800;font-size:15px;color:#0f172a">Add Remark</div>
@@ -168,7 +168,7 @@ export function SchoolStudentDBView() {
         <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
           <button class="btn btn-ghost" id="remarkCancel">Cancel</button>
           <button class="btn btn-primary" id="remarkSave" style="
-            background:linear-gradient(135deg,#1B8F3A,#059669)">
+            background:linear-gradient(135deg,#003860,#004f8a)">
             💾 Save Remark
           </button>
         </div>
@@ -246,7 +246,7 @@ export function initSchoolStudentDB() {
     if (!student) return;
 
     content.innerHTML = `
-      <div style="background:linear-gradient(135deg,#1B8F3A,#059669);padding:20px 22px;
+      <div style="background:linear-gradient(135deg,#003860,#004f8a);padding:20px 22px;
         display:flex;align-items:center;justify-content:space-between">
         <div>
           <div style="font-weight:800;font-size:16px;color:#fff">${escapeHtml(student.fullname)}</div>
@@ -325,9 +325,9 @@ export function initSchoolStudentDB() {
           </div>` : ""}
 
         <!-- Credentials -->
-        <div style="background:#dcfce7;border-radius:10px;padding:12px 14px;margin-bottom:18px">
-          <div style="font-weight:800;font-size:12px;color:#15702c;margin-bottom:6px">🔑 Student Login Credentials</div>
-          <div style="font-size:12px;color:#15702c">
+        <div style="background:#dce8f5;border-radius:10px;padding:12px 14px;margin-bottom:18px">
+          <div style="font-weight:800;font-size:12px;color:#002540;margin-bottom:6px">🔑 Student Login Credentials</div>
+          <div style="font-size:12px;color:#002540">
             Username: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">${escapeHtml(student.credentials?.username || student.tsid)}</code><br>
             Password: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">••••••••</code>
           </div>

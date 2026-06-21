@@ -5,8 +5,8 @@
 
 :root {
   /* Card-specific vars only — main theme vars live in app.css */
-  --tz-card-primary: #1B8F3A;   /* was #003366 navy → now green */
-  --tz-green-primary: #1B8F3A;
+  --tz-card-primary: #003860;   /* was #003366 navy → now green */
+  --tz-green-primary: #003860;
   --tz-yellow-accent: #F5C400;
   --tz-blue-light: #007AFF;
   --text-color-dark: #111111;
@@ -193,8 +193,8 @@
 .tsid-highlight-val {
   font-size: 6.0pt;
   font-weight: 900;
-  color: #1B8F3A;
-  border-bottom: 0.4mm solid var(--tz-green-primary);
+  color: #003860;
+  border-bottom: 0.4mm solid var(--tz-primary);
   padding-bottom: 0.2mm;
   display: block;
   white-space: nowrap;
@@ -368,7 +368,7 @@
   font-weight: 900;
   color: var(--tz-card-primary);
   text-transform: uppercase;
-  border-bottom: 0.25mm solid var(--tz-green-primary);
+  border-bottom: 0.4mm solid var(--tz-primary);
   padding-bottom: 0.2mm;
   margin-bottom: 0.8mm;
   letter-spacing: 0.05mm;
@@ -445,7 +445,7 @@
 }
 
 .legal-notice-callout h4 {
-  color: var(--tz-green-primary);
+  color: var(--tz-primary);
   font-size: 4.4pt;
   font-weight: 900;
   text-transform: uppercase;
@@ -469,7 +469,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: var(--tz-green-primary);
+  color: var(--tz-primary);
   font-weight: 900;
 }
 

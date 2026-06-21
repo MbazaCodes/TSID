@@ -6,7 +6,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
   <defs>
     <linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#87CEEB" stop-opacity=".5"/>
-      <stop offset="100%" stop-color="#d1fae5" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="#dce8f5" stop-opacity=".3"/>
     </linearGradient>
     <linearGradient id="hground" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#16a34a"/>
@@ -50,7 +50,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
   </g>
 
   <!-- Mountains background -->
-  <g fill="#059669" opacity=".25">
+  <g fill="#004f8a" opacity=".25">
     <polygon points="0,220 120,120 240,220"/>
     <polygon points="60,220 200,100 340,220"/>
     <polygon points="500,220 620,130 740,220"/>
@@ -61,7 +61,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
   <polygon points="588,110 832,110 770,65 650,65" fill="#b91c1c" opacity=".9"/>
   <!-- Flag pole + TZ flag -->
   <line x1="708" y1="22" x2="708" y2="65" stroke="#78350f" stroke-width="3"/>
-  <rect x="708" y="22" width="30" height="7" fill="#1B8F3A"/>
+  <rect x="708" y="22" width="30" height="7" fill="#003860"/>
   <rect x="708" y="29" width="30" height="7" fill="#FCD116"/>
   <rect x="708" y="36" width="30" height="8" fill="#000"/>
   <rect x="708" y="44" width="30" height="7" fill="#00A3DD"/>
@@ -84,7 +84,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
   <rect x="672" y="200" width="46" height="90" fill="#92400e" rx="4"/>
   <circle cx="713" cy="248" r="3.5" fill="#fcd34d"/>
   <!-- Sign -->
-  <rect x="622" y="112" width="136" height="16" fill="#1B8F3A" rx="3"/>
+  <rect x="622" y="112" width="136" height="16" fill="#003860" rx="3"/>
   <text x="690" y="124" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" font-family="Arial,sans-serif">SHULE YA MSINGI TSID</text>
 
   <!-- Ground -->
@@ -125,7 +125,7 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
     <!-- Backpack -->
     <rect x="39" y="82" width="20" height="36" rx="6" fill="#2563eb"/>
     <rect x="41" y="87" width="16" height="10" rx="3" fill="#1d4ed8"/>
-    <line x1="41" y1="84" x2="41" y2="118" stroke="#15702c" stroke-width="2.5"/>
+    <line x1="41" y1="84" x2="41" y2="118" stroke="#002540" stroke-width="2.5"/>
     <!-- Arms: left waving UP -->
     <path d="M9,90 Q-14,66 -18,44" stroke="#b45309" stroke-width="12" stroke-linecap="round" fill="none"/>
     <!-- Hand waving -->
@@ -141,9 +141,9 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
     <ellipse cx="9" cy="42" rx="7" ry="12" fill="#1c1917"/>
     <ellipse cx="45" cy="42" rx="7" ry="12" fill="#1c1917"/>
     <!-- School cap -->
-    <rect x="2" y="26" width="50" height="10" rx="4" fill="#1B8F3A"/>
-    <ellipse cx="27" cy="26" rx="27" ry="9" fill="#1B8F3A"/>
-    <ellipse cx="45" cy="31" rx="10" ry="5" fill="#15702c"/>
+    <rect x="2" y="26" width="50" height="10" rx="4" fill="#003860"/>
+    <ellipse cx="27" cy="26" rx="27" ry="9" fill="#003860"/>
+    <ellipse cx="45" cy="31" rx="10" ry="5" fill="#002540"/>
     <!-- Eyes -->
     <circle cx="20" cy="49" r="4" fill="white"/>
     <circle cx="34" cy="49" r="4" fill="white"/>
@@ -300,8 +300,8 @@ const HERO_SVG = `<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" 
 
   <!-- Floating TSID card -->
   <g transform="rotate(-9,110,142)">
-    <rect x="80" y="128" width="46" height="30" rx="5" fill="#1B8F3A" opacity=".9"/>
-    <rect x="82" y="130" width="42" height="26" rx="4" fill="#15702c" opacity=".8"/>
+    <rect x="80" y="128" width="46" height="30" rx="5" fill="#003860" opacity=".9"/>
+    <rect x="82" y="130" width="42" height="26" rx="4" fill="#002540" opacity=".8"/>
     <text x="103" y="146" text-anchor="middle" fill="white" font-size="8" font-weight="900" font-family="Arial,sans-serif">TSID</text>
     <text x="103" y="154" text-anchor="middle" fill="#a7f3d0" font-size="5.5" font-family="Arial,sans-serif">STUDENT ID</text>
   </g>
@@ -346,7 +346,7 @@ export function LandingView() {
        HERO SECTION
   ══════════════════════════════════════════════════════════════════════════ -->
   <section class="landing-hero-wrap" style="
-    background:linear-gradient(150deg,#1B8F3A 0%,#0a4d30 55%,#059669 100%);
+    background:linear-gradient(150deg,#002540 0%,#003860 55%,#004f8a 100%);
     overflow:hidden;position:relative">
 
     <!-- ── Government header bar ── -->
@@ -378,7 +378,7 @@ export function LandingView() {
         background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
         border-radius:10px;padding:6px 14px;flex-shrink:0">
         <div style="font-size:16px;font-weight:900;color:#fff;line-height:1">TSID</div>
-        <div style="font-size:9px;font-weight:700;color:#6ee7b7;
+        <div style="font-size:9px;font-weight:700;color:#a3c9e8;
           text-transform:uppercase;letter-spacing:.5px">Official</div>
       </div>
     </div>
@@ -398,7 +398,7 @@ export function LandingView() {
           background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
           border-radius:99px;padding:6px 16px;margin-bottom:22px">
           <span style="font-size:14px">🎓</span>
-          <span style="font-size:11px;font-weight:700;color:#a7f3d0;letter-spacing:.5px">
+          <span style="font-size:11px;font-weight:700;color:#b8d9f0;letter-spacing:.5px">
             MFUMO WA KITAIFA · NATIONAL SYSTEM
           </span>
         </div>
@@ -411,7 +411,7 @@ export function LandingView() {
         </h1>
 
         <!-- Subtitle -->
-        <h2 style="font-size:22px;font-weight:800;color:#a7f3d0;
+        <h2 style="font-size:22px;font-weight:800;color:#b8d9f0;
           line-height:1.25;margin-bottom:14px;letter-spacing:-.3px">
           Tanzania Student<br>Identification System
         </h2>
@@ -420,16 +420,16 @@ export function LandingView() {
         <p style="font-size:14px;color:rgba(255,255,255,.72);
           line-height:1.75;margin-bottom:30px;max-width:400px">
           Kitambulisho cha kudumu cha mwanafunzi wa Tanzania —
-          kwa <strong style="color:#a7f3d0">shule</strong>,
-          <strong style="color:#a7f3d0">serikali</strong> na
-          <strong style="color:#a7f3d0">wanafunzi</strong> wote nchini.
+          kwa <strong style="color:#b8d9f0">shule</strong>,
+          <strong style="color:#b8d9f0">serikali</strong> na
+          <strong style="color:#b8d9f0">wanafunzi</strong> wote nchini.
         </p>
 
         <!-- CTA buttons -->
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px">
           <a href="#/search" style="
             display:inline-flex;align-items:center;gap:8px;
-            background:#fff;color:#1B8F3A;
+            background:#fff;color:#003860;
             padding:14px 28px;border-radius:12px;
             font-weight:800;font-size:14px;text-decoration:none;
             box-shadow:0 6px 24px rgba(0,0,0,.3);
@@ -451,7 +451,7 @@ export function LandingView() {
         <div style="display:flex;gap:28px;flex-wrap:wrap">
           ${[["🏫","Shule","Schools Nationwide"],["🎓","Wanafunzi","Students Registered"],["🗺️","Mikoa","Regions Covered"]].map(([icon,sw,en])=>`
             <div>
-              <div style="font-size:12px;font-weight:800;color:#6ee7b7">${icon} ${sw}</div>
+              <div style="font-size:12px;font-weight:800;color:#a3c9e8">${icon} ${sw}</div>
               <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:1px">${en}</div>
             </div>`).join("")}
         </div>
@@ -468,7 +468,7 @@ export function LandingView() {
 
     <!-- Flag colour band -->
     <div style="height:6px;display:flex;width:100%;position:relative;z-index:2">
-      <div style="flex:4.5;background:#1B8F3A"></div>
+      <div style="flex:4.5;background:#003860"></div>
       <div style="flex:1;background:#FCD116"></div>
       <div style="flex:1;background:#000"></div>
       <div style="flex:3.5;background:#00A3DD"></div>
@@ -492,8 +492,8 @@ export function LandingView() {
 
       <div class="rg-landing" style="gap:18px">
         ${[
-          { href:"#/login/school",  icon:"🏫", grad:"135deg,#059669,#047857", title:"Shule",       en:"School",    desc:"Register students, manage applications & payments" },
-          { href:"#/login/gov",     icon:"🏛️", grad:"135deg,#1B8F3A,#15702c", title:"Serikali",    en:"Government",desc:"National oversight of all schools and students" },
+          { href:"#/login/school",  icon:"🏫", grad:"135deg,#004f8a,#003860", title:"Shule",       en:"School",    desc:"Register students, manage applications & payments" },
+          { href:"#/login/gov",     icon:"🏛️", grad:"135deg,#003860,#002540", title:"Serikali",    en:"Government",desc:"National oversight of all schools and students" },
           { href:"#/login/student", icon:"🎓", grad:"135deg,#7c3aed,#5b21b6", title:"Mwanafunzi",  en:"Student",   desc:"View your ID card, certificates and letters" },
         ].map(c=>`
           <a href="${c.href}" style="text-decoration:none">
@@ -577,12 +577,12 @@ export function LandingView() {
     .landing-coat:hover { transform:scale(1.05); }
 
     .landing-role-card:hover {
-      border-color:#059669 !important;
+      border-color:#004f8a !important;
       transform:translateY(-4px);
       box-shadow:0 14px 36px rgba(0,0,0,.12);
     }
     .partner-chip:hover {
-      border-color:#059669 !important;
+      border-color:#004f8a !important;
       background:#f0fdf4 !important;
       transform:translateY(-2px);
       box-shadow:0 4px 14px rgba(5,150,105,.12);

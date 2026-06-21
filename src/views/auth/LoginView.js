@@ -4,8 +4,8 @@ import { db, login, verifyPassword } from "../../store/db.js";
 import { toast }   from "../../lib/toast.js";
 
 const META = {
-  school:  { title:"School Login",     icon:"🏫", color:"#059669", grad:"135deg,#059669,#047857", redirect:"#/school/dashboard" },
-  gov:     { title:"Government Login", icon:"🏛️", color:"#1B8F3A", grad:"135deg,#1B8F3A,#15702c", redirect:"#/gov/dashboard"    },
+  school:  { title:"School Login",     icon:"🏫", color:"#004f8a", grad:"135deg,#004f8a,#003860", redirect:"#/school/dashboard" },
+  gov:     { title:"Government Login", icon:"🏛️", color:"#003860", grad:"135deg,#003860,#002540", redirect:"#/gov/dashboard"    },
   student: { title:"Student Login",    icon:"🎓", color:"#7c3aed", grad:"135deg,#7c3aed,#5b21b6", redirect:"#/student/dashboard" },
 };
 
