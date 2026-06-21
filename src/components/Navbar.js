@@ -92,7 +92,8 @@ export function Navbar(activeHref) {
   return `
   <nav class="tsid-navbar">
     <div class="inner">
-      <a href="#/" class="brand" style="text-decoration:none;color:inherit;flex-shrink:0">
+      <a href="#/" class="brand" style="text-decoration:none;color:inherit;flex-shrink:0;display:flex;align-items:center;gap:8px">
+        <img src="/assets/tanzania-coat.png" alt="Tanzania Coat of Arms" style="width:32px;height:32px;border-radius:4px">
         <span>TSID</span>
         ${meta ? `<span class="badge">${meta.label}</span>` : ""}
       </a>
@@ -111,7 +112,10 @@ export function Navbar(activeHref) {
   <div class="tsid-mobile-nav" id="tsidMobileNav">
     <div class="tsid-mobile-nav-panel">
       <div class="tsid-mobile-nav-header">
-        <span class="brand-text">TSID</span>
+        <span class="brand-text" style="display:flex;align-items:center;gap:8px">
+          <img src="/assets/tanzania-coat.png" alt="Tanzania Coat of Arms" style="width:32px;height:32px;border-radius:4px">
+          TSID
+        </span>
         ${session ? `<div style="font-size:12px;color:#a7f3d0;font-weight:600">${escapeHtml(session.name)}</div>` : ""}
         <button class="tsid-mobile-nav-close" id="tsidNavClose">✕</button>
       </div>

@@ -53,6 +53,9 @@ export function LandingView() {
         🇹🇿 JAMHURI YA MUUNGANO WA TANZANIA
       </div>
 
+      <img src="/assets/tanzania-coat.png" alt="Tanzania Coat of Arms"
+        style="width:72px;height:72px;border-radius:16px;margin-bottom:16px;
+        border:3px solid rgba(255,255,255,.25)">
       <h1 style="font-size:56px;font-weight:900;color:#fff;line-height:1;
         margin-bottom:8px;letter-spacing:-2px">TSID</h1>
       <p style="font-size:16px;color:#a7f3d0;font-weight:700;margin-bottom:6px">
