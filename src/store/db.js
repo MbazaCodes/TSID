@@ -20,7 +20,7 @@ async function hashPassword(password) {
 }
 
 // Check if a password matches a stored hash
-async function verifyPassword(password, storedHash) {
+export async function verifyPassword(password, storedHash) {
   // Support legacy plaintext passwords during migration
   if (!storedHash || storedHash.length < 64) {
     return password === storedHash;

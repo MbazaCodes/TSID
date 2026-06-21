@@ -4,3 +4,4 @@ dev.log
 *.png
 start.sh
 .DS_Store
+.env
