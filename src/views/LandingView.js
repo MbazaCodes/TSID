@@ -1,129 +1,9 @@
 import { Navbar, initNavbar } from "../components/Navbar.js";
 import { Footer } from "../components/Footer.js";
 
-// ── Constants & Configuration ───────────────────────────────────────────
-const PARTNERS = [
-  { short: "MoEST",    name: "Wizara ya Elimu, Sayansi na Teknolojia", url: "https://www.moe.go.tz",      icon: "🏛️", category: "ministry" },
-  { short: "NECTA",    name: "National Examinations Council",           url: "https://www.necta.go.tz",    icon: "📋", category: "examination" },
-  { short: "NACTE",    name: "National Council for Technical Education",url: "https://www.nacte.go.tz",    icon: "📜", category: "education" },
-  { short: "TCU",      name: "Tanzania Commission for Universities",    url: "https://www.tcu.go.tz",      icon: "🎓", category: "education" },
-  { short: "VETA",     name: "Vocational Education Training Authority", url: "https://www.veta.go.tz",     icon: "🔧", category: "training" },
-  { short: "NIDA",     name: "National Identification Authority",       url: "https://www.nida.go.tz",     icon: "🪪", category: "identification" },
-  { short: "COSTECH",  name: "Commission for Science & Technology",     url: "https://www.costech.or.tz",  icon: "🔬", category: "technology" },
-  { short: "eGA",      name: "e-Government Authority",                  url: "https://www.ega.go.tz",      icon: "🖥️", category: "technology" },
-  { short: "TAMISEMI", name: "Ofisi ya Rais — TAMISEMI",                url: "https://www.tamisemi.go.tz", icon: "🏢", category: "government" },
-  { short: "UDSM",     name: "University of Dar es Salaam",             url: "https://www.udsm.ac.tz",     icon: "🏫", category: "education" },
-  { short: "OUT",      name: "Open University of Tanzania",             url: "https://www.out.ac.tz",      icon: "📡", category: "education" },
-  { short: "TLSB",     name: "Tanzania Library Services Board",         url: "https://www.tlsb.or.tz",     icon: "📚", category: "library" },
-];
-
-const FEATURES = {
-  studentStats: true,
-  animateOnScroll: true,
-  partnerShowcase: true,
-  darkModeSupport: false,
-};
-
-const I18N = {
-  sw: {
-    tagline: "MFUMO WA KITAIFA WA UTAMBULISHO",
-    heroTitle: "TSID",
-    heroSubtitle: "Tanzania Student<br>Identification System",
-    heroDescription: "Kitambulisho cha kudumu cha mwanafunzi wa Tanzania — kwa shule, serikali na wanafunzi wote nchini.",
-    verifyBtn: "🔍 Thibitisha Mwanafunzi / Shule",
-    signInBtn: "Ingia →",
-    roleLabel: "Ingia kwenye mfumo wako",
-    schoolRole: "Shule",
-    schoolDesc: "Sajili wanafunzi, simamia maombi na malipo",
-    govRole: "Serikali",
-    govDesc: "Usimamizi wa kitaifa wa shule na wanafunzi wote",
-    studentRole: "Mwanafunzi",
-    studentDesc: "Angalia kitambulisho chako, vyeti na barua",
-    partnersTitle: "Wadau wa Elimu Tanzania",
-    partnersSubtitle: "Tanzania Education Bodies",
-    partnersFooter: "TSID imeunganishwa na miundombinu ya elimu ya kitaifa ya Tanzania. Viungo vyote vinafungua tovuti rasmi za serikali.",
-    stats: [
-      { icon: "🏫", label: "Shule", sub: "Kote Tanzania" },
-      { icon: "🎓", label: "Wanafunzi", sub: "Waliosajiliwa" },
-      { icon: "🗺️", label: "Mikoa", sub: "Imefunikwa" },
-    ],
-    caption: "WATOTO WA TANZANIA — MUSTAKABALI WA TAIFA",
-  },
-  en: {
-    tagline: "NATIONAL IDENTIFICATION SYSTEM",
-    heroTitle: "TSID",
-    heroSubtitle: "Tanzania Student<br>Identification System",
-    heroDescription: "Permanent student identification for Tanzania — serving schools, government, and students nationwide.",
-    verifyBtn: "🔍 Verify Student / School",
-    signInBtn: "Sign In →",
-    roleLabel: "Sign in to your portal",
-    schoolRole: "School",
-    schoolDesc: "Register students, manage applications & payments",
-    govRole: "Government",
-    govDesc: "National oversight of all schools and students",
-    studentRole: "Student",
-    studentDesc: "View your ID card, certificates and letters",
-    partnersTitle: "Tanzania Education Stakeholders",
-    partnersSubtitle: "Tanzania Education Bodies",
-    partnersFooter: "TSID is integrated with Tanzania's national education infrastructure. All links open official government websites.",
-    stats: [
-      { icon: "🏫", label: "Schools", sub: "Across Tanzania" },
-      { icon: "🎓", label: "Students", sub: "Registered" },
-      { icon: "🗺️", label: "Regions", sub: "Covered" },
-    ],
-    caption: "CHILDREN OF TANZANIA — FUTURE OF THE NATION",
-  },
-};
-
-// ── Utility Functions ────────────────────────────────────────────────────
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function getPreferredLanguage() {
-  try {
-    const stored = localStorage.getItem('tsid-language');
-    if (stored && I18N[stored]) return stored;
-    
-    const browserLang = navigator.language || navigator.userLanguage;
-    return browserLang.startsWith('sw') ? 'sw' : 'en';
-  } catch {
-    return 'en';
-  }
-}
-
-function trackEvent(action, category = 'landing_page', label = '') {
-  try {
-    if (window.gtag) {
-      gtag('event', action, {
-        event_category: category,
-        event_label: label,
-      });
-    }
-    // Fallback analytics
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: action,
-        category: category,
-        label: label,
-      });
-    }
-  } catch (error) {
-    console.debug('Analytics error:', error);
-  }
-}
-
-// ── Happy students walking SVG illustration ──────────────────────────────
+// ── Happy students walking SVG illustration ─────────────────────────────────
 const HERO_ILLUSTRATION = `
-<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" 
-  role="img" 
-  aria-label="Happy students walking to school in Tanzania with tablets and books"
-  style="width:100%;height:auto;display:block">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0ea5e9" stop-opacity=".18"/>
@@ -146,21 +26,19 @@ const HERO_ILLUSTRATION = `
   <!-- Sky/background -->
   <rect width="900" height="320" fill="url(#sky)" rx="16"/>
 
-  <!-- Sun with animation -->
-  <g>
-    <circle cx="820" cy="55" r="36" fill="#fde68a" opacity=".9"/>
-    <circle cx="820" cy="55" r="28" fill="#fcd34d"/>
-    <!-- Sun rays -->
-    <g stroke="#fde68a" stroke-width="3" opacity=".7">
-      <line x1="820" y1="8"  x2="820" y2="0"/>
-      <line x1="856" y1="19" x2="862" y2="13"/>
-      <line x1="867" y1="55" x2="875" y2="55"/>
-      <line x1="856" y1="91" x2="862" y2="97"/>
-      <line x1="820" y1="102" x2="820" y2="110"/>
-      <line x1="784" y1="91" x2="778" y2="97"/>
-      <line x1="773" y1="55" x2="765" y2="55"/>
-      <line x1="784" y1="19" x2="778" y2="13"/>
-    </g>
+  <!-- Sun -->
+  <circle cx="820" cy="55" r="36" fill="#fde68a" opacity=".9"/>
+  <circle cx="820" cy="55" r="28" fill="#fcd34d"/>
+  <!-- Sun rays -->
+  <g stroke="#fde68a" stroke-width="3" opacity=".7">
+    <line x1="820" y1="8"  x2="820" y2="0"/>
+    <line x1="856" y1="19" x2="862" y2="13"/>
+    <line x1="867" y1="55" x2="875" y2="55"/>
+    <line x1="856" y1="91" x2="862" y2="97"/>
+    <line x1="820" y1="102" x2="820" y2="110"/>
+    <line x1="784" y1="91" x2="778" y2="97"/>
+    <line x1="773" y1="55" x2="765" y2="55"/>
+    <line x1="784" y1="19" x2="778" y2="13"/>
   </g>
 
   <!-- Clouds -->
@@ -174,46 +52,42 @@ const HERO_ILLUSTRATION = `
   </g>
 
   <!-- School building (right side) -->
-  <g>
-    <rect x="640" y="100" width="220" height="170" fill="url(#school-wall)" rx="4"/>
-    <!-- Roof -->
-    <polygon points="628,100 860,100 800,60 700,60" fill="#dc2626" opacity=".85"/>
-    <!-- School flag -->
-    <line x1="750" y1="20" x2="750" y2="60" stroke="#92400e" stroke-width="3"/>
-    <rect x="750" y="20" width="28" height="18" fill="#1B8F3A"/>
-    <rect x="750" y="20" width="28" height="6" fill="#1B8F3A"/>
-    <rect x="750" y="26" width="28" height="6" fill="#000"/>
-    <rect x="750" y="32" width="28" height="6" fill="#00A3DD"/>
-    <!-- Windows -->
-    <g fill="#bae6fd" stroke="#7dd3fc" stroke-width="1.5">
-      <rect x="662" y="125" width="40" height="36" rx="4"/>
-      <rect x="720" y="125" width="40" height="36" rx="4"/>
-      <rect x="778" y="125" width="40" height="36" rx="4"/>
-      <rect x="662" y="178" width="40" height="36" rx="4"/>
-      <rect x="778" y="178" width="40" height="36" rx="4"/>
-    </g>
-    <!-- Window cross -->
-    <g stroke="#7dd3fc" stroke-width="1">
-      <line x1="682" y1="125" x2="682" y2="161"/> <line x1="662" y1="143" x2="702" y2="143"/>
-      <line x1="740" y1="125" x2="740" y2="161"/> <line x1="720" y1="143" x2="760" y2="143"/>
-      <line x1="798" y1="125" x2="798" y2="161"/> <line x1="778" y1="143" x2="818" y2="143"/>
-      <line x1="682" y1="178" x2="682" y2="214"/> <line x1="662" y1="196" x2="702" y2="196"/>
-      <line x1="798" y1="178" x2="798" y2="214"/> <line x1="778" y1="196" x2="818" y2="196"/>
-    </g>
-    <!-- School door -->
-    <rect x="718" y="188" width="44" height="82" fill="#92400e" rx="3"/>
-    <circle cx="756" cy="230" r="3" fill="#fcd34d"/>
-    <!-- School sign -->
-    <rect x="665" y="102" width="130" height="18" fill="#003366" rx="3"/>
-    <text x="730" y="114" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="Arial">SHULE YA MSINGI</text>
+  <rect x="640" y="100" width="220" height="170" fill="url(#school-wall)" rx="4"/>
+  <!-- Roof -->
+  <polygon points="628,100 860,100 800,60 700,60" fill="#dc2626" opacity=".85"/>
+  <!-- School flag -->
+  <line x1="750" y1="20" x2="750" y2="60" stroke="#92400e" stroke-width="3"/>
+  <rect x="750" y="20" width="28" height="18" fill="#1B8F3A"/>
+  <rect x="750" y="20" width="28" height="6" fill="#1B8F3A"/>
+  <rect x="750" y="26" width="28" height="6" fill="#000"/>
+  <rect x="750" y="32" width="28" height="6" fill="#00A3DD"/>
+  <!-- Windows -->
+  <g fill="#bae6fd" stroke="#7dd3fc" stroke-width="1.5">
+    <rect x="662" y="125" width="40" height="36" rx="4"/>
+    <rect x="720" y="125" width="40" height="36" rx="4"/>
+    <rect x="778" y="125" width="40" height="36" rx="4"/>
+    <rect x="662" y="178" width="40" height="36" rx="4"/>
+    <rect x="778" y="178" width="40" height="36" rx="4"/>
   </g>
+  <!-- Window cross -->
+  <g stroke="#7dd3fc" stroke-width="1">
+    <line x1="682" y1="125" x2="682" y2="161"/> <line x1="662" y1="143" x2="702" y2="143"/>
+    <line x1="740" y1="125" x2="740" y2="161"/> <line x1="720" y1="143" x2="760" y2="143"/>
+    <line x1="798" y1="125" x2="798" y2="161"/> <line x1="778" y1="143" x2="818" y2="143"/>
+    <line x1="682" y1="178" x2="682" y2="214"/> <line x1="662" y1="196" x2="702" y2="196"/>
+    <line x1="798" y1="178" x2="798" y2="214"/> <line x1="778" y1="196" x2="818" y2="196"/>
+  </g>
+  <!-- School door -->
+  <rect x="718" y="188" width="44" height="82" fill="#92400e" rx="3"/>
+  <circle cx="756" cy="230" r="3" fill="#fcd34d"/>
+  <!-- School sign -->
+  <rect x="665" y="102" width="130" height="18" fill="#003366" rx="3"/>
+  <text x="730" y="114" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="Arial">SHULE YA MSINGI</text>
 
   <!-- Ground -->
   <rect x="0" y="265" width="900" height="55" fill="url(#ground)" rx="0"/>
-  
   <!-- Path / road -->
   <path d="M0,280 Q200,265 450,268 Q650,271 900,266 L900,290 Q650,287 450,284 Q200,281 0,296 Z" fill="url(#path)" opacity=".7"/>
-  
   <!-- Path dashes -->
   <g stroke="white" stroke-width="2" stroke-dasharray="20,14" opacity=".5">
     <line x1="0" y1="283" x2="900" y2="278"/>
@@ -235,185 +109,132 @@ const HERO_ILLUSTRATION = `
     <ellipse cx="615" cy="203" rx="20" ry="24" fill="#166534"/>
   </g>
 
-  <!-- ── STUDENT 1 — boy with backpack, waving, uniform ── -->
-  <g transform="translate(160,100)" role="img" aria-label="Boy student in uniform waving">
-    <!-- Shadow -->
+  <!-- STUDENT 1 — boy with backpack, waving, uniform -->
+  <g transform="translate(160,100)">
     <ellipse cx="24" cy="168" rx="22" ry="6" fill="rgba(0,0,0,.15)"/>
-    <!-- Legs -->
     <rect x="14" y="128" width="11" height="42" rx="5" fill="#1e3a8a" transform="rotate(-6,19,128)"/>
     <rect x="22" y="128" width="11" height="42" rx="5" fill="#1e3a8a" transform="rotate(8,27,128)"/>
-    <!-- Shoes -->
     <ellipse cx="16" cy="168" rx="9" ry="5" fill="#1e293b" transform="rotate(-6,16,168)"/>
     <ellipse cx="31" cy="170" rx="9" ry="5" fill="#1e293b" transform="rotate(8,31,170)"/>
-    <!-- Body / shirt -->
     <rect x="10" y="80" width="32" height="52" rx="8" fill="#ffffff"/>
-    <!-- Collar & tie -->
     <polygon points="22,80 26,80 24,92" fill="#dc2626"/>
-    <!-- Backpack -->
     <rect x="36" y="84" width="18" height="32" rx="5" fill="#2563eb"/>
     <rect x="38" y="88" width="14" height="8" rx="3" fill="#1d4ed8"/>
     <line x1="38" y1="86" x2="38" y2="116" stroke="#1e40af" stroke-width="2"/>
-    <!-- Right arm waving up -->
     <path d="M10,90 Q-10,70 -15,50" stroke="#d97706" stroke-width="11" stroke-linecap="round" fill="none"/>
-    <!-- Left arm down -->
     <path d="M42,90 Q50,108 48,120" stroke="#d97706" stroke-width="11" stroke-linecap="round" fill="none"/>
-    <!-- Neck -->
     <rect x="19" y="64" width="14" height="20" rx="7" fill="#d97706"/>
-    <!-- Head -->
     <circle cx="26" cy="52" r="24" fill="#d97706"/>
-    <!-- Hair -->
     <ellipse cx="26" cy="32" rx="22" ry="10" fill="#1c1917"/>
     <ellipse cx="10" cy="44" rx="6" ry="10" fill="#1c1917"/>
     <ellipse cx="42" cy="44" rx="6" ry="10" fill="#1c1917"/>
-    <!-- Face - happy -->
     <circle cx="19" cy="50" r="3.5" fill="#fff" opacity=".9"/>
     <circle cx="33" cy="50" r="3.5" fill="#fff" opacity=".9"/>
     <circle cx="20" cy="51" r="2" fill="#1c1917"/>
     <circle cx="34" cy="51" r="2" fill="#1c1917"/>
     <path d="M18,60 Q26,68 34,60" stroke="#1c1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <!-- Teeth -->
     <path d="M20,61 Q26,67 32,61" fill="white" opacity=".8"/>
-    <!-- School cap -->
     <ellipse cx="26" cy="30" rx="26" ry="9" fill="#003366"/>
     <rect x="0" y="26" width="52" height="8" rx="3" fill="#003366"/>
     <ellipse cx="42" cy="30" rx="8" ry="4" fill="#1e40af"/>
   </g>
 
-  <!-- ── STUDENT 2 — girl with book, laughing ── -->
-  <g transform="translate(280,110)" role="img" aria-label="Girl student reading a book and laughing">
+  <!-- STUDENT 2 — girl with book, laughing -->
+  <g transform="translate(280,110)">
     <ellipse cx="22" cy="158" rx="20" ry="5" fill="rgba(0,0,0,.14)"/>
-    <!-- Dress / skirt -->
     <path d="M6,118 Q4,158 0,162 L44,162 Q40,158 38,118 Z" fill="#7c3aed"/>
-    <!-- Blouse -->
     <rect x="8" y="78" width="30" height="44" rx="8" fill="#ffffff"/>
-    <!-- Belt -->
     <rect x="6" y="118" width="32" height="6" rx="3" fill="#5b21b6"/>
-    <!-- Book held in left arm -->
     <rect x="-14" y="95" width="22" height="30" rx="3" fill="#dc2626" transform="rotate(-15,-3,110)"/>
     <line x1="-13" y1="95" x2="-12" y2="124" stroke="white" stroke-width="1" transform="rotate(-15,-3,110)"/>
-    <!-- Left arm holding book -->
     <path d="M8,92 Q-4,100 -8,115" stroke="#c2855a" stroke-width="10" stroke-linecap="round" fill="none"/>
-    <!-- Right arm swinging -->
     <path d="M38,92 Q52,106 50,122" stroke="#c2855a" stroke-width="10" stroke-linecap="round" fill="none"/>
-    <!-- Legs -->
     <rect x="10" y="158" width="10" height="40" rx="5" fill="#7c3aed" transform="rotate(-4,15,158)"/>
     <rect x="20" y="158" width="10" height="40" rx="5" fill="#5b21b6" transform="rotate(5,25,158)"/>
-    <!-- Shoes -->
     <ellipse cx="12" cy="197" rx="9" ry="5" fill="#1e293b"/>
     <ellipse cx="27" cy="198" rx="9" ry="5" fill="#1e293b"/>
-    <!-- Neck -->
     <rect x="17" y="62" width="12" height="18" rx="6" fill="#c2855a"/>
-    <!-- Head -->
     <circle cx="23" cy="50" r="22" fill="#c2855a"/>
-    <!-- Hair braids -->
     <ellipse cx="23" cy="30" rx="20" ry="12" fill="#1c1917"/>
     <ellipse cx="5" cy="44" rx="5" ry="14" fill="#1c1917"/>
     <ellipse cx="41" cy="44" rx="5" ry="14" fill="#1c1917"/>
-    <!-- Braids detail -->
     <path d="M6,52 Q4,62 8,70" stroke="#1c1917" stroke-width="4" fill="none"/>
     <path d="M40,52 Q42,62 38,70" stroke="#1c1917" stroke-width="4" fill="none"/>
-    <!-- Hair bow -->
     <ellipse cx="23" cy="26" rx="14" ry="6" fill="#f43f5e"/>
     <circle cx="23" cy="26" r="4" fill="#fff"/>
-    <!-- Face - big smile -->
     <circle cx="17" cy="48" r="3" fill="#fff" opacity=".9"/>
     <circle cx="29" cy="48" r="3" fill="#fff" opacity=".9"/>
     <circle cx="17" cy="49" r="1.8" fill="#1c1917"/>
     <circle cx="29" cy="49" r="1.8" fill="#1c1917"/>
     <path d="M13,58 Q23,68 33,58" stroke="#1c1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <path d="M15,59 Q23,67 31,59" fill="white" opacity=".8"/>
-    <!-- Cheeks blush -->
     <ellipse cx="11" cy="56" rx="5" ry="3" fill="#fb7185" opacity=".4"/>
     <ellipse cx="35" cy="56" rx="5" ry="3" fill="#fb7185" opacity=".4"/>
   </g>
 
-  <!-- ── STUDENT 3 — tall boy with soccer ball ── -->
-  <g transform="translate(390,88)" role="img" aria-label="Boy student kicking a soccer ball">
+  <!-- STUDENT 3 — tall boy with soccer ball -->
+  <g transform="translate(390,88)">
     <ellipse cx="23" cy="180" rx="22" ry="6" fill="rgba(0,0,0,.14)"/>
-    <!-- Legs -->
     <rect x="12" y="138" width="12" height="44" rx="6" fill="#1e3a8a" transform="rotate(-8,18,138)"/>
     <rect x="22" y="138" width="12" height="44" rx="6" fill="#1e3a8a" transform="rotate(6,28,138)"/>
-    <!-- Shoes -->
     <ellipse cx="13" cy="180" rx="10" ry="5" fill="#1e293b" transform="rotate(-8,13,180)"/>
     <ellipse cx="30" cy="181" rx="10" ry="5" fill="#1e293b"/>
-    <!-- Soccer ball -->
     <circle cx="48" cy="165" r="14" fill="white" stroke="#1c1917" stroke-width="1.5"/>
     <path d="M48,151 L44,158 L50,158 Z" fill="#1c1917"/>
     <path d="M48,179 L44,172 L50,172 Z" fill="#1c1917"/>
     <path d="M34,165 L41,161 L41,169 Z" fill="#1c1917"/>
     <path d="M62,165 L55,161 L55,169 Z" fill="#1c1917"/>
-    <!-- Right leg kicking -->
     <rect x="24" y="132" width="12" height="40" rx="6" fill="#1e3a8a" transform="rotate(35,30,132)"/>
     <ellipse cx="46" cy="158" rx="10" ry="5" fill="#1e293b" transform="rotate(35,46,158)"/>
-    <!-- Body shirt -->
     <rect x="9" y="88" width="32" height="54" rx="8" fill="#16a34a"/>
-    <!-- Shirt number -->
     <text x="25" y="118" text-anchor="middle" fill="white" font-size="14" font-weight="900" font-family="Arial">10</text>
-    <!-- Arms -->
     <path d="M9,95 Q-6,112 -4,128" stroke="#92400e" stroke-width="11" stroke-linecap="round" fill="none"/>
     <path d="M41,95 Q54,110 52,125" stroke="#92400e" stroke-width="11" stroke-linecap="round" fill="none"/>
-    <!-- Neck -->
     <rect x="18" y="72" width="13" height="18" rx="6" fill="#92400e"/>
-    <!-- Head -->
     <circle cx="24" cy="58" r="24" fill="#92400e"/>
-    <!-- Hair -->
     <ellipse cx="24" cy="37" rx="22" ry="11" fill="#1c1917"/>
-    <!-- Face laughing -->
     <circle cx="17" cy="55" r="3.5" fill="#fff" opacity=".9"/>
     <circle cx="31" cy="55" r="3.5" fill="#fff" opacity=".9"/>
     <circle cx="17" cy="56" r="2.2" fill="#1c1917"/>
     <circle cx="31" cy="56" r="2.2" fill="#1c1917"/>
     <path d="M14,66 Q24,76 34,66" stroke="#1c1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <path d="M16,67 Q24,75 32,67" fill="white" opacity=".85"/>
-    <!-- Shine on eyes -->
     <circle cx="18" cy="54" r="1" fill="white"/>
     <circle cx="32" cy="54" r="1" fill="white"/>
   </g>
 
-  <!-- ── STUDENT 4 — girl with laptop/tablet ── -->
-  <g transform="translate(500,105)" role="img" aria-label="Girl student using a tablet device">
+  <!-- STUDENT 4 — girl with laptop/tablet -->
+  <g transform="translate(500,105)">
     <ellipse cx="22" cy="162" rx="20" ry="5" fill="rgba(0,0,0,.13)"/>
-    <!-- Legs -->
     <rect x="11" y="128" width="10" height="36" rx="5" fill="#0f172a" transform="rotate(-5,16,128)"/>
     <rect x="20" y="128" width="10" height="36" rx="5" fill="#0f172a" transform="rotate(4,25,128)"/>
     <ellipse cx="13" cy="163" rx="9" ry="5" fill="#1e293b"/>
     <ellipse cx="27" cy="164" rx="9" ry="5" fill="#1e293b"/>
-    <!-- Skirt -->
     <path d="M8,118 Q6,132 2,136 L42,136 Q38,132 36,118 Z" fill="#0f172a"/>
-    <!-- Blouse -->
     <rect x="8" y="76" width="30" height="46" rx="8" fill="#e0f2fe"/>
-    <!-- Tablet held up -->
     <rect x="-16" y="72" width="26" height="36" rx="4" fill="#1e293b" transform="rotate(-10,-3,90)"/>
     <rect x="-14" y="74" width="22" height="30" rx="3" fill="#38bdf8" transform="rotate(-10,-3,90)"/>
     <text x="-3" y="93" text-anchor="middle" fill="white" font-size="7" font-weight="700" font-family="Arial" transform="rotate(-10,-3,90)">TSID</text>
-    <!-- Left arm holding tablet -->
     <path d="M8,88 Q-4,88 -12,92" stroke="#c68642" stroke-width="10" stroke-linecap="round" fill="none"/>
-    <!-- Right arm down -->
     <path d="M38,90 Q48,106 46,120" stroke="#c68642" stroke-width="10" stroke-linecap="round" fill="none"/>
-    <!-- Neck -->
     <rect x="17" y="62" width="12" height="16" rx="6" fill="#c68642"/>
-    <!-- Head -->
     <circle cx="23" cy="50" r="22" fill="#c68642"/>
-    <!-- Hair natural -->
     <ellipse cx="23" cy="30" rx="22" ry="14" fill="#1c1917"/>
     <ellipse cx="4" cy="46" rx="6" ry="12" fill="#1c1917"/>
     <ellipse cx="42" cy="46" rx="6" ry="12" fill="#1c1917"/>
     <ellipse cx="23" cy="56" rx="8" ry="8" fill="#1c1917"/>
-    <!-- Headband -->
     <rect x="3" y="35" width="40" height="7" rx="3" fill="#f97316" opacity=".9"/>
-    <!-- Face excited -->
     <circle cx="17" cy="48" r="3" fill="#fff" opacity=".9"/>
     <circle cx="29" cy="48" r="3" fill="#fff" opacity=".9"/>
     <circle cx="17" cy="49" r="2" fill="#1c1917"/>
     <circle cx="29" cy="49" r="2" fill="#1c1917"/>
-    <!-- Open mouth smile -->
     <path d="M14,58 Q23,70 32,58" stroke="#1c1917" stroke-width="2" fill="#dc2626" stroke-linecap="round"/>
     <path d="M16,60 Q23,68 30,60" fill="white" opacity=".9"/>
     <ellipse cx="12" cy="55" rx="5" ry="3" fill="#fb923c" opacity=".4"/>
     <ellipse cx="34" cy="55" rx="5" ry="3" fill="#fb923c" opacity=".4"/>
   </g>
 
-  <!-- ── Floating sparkles / stars ── -->
+  <!-- Floating sparkles / stars -->
   <g fill="#fde68a" opacity=".8">
     <polygon points="100,40 102,46 108,46 103,50 105,56 100,52 95,56 97,50 92,46 98,46" transform="scale(.6) translate(50,20)"/>
     <polygon points="350,20 352,26 358,26 353,30 355,36 350,32 345,36 347,30 342,26 348,26" transform="scale(.5) translate(200,40)"/>
@@ -440,108 +261,19 @@ const HERO_ILLUSTRATION = `
   <!-- Caption ribbon at bottom -->
   <rect x="0" y="290" width="900" height="30" fill="rgba(0,51,102,.7)"/>
   <text x="450" y="309" text-anchor="middle" fill="white" font-size="11" font-weight="700"
-    font-family="Arial" letter-spacing="2" aria-label="Tanzania children - future of the nation">
+    font-family="Arial" letter-spacing="2">
     WATOTO WA TANZANIA — MUSTAKABALI WA TAIFA
   </text>
 </svg>`;
 
-// ── Main Component ─────────────────────────────────────────────────────
 export function LandingView() {
-  const lang = getPreferredLanguage();
-  const t = I18N[lang];
-  
-  // Initialize navbar
   setTimeout(initNavbar, 0);
-  
-  // Track page view
-  setTimeout(() => {
-    trackEvent('page_view', 'landing', 'hero');
-  }, 100);
 
-  // Build partner chips with proper escaping and tracking
-  const partnerChips = PARTNERS.map(p => {
-    const escapedName = escapeHtml(p.name);
-    const escapedUrl = encodeURI(p.url);
-    
-    return `
-    <a href="${escapedUrl}" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      title="${escapedName}"
-      aria-label="Visit ${escapeHtml(p.short)} website - ${escapedName}"
-      onclick="window.trackEvent &amp;&amp; trackEvent('partner_click', 'landing', '${escapeHtml(p.short)}')"
-      style="display:inline-flex;align-items:center;gap:7px;
-        background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;
-        padding:9px 14px;text-decoration:none;
-        transition:all .18s;white-space:nowrap"
-      class="partner-chip"
-      data-category="${escapeHtml(p.category)}">
-      <span style="font-size:16px" aria-hidden="true">${p.icon}</span>
-      <div>
-        <div style="font-size:12.5px;font-weight:800;color:#0f172a">${escapeHtml(p.short)}</div>
-        <div style="font-size:10px;color:#64748b;line-height:1.2">${escapeHtml(p.name.split(",")[0])}</div>
-      </div>
-    </a>`;
-  }).join("");
-
-  // Build stats
-  const statsHtml = t.stats.map(s => `
-    <div class="stat-item">
-      <div style="font-size:11px;color:#6ee7b7;font-weight:700">
-        <span aria-hidden="true">${s.icon}</span> ${escapeHtml(s.label)}
-      </div>
-      <div style="font-size:10px;color:rgba(255,255,255,.5)">${escapeHtml(s.sub)}</div>
-    </div>
-  `).join("");
-
-  // Build role cards
   const roleCards = [
-    { href: "#/login/school", icon: "🏫", gradient: "linear-gradient(135deg,#059669,#047857)", title: t.schoolRole, desc: t.schoolDesc },
-    { href: "#/login/gov", icon: "🏛️", gradient: "linear-gradient(135deg,#003366,#1e40af)", title: t.govRole, desc: t.govDesc },
-    { href: "#/login/student", icon: "🎓", gradient: "linear-gradient(135deg,#7c3aed,#5b21b6)", title: t.studentRole, desc: t.studentDesc },
+    { href: "#/login/school", icon: "🏫", gradient: "linear-gradient(135deg,#059669,#047857)", title: "Shule / School", desc: "Register students, manage applications & payments" },
+    { href: "#/login/gov", icon: "🏛️", gradient: "linear-gradient(135deg,#003366,#1e40af)", title: "Serikali / Gov", desc: "National oversight of all schools and students" },
+    { href: "#/login/student", icon: "🎓", gradient: "linear-gradient(135deg,#7c3aed,#5b21b6)", title: "Mwanafunzi / Student", desc: "View your ID card, certificates and letters" },
   ];
-
-  const roleCardsHtml = roleCards.map(card => `
-    <a href="${card.href}" 
-      style="text-decoration:none"
-      onclick="trackEvent('role_card_click', 'landing', '${escapeHtml(card.title)}')">
-      <div class="landing-role-card" style="
-        background:#fff;border:2px solid #e2e8f0;border-radius:18px;
-        padding:26px 20px;text-align:center">
-        <div style="width:56px;height:56px;border-radius:16px;margin:0 auto 14px;
-          background:${card.gradient};
-          display:flex;align-items:center;justify-content:center;font-size:26px"
-          aria-hidden="true">${card.icon}</div>
-        <div style="font-weight:800;font-size:16px;color:#0f172a;margin-bottom:6px">
-          ${escapeHtml(card.title)}
-        </div>
-        <div style="font-size:12.5px;color:#64748b;line-height:1.5;margin-bottom:16px">
-          ${escapeHtml(card.desc)}
-        </div>
-        <div style="padding:11px;border-radius:10px;
-          background:${card.gradient};
-          color:#fff;font-size:13px;font-weight:700">
-          ${escapeHtml(t.signInBtn)}
-        </div>
-      </div>
-    </a>
-  `).join("");
-
-  // Language switcher (simplified)
-  const oppositeLang = lang === 'sw' ? 'en' : 'sw';
-  const langSwitcher = `
-    <button 
-      onclick="localStorage.setItem('tsid-language','${oppositeLang}');location.reload()"
-      style="position:absolute;top:16px;right:20px;z-index:10;
-        background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);
-        padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;
-        transition:background .15s"
-      onmouseover="this.style.background='rgba(255,255,255,.25)'"
-      onmouseout="this.style.background='rgba(255,255,255,.15)'"
-      aria-label="Switch to ${lang === 'sw' ? 'English' : 'Swahili'}">
-      ${lang === 'sw' ? 'English' : 'Kiswahili'}
-    </button>
-  `;
 
   return `
   ${Navbar()}
@@ -550,22 +282,15 @@ export function LandingView() {
   <section style="
     background:linear-gradient(160deg,#003366 0%,#0f5a3a 50%,#059669 100%);
     position:relative;overflow:hidden;min-height:520px;
-    display:flex;flex-direction:column"
-    role="banner"
-    aria-label="TSID Hero Section">
-
-    ${langSwitcher}
+    display:flex;flex-direction:column">
 
     <!-- Top bar: coat of arms centred + country name -->
     <div style="
       display:flex;align-items:center;justify-content:center;
       gap:14px;padding:22px 24px 0;position:relative;z-index:2">
-      <img src="/assets/coat-of-arms.png" 
-        alt="Coat of Arms of Tanzania"
+      <img src="/assets/coat-of-arms.png" alt="Coat of Arms"
         style="width:54px;height:54px;object-fit:contain;
-          filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))"
-        loading="eager"
-        onerror="this.style.display='none'">
+          filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))">
       <div style="text-align:left">
         <div style="font-size:11px;font-weight:800;color:#a7f3d0;
           letter-spacing:.8px;text-transform:uppercase">
@@ -575,7 +300,7 @@ export function LandingView() {
           United Republic of Tanzania
         </div>
       </div>
-      <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 6px" aria-hidden="true"></div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 6px"></div>
       <div>
         <div style="font-size:13px;font-weight:800;color:#fff">TSID</div>
         <div style="font-size:9px;color:#a7f3d0;font-weight:600">Official System</div>
@@ -595,69 +320,68 @@ export function LandingView() {
           display:inline-flex;align-items:center;gap:8px;
           background:rgba(255,255,255,.1);
           border:1px solid rgba(255,255,255,.2);border-radius:99px;
-          padding:5px 14px;margin-bottom:20px"
-          role="status">
-          <span aria-hidden="true" style="font-size:16px">🎓</span>
+          padding:5px 14px;margin-bottom:20px">
+          <span style="font-size:16px">🎓</span>
           <span style="font-size:11px;font-weight:700;color:#a7f3d0;letter-spacing:.4px">
-            ${escapeHtml(t.tagline)}
+            MFUMO WA KITAIFA WA UTAMBULISHO
           </span>
         </div>
 
         <h1 style="
-          font-size:clamp(40px, 8vw, 64px);font-weight:900;color:#fff;
+          font-size:64px;font-weight:900;color:#fff;
           line-height:.95;letter-spacing:-3px;margin-bottom:12px">
-          ${escapeHtml(t.heroTitle)}
+          TSID
         </h1>
         <h2 style="
-          font-size:clamp(14px, 3vw, 20px);font-weight:800;color:#a7f3d0;
+          font-size:20px;font-weight:800;color:#a7f3d0;
           margin-bottom:10px;line-height:1.2">
-          ${t.heroSubtitle}
+          Tanzania Student<br>Identification System
         </h2>
         <p style="
           font-size:13.5px;color:rgba(255,255,255,.75);
           line-height:1.7;margin-bottom:28px;max-width:380px">
-          ${escapeHtml(t.heroDescription)}
+          Kitambulisho cha kudumu cha mwanafunzi wa Tanzania —
+          kwa shule, serikali na wanafunzi wote nchini.
         </p>
 
         <!-- CTAs -->
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-          <a href="#/search" 
-            onclick="trackEvent('cta_click', 'landing', 'verify')"
-            style="
+          <a href="#/search" style="
             display:inline-flex;align-items:center;gap:8px;
             background:#fff;color:#003366;
             padding:13px 26px;border-radius:12px;
             font-weight:800;font-size:14px;text-decoration:none;
             box-shadow:0 4px 20px rgba(0,0,0,.25);
-            transition:transform .15s"
-            onmouseover="this.style.transform='scale(1.05)'"
-            onmouseout="this.style.transform='scale(1)'"
-            onfocus="this.style.transform='scale(1.05)'"
-            onblur="this.style.transform='scale(1)'">
-            ${escapeHtml(t.verifyBtn)}
+            transition:transform .15s">
+            🔍 Verify Student / School
           </a>
-          <a href="#/login/school" 
-            onclick="trackEvent('cta_click', 'landing', 'signin')"
-            style="
+          <a href="#/login/school" style="
             display:inline-flex;align-items:center;gap:8px;
             background:rgba(255,255,255,.12);color:#fff;
             border:1.5px solid rgba(255,255,255,.3);
             padding:13px 22px;border-radius:12px;
             font-weight:700;font-size:14px;text-decoration:none;
-            transition:background .15s"
-            onmouseover="this.style.background='rgba(255,255,255,.2)'"
-            onmouseout="this.style.background='rgba(255,255,255,.12)'">
-            ${escapeHtml(t.signInBtn)}
+            transition:background .15s">
+            Sign In →
           </a>
         </div>
 
-        ${FEATURES.studentStats ? `
         <!-- Stats row -->
         <div style="
           display:flex;gap:24px;margin-top:28px;flex-wrap:wrap">
-          ${statsHtml}
+          <div>
+            <div style="font-size:11px;color:#6ee7b7;font-weight:700">🏫 Schools</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">Across Tanzania</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#6ee7b7;font-weight:700">🎓 Students</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">Registered</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#6ee7b7;font-weight:700">🗺️ Regions</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">Covered</div>
+          </div>
         </div>
-        ` : ''}
       </div>
 
       <!-- RIGHT: Illustration -->
@@ -673,7 +397,7 @@ export function LandingView() {
     </div>
 
     <!-- Tanzania flag colour band at hero bottom -->
-    <div style="height:5px;display:flex;width:100%;position:relative;z-index:2" aria-hidden="true">
+    <div style="height:5px;display:flex;width:100%;position:relative;z-index:2">
       <div style="flex:4.5;background:#1B8F3A"></div>
       <div style="flex:1;background:#FCD116"></div>
       <div style="flex:1;background:#000"></div>
@@ -682,286 +406,53 @@ export function LandingView() {
   </section>
 
   <!-- ── ROLE CARDS ─────────────────────────────────────────────────────── -->
-  <section style="max-width:900px;margin:0 auto;padding:36px 20px 0"
-    aria-labelledby="role-cards-title">
+  <section style="max-width:900px;margin:0 auto;padding:36px 20px 48px">
     <div style="text-align:center;margin-bottom:20px">
-      <p id="role-cards-title" style="font-size:12px;color:#94a3b8;font-weight:700;
+      <p style="font-size:12px;color:#94a3b8;font-weight:700;
         text-transform:uppercase;letter-spacing:.6px">
-        ${escapeHtml(t.roleLabel)}
+        Ingia kwenye mfumo wako · Sign in to your portal
       </p>
     </div>
     <div class="rg-landing landing-role-grid">
-      ${roleCardsHtml}
+      ${roleCards.map(card => `
+        <a href="${card.href}" style="text-decoration:none">
+          <div class="landing-role-card" style="
+            background:#fff;border:2px solid #e2e8f0;border-radius:18px;
+            padding:26px 20px;text-align:center">
+            <div style="width:56px;height:56px;border-radius:16px;margin:0 auto 14px;
+              background:${card.gradient};
+              display:flex;align-items:center;justify-content:center;font-size:26px">${card.icon}</div>
+            <div style="font-weight:800;font-size:16px;color:#0f172a;margin-bottom:6px">${card.title}</div>
+            <div style="font-size:12.5px;color:#64748b;line-height:1.5;margin-bottom:16px">
+              ${card.desc}
+            </div>
+            <div style="padding:11px;border-radius:10px;
+              background:${card.gradient};
+              color:#fff;font-size:13px;font-weight:700">Sign In →</div>
+          </div>
+        </a>
+      `).join("")}
     </div>
   </section>
-
-  ${FEATURES.partnerShowcase ? `
-  <!-- ── EDUCATION BODIES ─────────────────────────────────────────────── -->
-  <section style="padding:40px 20px 48px"
-    aria-labelledby="partners-title">
-    <div style="max-width:1000px;margin:0 auto">
-      <div style="display:flex;align-items:center;gap:12px;
-        margin-bottom:20px;justify-content:center">
-        <div style="height:1px;flex:1;background:#e2e8f0;max-width:80px" aria-hidden="true"></div>
-        <div style="text-align:center">
-          <div style="font-size:11px;font-weight:800;color:#94a3b8;
-            text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px">
-            ${escapeHtml(t.partnersTitle)}
-          </div>
-          <div id="partners-title" style="font-size:18px;font-weight:900;color:#0f172a">
-            ${escapeHtml(t.partnersSubtitle)}
-          </div>
-        </div>
-        <div style="height:1px;flex:1;background:#e2e8f0;max-width:80px" aria-hidden="true"></div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;
-        justify-content:center;margin-bottom:20px">
-        ${partnerChips}
-      </div>
-      <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:14px">
-        ${escapeHtml(t.partnersFooter)}
-      </p>
-    </div>
-  </section>
-  ` : ''}
-
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "GovernmentOrganization",
-    "name": "Tanzania Student Identification System",
-    "alternateName": "TSID",
-    "description": "National student identification system for the United Republic of Tanzania",
-    "url": "https://tsid.go.tz",
-    "areaServed": {
-      "@type": "Country",
-      "name": "Tanzania"
-    },
-    "parentOrganization": {
-      "@type": "GovernmentOrganization",
-      "name": "Ministry of Education, Science and Technology",
-      "url": "https://www.moe.go.tz"
-    },
-    "knowsLanguage": ["sw", "en"]
-  }
-  </script>
 
   <style>
-    /* ── Core Styles ───────────────────────────────────────────────── */
-    .landing-role-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    
-    .landing-role-card {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .landing-role-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #059669, #7c3aed);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    
     .landing-role-card:hover {
-      border-color: #059669 !important;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 24px rgba(5, 150, 105, 0.12);
+      border-color:#059669 !important;
+      transform:translateY(-3px);
+      box-shadow:0 10px 28px rgba(0,0,0,.1);
     }
-    
-    .landing-role-card:hover::before {
-      transform: scaleX(1);
-    }
-    
-    .landing-role-card:focus-within {
-      outline: 2px solid #059669;
-      outline-offset: 2px;
-    }
-    
-    .partner-chip {
-      transition: all 0.2s ease;
-      position: relative;
-    }
-    
-    .partner-chip:hover {
-      border-color: #059669 !important;
-      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.12);
-      transform: translateY(-2px);
-    }
-    
-    .partner-chip:focus-visible {
-      outline: 2px solid #059669;
-      outline-offset: 2px;
-    }
-    
-    .partner-chip::after {
-      content: '↗';
-      font-size: 10px;
-      margin-left: 4px;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    
-    .partner-chip:hover::after {
-      opacity: 0.5;
-    }
-    
-    /* ── Reduced Motion ─────────────────────────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      .landing-role-card,
-      .partner-chip,
-      .landing-role-card::before {
-        transition: none;
-      }
-      
-      .landing-role-card:hover {
-        transform: none;
-      }
-      
-      .partner-chip:hover {
-        transform: none;
-      }
-    }
-    
-    /* ── Responsive Design ──────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      /* Hero: stack on mobile */
+    @media(max-width:768px){
       section > div[style*="grid-template-columns:1fr 1fr"] {
-        grid-template-columns: 1fr !important;
+        grid-template-columns:1fr !important;
       }
-      
       section > div[style*="grid-template-columns:1fr 1fr"] > div:last-child {
-        display: none !important;
+        display:none !important;
       }
-      
-      .landing-role-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      
-      .partner-chip {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-      }
-      
-      .partner-chip > div > div:last-child {
-        display: none;
-      }
-      
-      .stat-item {
-        flex: 1 1 100%;
-        text-align: center;
-      }
+      h1[style*="font-size:64px"] { font-size:52px !important; letter-spacing:-2px !important; }
+      h2[style*="font-size:20px"] { font-size:16px !important; }
     }
-    
-    /* ── Dark Mode Support ──────────────────────────────────────────── */
-    ${FEATURES.darkModeSupport ? `
-    @media (prefers-color-scheme: dark) {
-      .landing-role-card {
-        background: #1e293b !important;
-        border-color: #334155 !important;
-      }
-      
-      .landing-role-card div[style*="color:#0f172a"] {
-        color: #f1f5f9 !important;
-      }
-      
-      .landing-role-card div[style*="color:#64748b"] {
-        color: #94a3b8 !important;
-      }
-      
-      .partner-chip {
-        background: #1e293b !important;
-        border-color: #334155 !important;
-      }
-      
-      .partner-chip div[style*="color:#0f172a"] {
-        color: #f1f5f9 !important;
-      }
-    }
-    ` : ''}
-    
-    /* ── Print Styles ───────────────────────────────────────────────── */
-    @media print {
-      section[style*="background:linear-gradient"] {
-        background: #003366 !important;
-        color: #000 !important;
-      }
-      
-      .landing-role-card {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      
-      .partner-chip::after {
-        display: none;
-      }
-    }
-    
-    /* ── Animation Keyframes ────────────────────────────────────────── */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    ${FEATURES.animateOnScroll ? `
-    .animate-in {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-    ` : ''}
   </style>
-
-  <!-- ── Scroll Animation Script ─────────────────────────────────────── -->
-  ${FEATURES.animateOnScroll ? `
-  <script>
-    (function() {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      // Observe role cards
-      document.querySelectorAll('.landing-role-card').forEach(card => {
-        observer.observe(card);
-      });
-      
-      // Observe partner chips
-      document.querySelectorAll('.partner-chip').forEach((chip, index) => {
-        chip.style.animationDelay = (index * 0.05) + 's';
-        observer.observe(chip);
-      });
-    })();
-  </script>
-  ` : ''}
 
   ${Footer()}
   `;
 }
-
-// ── Export helpers for external use ────────────────────────────────────
-export { PARTNERS, getPreferredLanguage, trackEvent };
