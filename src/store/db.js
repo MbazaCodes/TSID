@@ -1,38 +1,189 @@
 // ============================================================================
-//  TSID Local Data Layer
-//  All persistent state lives in localStorage. Seed data is inserted once.
+//  TSID Data Layer — Supabase backend
+//  Same export API as the localStorage version; all callers unchanged.
+//  All public methods are async and return plain JS objects matching the
+//  original camelCase shape the views expect.
 // ============================================================================
 
-const KEYS = {
-  schools: "tsid:schools",
-  students: "tsid:students",
-  applications: "tsid:applications",
-  payments: "tsid:payments",
-  certificates: "tsid:certificates",
-  requestLetters: "tsid:requestLetters",
-  logs: "tsid:logs",
-  session: "tsid:session",
-  govUsers: "tsid:govUsers",
-  seeded: "tsid:seeded:v1",
-};
+import { supabase } from "./supabase.js";
 
-function read(key, fallback) {
+// ── Session lives in localStorage (lightweight auth token, not DB) ───────────
+const SESSION_KEY = "tsid:session";
+
+function readSession() {
   try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch (e) {
-    return fallback;
-  }
+    const raw = localStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+function writeSession(v) {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(v));
+}
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
 }
 
-function write(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-  return value;
+// ── Column-name mappers (snake_case DB → camelCase JS) ───────────────────────
+
+function mapSchool(r) {
+  if (!r) return null;
+  return {
+    code:      r.code,
+    name:      r.name,
+    type:      r.type,
+    region:    r.region,
+    district:  r.district,
+    ward:      r.ward,
+    contact:   r.contact,
+    email:     r.email,
+    address:   r.address,
+    username:  r.username,
+    password:  r.password,
+    status:    r.status,
+    createdAt: r.created_at,
+  };
 }
 
-// ---------------------------------------------------------------------------
-//  ID generators
-// ---------------------------------------------------------------------------
+function mapStudent(r) {
+  if (!r) return null;
+  return {
+    tsid:           r.tsid,
+    fullname:       r.fullname,
+    dob:            r.dob,
+    gender:         r.gender,
+    nationality:    r.nationality,
+    schoolName:     r.school_name,
+    schoolCode:     r.school_code,
+    region:         r.region,
+    district:       r.district,
+    ward:           r.ward,
+    schoolContact:  r.school_contact,
+    enrollmentDate: r.enrollment_date,
+    level:          r.level,
+    bloodGroup:     r.blood_group,
+    parentName:     r.parent_name,
+    parentNida:     r.parent_nida,
+    relationship:   r.relationship,
+    parentPhone:    r.parent_phone,
+    issueDate:      r.issue_date,
+    photo:          r.photo || "",
+    status:         r.status,
+    remarks:        Array.isArray(r.remarks) ? r.remarks : [],
+    credentials: {
+      username: r.cred_username || r.tsid,
+      password: r.cred_password || "student123",
+    },
+  };
+}
+
+function mapApplication(r) {
+  if (!r) return null;
+  return {
+    id:             r.id,
+    fullname:       r.fullname,
+    dob:            r.dob,
+    gender:         r.gender,
+    nationality:    r.nationality,
+    schoolName:     r.school_name,
+    schoolCode:     r.school_code,
+    region:         r.region,
+    district:       r.district,
+    ward:           r.ward,
+    schoolContact:  r.school_contact,
+    enrollmentDate: r.enrollment_date,
+    level:          r.level,
+    bloodGroup:     r.blood_group,
+    parentName:     r.parent_name,
+    parentNida:     r.parent_nida,
+    relationship:   r.relationship,
+    parentPhone:    r.parent_phone,
+    photo:          r.photo || "",
+    status:         r.status,
+    rejectReason:   r.reject_reason,
+    tsid:           r.tsid,
+    submittedAt:    r.submitted_at,
+    decidedAt:      r.decided_at,
+  };
+}
+
+function mapPayment(r) {
+  if (!r) return null;
+  return {
+    ref:         r.ref,
+    tsid:        r.tsid,
+    schoolCode:  r.school_code,
+    studentName: r.student_name,
+    amount:      r.amount,
+    currency:    r.currency,
+    purpose:     r.purpose,
+    method:      r.method,
+    status:      r.status,
+    paidAt:      r.paid_at,
+  };
+}
+
+function mapCertificate(r) {
+  if (!r) return null;
+  return {
+    id:          r.id,
+    tsid:        r.tsid,
+    studentName: r.student_name,
+    schoolCode:  r.school_code,
+    schoolName:  r.school_name,
+    title:       r.title,
+    issuedAt:    r.issued_at,
+    ref:         r.ref,
+  };
+}
+
+function mapLetter(r) {
+  if (!r) return null;
+  return {
+    ref:         r.ref,
+    tsid:        r.tsid,
+    studentName: r.student_name,
+    schoolCode:  r.school_code,
+    schoolName:  r.school_name,
+    type:        r.type,
+    reason:      r.reason,
+    addressee:   r.addressee,
+    urgency:     r.urgency,
+    status:      r.status,
+    requestedAt: r.requested_at,
+    approvedAt:  r.approved_at,
+  };
+}
+
+function mapLog(r) {
+  if (!r) return null;
+  return {
+    id:      r.id,
+    action:  r.action,
+    message: r.message,
+    by:      r.by_name,
+    role:    r.by_role,
+    at:      r.created_at,
+  };
+}
+
+function mapGovUser(r) {
+  if (!r) return null;
+  return {
+    id:        r.id,
+    name:      r.name,
+    username:  r.username,
+    password:  r.password,
+    role:      r.role,
+    ministry:  r.ministry,
+    region:    r.region,
+    phone:     r.phone,
+    email:     r.email,
+    status:    r.status,
+    createdAt: r.created_at,
+  };
+}
+
+// ── ID generators (unchanged) ─────────────────────────────────────────────────
 
 export function genTsid() {
   const year = new Date().getFullYear();
@@ -55,212 +206,309 @@ export function genLetterRef() {
 }
 
 export function genCredentialPassword() {
-  return (
-    "tz" +
-    Math.random().toString(36).slice(2, 8).toUpperCase() +
-    "!"
-  );
+  return "tz" + Math.random().toString(36).slice(2, 8).toUpperCase() + "!";
 }
 
-// ---------------------------------------------------------------------------
-//  CRUD helpers
-// ---------------------------------------------------------------------------
+// ── db object — async Supabase CRUD ──────────────────────────────────────────
 
 export const db = {
-  keys: KEYS,
 
-  // Schools ---------------------------------------------------------------
-  getSchools() {
-    return read(KEYS.schools, []);
+  // Schools ──────────────────────────────────────────────────────────────────
+  async getSchools() {
+    const { data } = await supabase.from("schools").select("*").order("created_at");
+    return (data || []).map(mapSchool);
   },
-  findSchool(code) {
-    return this.getSchools().find((s) => s.code === code);
+  async findSchool(code) {
+    if (!code) return null;
+    const { data } = await supabase.from("schools").select("*").eq("code", code).maybeSingle();
+    return mapSchool(data);
   },
-  saveSchool(school) {
-    const schools = this.getSchools();
-    const idx = schools.findIndex((s) => s.code === school.code);
-    if (idx >= 0) schools[idx] = { ...schools[idx], ...school };
-    else schools.push(school);
-    write(KEYS.schools, schools);
-    return school;
-  },
-
-  // Students --------------------------------------------------------------
-  getStudents() {
-    return read(KEYS.students, []);
-  },
-  findStudent(tsid) {
-    return this.getStudents().find((s) => s.tsid === tsid);
-  },
-  findStudentsBySchool(schoolCode) {
-    return this.getStudents().filter((s) => s.schoolCode === schoolCode);
-  },
-  saveStudent(student) {
-    const students = this.getStudents();
-    const idx = students.findIndex((s) => s.tsid === student.tsid);
-    if (idx >= 0) students[idx] = { ...students[idx], ...student };
-    else students.push(student);
-    write(KEYS.students, students);
-    return student;
-  },
-  addRemark(tsid, remark) {
-    const s = this.findStudent(tsid);
-    if (!s) return null;
-    s.remarks = s.remarks || [];
-    s.remarks.push({
-      text: remark,
-      by: (currentSession() && currentSession().name) || "School Admin",
-      at: new Date().toISOString(),
-    });
-    return this.saveStudent(s);
-  },
-
-  // Applications ----------------------------------------------------------
-  getApplications() {
-    return read(KEYS.applications, []);
-  },
-  applicationsForSchool(code) {
-    return this.getApplications().filter((a) => a.schoolCode === code);
-  },
-  saveApplication(app) {
-    const apps = this.getApplications();
-    const idx = apps.findIndex((a) => a.id === app.id);
-    if (idx >= 0) apps[idx] = { ...apps[idx], ...app };
-    else apps.push(app);
-    write(KEYS.applications, apps);
-    return app;
-  },
-  approveApplication(id) {
-    const apps = this.getApplications();
-    const a = apps.find((x) => x.id === id);
-    if (!a) return null;
-    a.status = "approved";
-    a.decidedAt = new Date().toISOString();
-    write(KEYS.applications, apps);
-
-    // Turn the approved application into a real student record
-    const student = {
-      tsid: a.tsid || genTsid(),
-      fullname: a.fullname,
-      dob: a.dob,
-      gender: a.gender,
-      nationality: a.nationality || "Tanzanian",
-      schoolName: a.schoolName,
-      schoolCode: a.schoolCode,
-      region: a.region,
-      district: a.district,
-      ward: a.ward,
-      schoolContact: a.schoolContact,
-      enrollmentDate: a.enrollmentDate || new Date().toISOString().slice(0, 10),
-      level: a.level,
-      bloodGroup: a.bloodGroup,
-      parentName: a.parentName,
-      parentNida: a.parentNida,
-      relationship: a.relationship,
-      parentPhone: a.parentPhone,
-      issueDate: new Date().toISOString().slice(0, 10),
-      photo: a.photo || "",
-      status: "active",
-      remarks: [],
-      credentials: { username: a.tsid || genTsid(), password: "student123" },
+  async saveSchool(school) {
+    const row = {
+      code:       school.code,
+      name:       school.name,
+      type:       school.type,
+      region:     school.region,
+      district:   school.district,
+      ward:       school.ward,
+      contact:    school.contact,
+      email:      school.email,
+      address:    school.address,
+      username:   school.username,
+      password:   school.password,
+      status:     school.status || "active",
     };
-    this.saveStudent(student);
-    log("application:approve", `Approved application ${a.id} → ${student.tsid}`);
+    const { data } = await supabase.from("schools").upsert(row, { onConflict: "code" }).select().maybeSingle();
+    return mapSchool(data);
+  },
+
+  // Students ─────────────────────────────────────────────────────────────────
+  async getStudents() {
+    const { data } = await supabase.from("students").select("*").order("created_at");
+    return (data || []).map(mapStudent);
+  },
+  async findStudent(tsid) {
+    if (!tsid) return null;
+    const { data } = await supabase.from("students").select("*").eq("tsid", tsid).maybeSingle();
+    return mapStudent(data);
+  },
+  async findStudentsBySchool(schoolCode) {
+    if (!schoolCode) return [];
+    const { data } = await supabase.from("students").select("*").eq("school_code", schoolCode).order("created_at");
+    return (data || []).map(mapStudent);
+  },
+  async saveStudent(student) {
+    const row = {
+      tsid:            student.tsid,
+      fullname:        student.fullname,
+      dob:             student.dob || null,
+      gender:          student.gender,
+      nationality:     student.nationality || "Tanzanian",
+      school_name:     student.schoolName,
+      school_code:     student.schoolCode,
+      region:          student.region,
+      district:        student.district,
+      ward:            student.ward,
+      school_contact:  student.schoolContact,
+      enrollment_date: student.enrollmentDate || null,
+      level:           student.level,
+      blood_group:     student.bloodGroup,
+      parent_name:     student.parentName,
+      parent_nida:     student.parentNida,
+      relationship:    student.relationship,
+      parent_phone:    student.parentPhone,
+      issue_date:      student.issueDate || null,
+      photo:           student.photo || "",
+      status:          student.status || "active",
+      remarks:         student.remarks || [],
+      cred_username:   student.credentials?.username || student.tsid,
+      cred_password:   student.credentials?.password || "student123",
+    };
+    const { data } = await supabase.from("students").upsert(row, { onConflict: "tsid" }).select().maybeSingle();
+    return mapStudent(data);
+  },
+  async addRemark(tsid, remark) {
+    const student = await this.findStudent(tsid);
+    if (!student) return null;
+    const remarks = student.remarks || [];
+    remarks.push({
+      text: remark,
+      by:   (currentSession()?.name) || "School Admin",
+      at:   new Date().toISOString(),
+    });
+    const { data } = await supabase
+      .from("students")
+      .update({ remarks })
+      .eq("tsid", tsid)
+      .select()
+      .maybeSingle();
+    return mapStudent(data);
+  },
+
+  // Applications ─────────────────────────────────────────────────────────────
+  async getApplications() {
+    const { data } = await supabase.from("applications").select("*").order("submitted_at", { ascending: false });
+    return (data || []).map(mapApplication);
+  },
+  async applicationsForSchool(code) {
+    if (!code) return [];
+    const { data } = await supabase.from("applications").select("*").eq("school_code", code).order("submitted_at", { ascending: false });
+    return (data || []).map(mapApplication);
+  },
+  async saveApplication(app) {
+    const row = {
+      id:              app.id,
+      fullname:        app.fullname,
+      dob:             app.dob || null,
+      gender:          app.gender,
+      nationality:     app.nationality || "Tanzanian",
+      school_name:     app.schoolName,
+      school_code:     app.schoolCode,
+      region:          app.region,
+      district:        app.district,
+      ward:            app.ward,
+      school_contact:  app.schoolContact,
+      enrollment_date: app.enrollmentDate || null,
+      level:           app.level,
+      blood_group:     app.bloodGroup,
+      parent_name:     app.parentName,
+      parent_nida:     app.parentNida,
+      relationship:    app.relationship,
+      parent_phone:    app.parentPhone,
+      photo:           app.photo || "",
+      status:          app.status || "pending",
+    };
+    const { data } = await supabase.from("applications").upsert(row, { onConflict: "id" }).select().maybeSingle();
+    return mapApplication(data);
+  },
+  async approveApplication(id) {
+    // Mark application approved
+    await supabase.from("applications")
+      .update({ status: "approved", decided_at: new Date().toISOString() })
+      .eq("id", id);
+
+    const { data: appRow } = await supabase.from("applications").select("*").eq("id", id).maybeSingle();
+    const a = mapApplication(appRow);
+    if (!a) return null;
+
+    const tsid = a.tsid || genTsid();
+    const student = {
+      tsid,
+      fullname:       a.fullname,
+      dob:            a.dob,
+      gender:         a.gender,
+      nationality:    a.nationality || "Tanzanian",
+      schoolName:     a.schoolName,
+      schoolCode:     a.schoolCode,
+      region:         a.region,
+      district:       a.district,
+      ward:           a.ward,
+      schoolContact:  a.schoolContact,
+      enrollmentDate: a.enrollmentDate || new Date().toISOString().slice(0, 10),
+      level:          a.level,
+      bloodGroup:     a.bloodGroup,
+      parentName:     a.parentName,
+      parentNida:     a.parentNida,
+      relationship:   a.relationship,
+      parentPhone:    a.parentPhone,
+      issueDate:      new Date().toISOString().slice(0, 10),
+      photo:          a.photo || "",
+      status:         "active",
+      remarks:        [],
+      credentials:    { username: tsid, password: "student123" },
+    };
+    await this.saveStudent(student);
+    await log("application:approve", `Approved application ${id} → ${tsid}`);
     return student;
   },
-  rejectApplication(id, reason) {
-    const apps = this.getApplications();
-    const a = apps.find((x) => x.id === id);
-    if (!a) return null;
-    a.status = "rejected";
-    a.rejectReason = reason;
-    a.decidedAt = new Date().toISOString();
-    write(KEYS.applications, apps);
-    log("application:reject", `Rejected application ${a.id} (${reason})`);
-    return a;
+  async rejectApplication(id, reason) {
+    const { data } = await supabase.from("applications")
+      .update({ status: "rejected", reject_reason: reason, decided_at: new Date().toISOString() })
+      .eq("id", id)
+      .select()
+      .maybeSingle();
+    await log("application:reject", `Rejected application ${id} (${reason})`);
+    return mapApplication(data);
   },
 
-  // Payments --------------------------------------------------------------
-  getPayments() {
-    return read(KEYS.payments, []);
+  // Payments ─────────────────────────────────────────────────────────────────
+  async getPayments() {
+    const { data } = await supabase.from("payments").select("*").order("created_at", { ascending: false });
+    return (data || []).map(mapPayment);
   },
-  paymentsForSchool(code) {
-    return this.getPayments().filter((p) => p.schoolCode === code);
+  async paymentsForSchool(code) {
+    if (!code) return [];
+    const { data } = await supabase.from("payments").select("*").eq("school_code", code).order("created_at", { ascending: false });
+    return (data || []).map(mapPayment);
   },
-  paymentsForStudent(tsid) {
-    return this.getPayments().filter((p) => p.tsid === tsid);
+  async paymentsForStudent(tsid) {
+    if (!tsid) return [];
+    const { data } = await supabase.from("payments").select("*").eq("tsid", tsid).order("created_at", { ascending: false });
+    return (data || []).map(mapPayment);
   },
-  savePayment(p) {
-    const payments = this.getPayments();
-    const idx = payments.findIndex((x) => x.ref === p.ref);
-    if (idx >= 0) payments[idx] = { ...payments[idx], ...p };
-    else payments.push(p);
-    write(KEYS.payments, payments);
-    return p;
-  },
-
-  // Certificates ----------------------------------------------------------
-  getCertificates() {
-    return read(KEYS.certificates, []);
-  },
-  certificatesForStudent(tsid) {
-    return this.getCertificates().filter((c) => c.tsid === tsid);
-  },
-  saveCertificate(c) {
-    const certs = this.getCertificates();
-    const idx = certs.findIndex((x) => x.id === c.id);
-    if (idx >= 0) certs[idx] = { ...certs[idx], ...c };
-    else certs.push(c);
-    write(KEYS.certificates, certs);
-    return c;
+  async savePayment(p) {
+    const row = {
+      ref:          p.ref,
+      tsid:         p.tsid,
+      school_code:  p.schoolCode,
+      student_name: p.studentName,
+      amount:       p.amount,
+      currency:     p.currency || "TZS",
+      purpose:      p.purpose,
+      method:       p.method,
+      status:       p.status || "pending",
+      paid_at:      p.paidAt || null,
+    };
+    const { data } = await supabase.from("payments").upsert(row, { onConflict: "ref" }).select().maybeSingle();
+    return mapPayment(data);
   },
 
-  // Request letters -------------------------------------------------------
-  getLetters() {
-    return read(KEYS.requestLetters, []);
+  // Certificates ─────────────────────────────────────────────────────────────
+  async getCertificates() {
+    const { data } = await supabase.from("certificates").select("*");
+    return (data || []).map(mapCertificate);
   },
-  lettersForStudent(tsid) {
-    return this.getLetters().filter((l) => l.tsid === tsid);
+  async certificatesForStudent(tsid) {
+    if (!tsid) return [];
+    const { data } = await supabase.from("certificates").select("*").eq("tsid", tsid);
+    return (data || []).map(mapCertificate);
   },
-  saveLetter(l) {
-    const letters = this.getLetters();
-    const idx = letters.findIndex((x) => x.ref === l.ref);
-    if (idx >= 0) letters[idx] = { ...letters[idx], ...l };
-    else letters.push(l);
-    write(KEYS.requestLetters, letters);
-    return l;
+  async saveCertificate(c) {
+    const row = {
+      id:           c.id,
+      tsid:         c.tsid,
+      student_name: c.studentName,
+      school_code:  c.schoolCode,
+      school_name:  c.schoolName,
+      title:        c.title,
+      issued_at:    c.issuedAt,
+      ref:          c.ref,
+    };
+    const { data } = await supabase.from("certificates").upsert(row, { onConflict: "id" }).select().maybeSingle();
+    return mapCertificate(data);
   },
 
-  // Logs ------------------------------------------------------------------
-  getLogs() {
-    return read(KEYS.logs, []);
+  // Request Letters ──────────────────────────────────────────────────────────
+  async getLetters() {
+    const { data } = await supabase.from("request_letters").select("*").order("requested_at", { ascending: false });
+    return (data || []).map(mapLetter);
+  },
+  async lettersForStudent(tsid) {
+    if (!tsid) return [];
+    const { data } = await supabase.from("request_letters").select("*").eq("tsid", tsid).order("requested_at", { ascending: false });
+    return (data || []).map(mapLetter);
+  },
+  async saveLetter(l) {
+    const row = {
+      ref:          l.ref,
+      tsid:         l.tsid,
+      student_name: l.studentName,
+      school_code:  l.schoolCode,
+      school_name:  l.schoolName,
+      type:         l.type,
+      reason:       l.reason,
+      addressee:    l.addressee || null,
+      urgency:      l.urgency || "normal",
+      status:       l.status || "pending",
+      requested_at: l.requestedAt || new Date().toISOString(),
+      approved_at:  l.approvedAt  || null,
+    };
+    const { data } = await supabase.from("request_letters").upsert(row, { onConflict: "ref" }).select().maybeSingle();
+    return mapLetter(data);
   },
 
-  // Gov users -------------------------------------------------------------
-  getGovUsers() {
-    return read(KEYS.govUsers, []);
+  // Logs ─────────────────────────────────────────────────────────────────────
+  async getLogs() {
+    const { data } = await supabase.from("activity_logs").select("*").order("created_at", { ascending: false }).limit(500);
+    return (data || []).map(mapLog);
   },
-  findGovUser(username) {
-    return this.getGovUsers().find((u) => u.username === username);
+
+  // Gov Users ────────────────────────────────────────────────────────────────
+  async getGovUsers() {
+    const { data } = await supabase.from("gov_users").select("*");
+    return (data || []).map(mapGovUser);
+  },
+  async findGovUser(username) {
+    if (!username) return null;
+    const { data } = await supabase.from("gov_users").select("*").eq("username", username).maybeSingle();
+    return mapGovUser(data);
   },
 };
 
-// ---------------------------------------------------------------------------
-//  Session (auth)
-// ---------------------------------------------------------------------------
+// ── Session (localStorage — fast, no round-trip needed) ──────────────────────
 
 export function currentSession() {
-  return read(KEYS.session, null);
+  return readSession();
 }
 
 export function login(role, identity) {
   const session = {
     role,
-    name: identity.name,
-    ref: identity.ref, // school code / gov id / student tsid
+    name:    identity.name,
+    ref:     identity.ref,
     loginAt: new Date().toISOString(),
   };
-  write(KEYS.session, session);
+  writeSession(session);
   log("auth:login", `${role} ${identity.name} logged in`);
   return session;
 }
@@ -268,342 +516,24 @@ export function login(role, identity) {
 export function logout() {
   const s = currentSession();
   if (s) log("auth:logout", `${s.role} ${s.name} logged out`);
-  localStorage.removeItem(KEYS.session);
+  clearSession();
 }
 
-// ---------------------------------------------------------------------------
-//  Activity log
-// ---------------------------------------------------------------------------
+// ── Activity log ──────────────────────────────────────────────────────────────
 
-export function log(action, message) {
-  const logs = read(KEYS.logs, []);
-  logs.unshift({
-    id: "LOG-" + Date.now() + "-" + Math.floor(Math.random() * 999),
+export async function log(action, message) {
+  const s = currentSession();
+  const row = {
+    id:      "LOG-" + Date.now() + "-" + Math.floor(Math.random() * 9999),
     action,
     message,
-    at: new Date().toISOString(),
-    by: (currentSession() && currentSession().name) || "system",
-    role: (currentSession() && currentSession().role) || "system",
-  });
-  // cap at 500
-  if (logs.length > 500) logs.length = 500;
-  write(KEYS.logs, logs);
+    by_name: s?.name || "system",
+    by_role: s?.role || "system",
+  };
+  await supabase.from("activity_logs").insert(row);
 }
 
-// ---------------------------------------------------------------------------
-//  Seed data — inserted once
-// ---------------------------------------------------------------------------
-
+// ── ensureSeed — no-op (seed is in the SQL file) ─────────────────────────────
 export function ensureSeed() {
-  if (localStorage.getItem(KEYS.seeded)) return;
-
-  const school1 = {
-    code: "DS1024",
-    name: "Shule Ya Msingi Mwangaza",
-    type: "Primary School",
-    region: "Dar es Salaam",
-    district: "Kinondoni",
-    ward: "Mikocheni",
-    contact: "+255 782 112 233",
-    email: "mwangaza@tsid.go.tz",
-    address: "Mikocheni B, Kinondoni",
-    username: "mwangaza",
-    password: "school123",
-    createdAt: "2026-01-15T08:00:00.000Z",
-    status: "active",
-  };
-
-  const school2 = {
-    code: "AR2050",
-    name: "Arusha Secondary School",
-    type: "Secondary School",
-    region: "Arusha",
-    district: "Arusha DC",
-    ward: "Sekei",
-    contact: "+255 754 889 100",
-    email: "arusha.sec@tsid.go.tz",
-    address: "Sekei Road, Arusha",
-    username: "arusha",
-    password: "school123",
-    createdAt: "2026-02-03T09:30:00.000Z",
-    status: "active",
-  };
-
-  const school3 = {
-    code: "MB3017",
-    name: "Mbeya University College",
-    type: "University / College",
-    region: "Mbeya",
-    district: "Mbeya CC",
-    ward: "Iyunga",
-    contact: "+255 762 445 901",
-    email: "muc@tsid.go.tz",
-    address: "Iyunga, Mbeya",
-    username: "mbeya",
-    password: "school123",
-    createdAt: "2026-02-22T14:10:00.000Z",
-    status: "active",
-  };
-
-  write(KEYS.schools, [school1, school2, school3]);
-
-  const student1 = {
-    tsid: "TSID-2026-A7K9P2X",
-    fullname: "Juma A. Mwanza",
-    dob: "2014-05-15",
-    gender: "Male",
-    nationality: "Tanzanian",
-    schoolName: school1.name,
-    schoolCode: school1.code,
-    region: school1.region,
-    district: school1.district,
-    ward: school1.ward,
-    schoolContact: school1.contact,
-    enrollmentDate: "2020-01-10",
-    level: "Standard 4",
-    bloodGroup: "O+",
-    parentName: "Aishatu Juma",
-    parentNida: "19901234567890123",
-    relationship: "Mother",
-    parentPhone: "+255 712 345 678",
-    issueDate: "2026-05-20",
-    photo: "",
-    status: "active",
-    remarks: [
-      {
-        text: "Excellent academic performance in term 1.",
-        by: "Head Teacher",
-        at: "2026-04-12T10:00:00.000Z",
-      },
-    ],
-    credentials: { username: "TSID-2026-A7K9P2X", password: "student123" },
-  };
-
-  const student2 = {
-    tsid: "TSID-2026-B3M8Q1Y",
-    fullname: "Neema Joseph Komba",
-    dob: "2010-09-22",
-    gender: "Female",
-    nationality: "Tanzanian",
-    schoolName: school2.name,
-    schoolCode: school2.code,
-    region: school2.region,
-    district: school2.district,
-    ward: school2.ward,
-    schoolContact: school2.contact,
-    enrollmentDate: "2022-01-15",
-    level: "Form 2",
-    bloodGroup: "A+",
-    parentName: "Joseph Komba",
-    parentNida: "19851122334455",
-    relationship: "Father",
-    parentPhone: "+255 754 998 211",
-    issueDate: "2026-03-11",
-    photo: "",
-    status: "active",
-    remarks: [],
-    credentials: { username: "TSID-2026-B3M8Q1Y", password: "student123" },
-  };
-
-  const student3 = {
-    tsid: "TSID-2026-C5T9Z7W",
-    fullname: "Grace Baraka Mushi",
-    dob: "2003-12-03",
-    gender: "Female",
-    nationality: "Tanzanian",
-    schoolName: school3.name,
-    schoolCode: school3.code,
-    region: school3.region,
-    district: school3.district,
-    ward: school3.ward,
-    schoolContact: school3.contact,
-    enrollmentDate: "2023-10-01",
-    level: "Year 1 - Bachelor of Education",
-    bloodGroup: "B+",
-    parentName: "Baraka Mushi",
-    parentNida: "19700988776655",
-    relationship: "Father",
-    parentPhone: "+255 762 100 900",
-    issueDate: "2026-02-28",
-    photo: "",
-    status: "active",
-    remarks: [],
-    credentials: { username: "TSID-2026-C5T9Z7W", password: "student123" },
-  };
-
-  write(KEYS.students, [student1, student2, student3]);
-
-  const apps = [
-    {
-      id: "APP-1001",
-      fullname: "Erick Sebastian Massawe",
-      dob: "2016-03-10",
-      gender: "Male",
-      nationality: "Tanzanian",
-      schoolName: school1.name,
-      schoolCode: school1.code,
-      region: school1.region,
-      district: school1.district,
-      ward: school1.ward,
-      schoolContact: school1.contact,
-      enrollmentDate: "2026-01-12",
-      level: "Standard 1",
-      bloodGroup: "O+",
-      parentName: "Sebastian Massawe",
-      parentNida: "19881234567890",
-      relationship: "Father",
-      parentPhone: "+255 715 222 333",
-      photo: "",
-      status: "pending",
-      submittedAt: "2026-06-10T11:20:00.000Z",
-    },
-    {
-      id: "APP-1002",
-      fullname: "Zawadi Ally Mwakasege",
-      dob: "2009-07-19",
-      gender: "Female",
-      nationality: "Tanzanian",
-      schoolName: school2.name,
-      schoolCode: school2.code,
-      region: school2.region,
-      district: school2.district,
-      ward: school2.ward,
-      schoolContact: school2.contact,
-      enrollmentDate: "2026-01-15",
-      level: "Form 1",
-      bloodGroup: "AB+",
-      parentName: "Ally Mwakasege",
-      parentNida: "19791122334455",
-      relationship: "Father",
-      parentPhone: "+255 754 700 800",
-      photo: "",
-      status: "pending",
-      submittedAt: "2026-06-15T08:45:00.000Z",
-    },
-  ];
-  write(KEYS.applications, apps);
-
-  const payments = [
-    {
-      ref: "PAY-10010023",
-      tsid: student1.tsid,
-      schoolCode: school1.code,
-      studentName: student1.fullname,
-      amount: 5000,
-      currency: "TZS",
-      purpose: "ID Card Processing",
-      method: "M-Pesa",
-      status: "paid",
-      paidAt: "2026-05-18T14:30:00.000Z",
-    },
-    {
-      ref: "PAY-10010024",
-      tsid: student2.tsid,
-      schoolCode: school2.code,
-      studentName: student2.fullname,
-      amount: 8000,
-      currency: "TZS",
-      purpose: "ID Card Processing",
-      method: "Tigo Pesa",
-      status: "pending",
-      paidAt: null,
-    },
-    {
-      ref: "PAY-10010025",
-      tsid: student3.tsid,
-      schoolCode: school3.code,
-      studentName: student3.fullname,
-      amount: 12000,
-      currency: "TZS",
-      purpose: "ID Card Processing",
-      method: "Bank Transfer",
-      status: "paid",
-      paidAt: "2026-02-26T09:00:00.000Z",
-    },
-  ];
-  write(KEYS.payments, payments);
-
-  const certs = [
-    {
-      id: "CRT-5001",
-      tsid: student1.tsid,
-      studentName: student1.fullname,
-      schoolCode: school1.code,
-      schoolName: school1.name,
-      title: "Certificate of Enrollment",
-      issuedAt: "2026-05-20",
-      ref: "TSID-CRT-5001",
-    },
-    {
-      id: "CRT-5002",
-      tsid: student2.tsid,
-      studentName: student2.fullname,
-      schoolCode: school2.code,
-      schoolName: school2.name,
-      title: "Certificate of Enrollment",
-      issuedAt: "2026-03-11",
-      ref: "TSID-CRT-5002",
-    },
-  ];
-  write(KEYS.certificates, certs);
-
-  const letters = [
-    {
-      ref: "LTR-9001",
-      tsid: student1.tsid,
-      studentName: student1.fullname,
-      schoolCode: school1.code,
-      schoolName: school1.name,
-      type: "Utambulisho",
-      reason: "For travel purposes during school break.",
-      status: "approved",
-      requestedAt: "2026-05-25T10:00:00.000Z",
-      approvedAt: "2026-05-26T09:00:00.000Z",
-    },
-  ];
-  write(KEYS.requestLetters, letters);
-
-  write(KEYS.logs, [
-    {
-      id: "LOG-1",
-      action: "system:seed",
-      message: "TSID system initialized with seed data (3 schools, 3 students, 2 applications).",
-      at: new Date().toISOString(),
-      by: "system",
-      role: "system",
-    },
-  ]);
-
-  // Gov users
-  const govUsers = [
-    {
-      id: "GOV-001",
-      name: "Amina Rashid Mtendaji",
-      username: "gov",
-      password: "gov123",
-      role: "Government Officer",
-      ministry: "Wizara ya Elimu, Sayansi na Teknolojia",
-      region: "Dar es Salaam",
-      phone: "+255 768 000 001",
-      email: "amina.mtendaji@tsid.go.tz",
-      createdAt: "2026-01-01T00:00:00.000Z",
-      status: "active",
-    },
-    {
-      id: "GOV-002",
-      name: "Hassan Juma Mkurugenzi",
-      username: "gov2",
-      password: "gov456",
-      role: "Senior Gov Supervisor",
-      ministry: "PO-RALG / TAMISEMI",
-      region: "Dodoma",
-      phone: "+255 768 000 002",
-      email: "hassan.mkurugenzi@tsid.go.tz",
-      createdAt: "2026-01-05T00:00:00.000Z",
-      status: "active",
-    },
-  ];
-  write(KEYS.govUsers, govUsers);
-
-  localStorage.setItem(KEYS.seeded, "1");
+  // Seed data lives in supabase-schema.sql — nothing to do at runtime.
 }
