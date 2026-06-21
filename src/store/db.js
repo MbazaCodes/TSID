@@ -12,6 +12,7 @@ const KEYS = {
   requestLetters: "tsid:requestLetters",
   logs: "tsid:logs",
   session: "tsid:session",
+  govUsers: "tsid:govUsers",
   seeded: "tsid:seeded:v1",
 };
 
@@ -233,6 +234,14 @@ export const db = {
   // Logs ------------------------------------------------------------------
   getLogs() {
     return read(KEYS.logs, []);
+  },
+
+  // Gov users -------------------------------------------------------------
+  getGovUsers() {
+    return read(KEYS.govUsers, []);
+  },
+  findGovUser(username) {
+    return this.getGovUsers().find((u) => u.username === username);
   },
 };
 
@@ -564,6 +573,37 @@ export function ensureSeed() {
       role: "system",
     },
   ]);
+
+  // Gov users
+  const govUsers = [
+    {
+      id: "GOV-001",
+      name: "Amina Rashid Mtendaji",
+      username: "gov",
+      password: "gov123",
+      role: "Government Officer",
+      ministry: "Wizara ya Elimu, Sayansi na Teknolojia",
+      region: "Dar es Salaam",
+      phone: "+255 768 000 001",
+      email: "amina.mtendaji@tsid.go.tz",
+      createdAt: "2026-01-01T00:00:00.000Z",
+      status: "active",
+    },
+    {
+      id: "GOV-002",
+      name: "Hassan Juma Mkurugenzi",
+      username: "gov2",
+      password: "gov456",
+      role: "Senior Gov Supervisor",
+      ministry: "PO-RALG / TAMISEMI",
+      region: "Dodoma",
+      phone: "+255 768 000 002",
+      email: "hassan.mkurugenzi@tsid.go.tz",
+      createdAt: "2026-01-05T00:00:00.000Z",
+      status: "active",
+    },
+  ];
+  write(KEYS.govUsers, govUsers);
 
   localStorage.setItem(KEYS.seeded, "1");
 }

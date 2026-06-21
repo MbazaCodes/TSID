@@ -731,3 +731,30 @@ body.tsid-app {
   .tsid-shell { padding: 0 !important; }
   body.tsid-app { background: #fff !important; }
 }
+
+/* ---------------- tsid-label / tsid-input (aliased form helpers) ---------------- */
+/* Used in views that prefer non-uppercase labels and green focus rings */
+.tsid-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 5px;
+}
+.tsid-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #f9fafb;
+  color: #111827;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.tsid-input:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+  background: #fff;
+}
