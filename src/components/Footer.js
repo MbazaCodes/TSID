@@ -11,7 +11,6 @@ const EDU_BODIES = [
     links: [
       { name: "Wizara ya Elimu, Sayansi na Teknolojia", short: "MoEST", url: "https://www.moe.go.tz" },
       { name: "Ofisi ya Rais — TAMISEMI", short: "TAMISEMI", url: "https://www.tamisemi.go.tz" },
-      { name: "Ofisi ya Rais — PO-RALG", short: "PO-RALG", url: "https://www.poralg.go.tz" },
     ],
   },
   {
@@ -22,7 +21,6 @@ const EDU_BODIES = [
     links: [
       { name: "National Examinations Council of Tanzania", short: "NECTA", url: "https://www.necta.go.tz" },
       { name: "National Council for Technical Education", short: "NACTE", url: "https://www.nacte.go.tz" },
-      { name: "Tanzania National Qualifications Framework", short: "TNQF", url: "https://www.nacte.go.tz/tnqf" },
     ],
   },
   {
@@ -33,8 +31,6 @@ const EDU_BODIES = [
     links: [
       { name: "Tanzania Commission for Universities", short: "TCU", url: "https://www.tcu.go.tz" },
       { name: "University of Dar es Salaam", short: "UDSM", url: "https://www.udsm.ac.tz" },
-      { name: "Open University of Tanzania", short: "OUT", url: "https://www.out.ac.tz" },
-      { name: "Sokoine University of Agriculture", short: "SUA", url: "https://www.sua.ac.tz" },
     ],
   },
   {
@@ -44,18 +40,6 @@ const EDU_BODIES = [
     icon: "🔧",
     links: [
       { name: "Vocational Education Training Authority", short: "VETA", url: "https://www.veta.go.tz" },
-      { name: "Business Registration and Licensing Agency", short: "BRELA", url: "https://www.brela.go.tz" },
-    ],
-  },
-  {
-    category: "Maktaba na Utafiti / Research",
-    color: "#0369a1",
-    bg: "#f0f9ff",
-    icon: "📚",
-    links: [
-      { name: "Tanzania Library Services Board", short: "TLSB", url: "https://www.tlsb.or.tz" },
-      { name: "Tanzania Commission for Science & Technology", short: "COSTECH", url: "https://www.costech.or.tz" },
-      { name: "National Institute for Medical Research", short: "NIMR", url: "https://www.nimr.or.tz" },
     ],
   },
   {
@@ -66,7 +50,6 @@ const EDU_BODIES = [
     links: [
       { name: "National Identification Authority", short: "NIDA", url: "https://www.nida.go.tz" },
       { name: "e-Government Authority Tanzania", short: "eGA", url: "https://www.ega.go.tz" },
-      { name: "Tanzania Revenue Authority", short: "TRA", url: "https://www.tra.go.tz" },
     ],
   },
 ];
