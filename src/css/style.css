@@ -1,12 +1,12 @@
 /* ============================================================================
    TSID — ID Card Canvas Styles (physical card layout + print)
-   All colours now use the green primary theme
+   Uses theme vars from app.css where available; card-specific vars below.
    ============================================================================ */
 
 :root {
   /* Card-specific vars only — main theme vars live in app.css */
-  --tz-card-primary: #003860;   /* was #003366 navy → now green */
-  --tz-green-primary: #003860;
+  --tz-card-primary: #003860;
+  --tz-green-primary: #1B8F3A;   /* actual Tanzania flag green */
   --tz-yellow-accent: #F5C400;
   --tz-blue-light: #007AFF;
   --text-color-dark: #111111;

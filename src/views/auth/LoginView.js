@@ -1,26 +1,13 @@
 import { Navbar, initNavbar } from "../../components/Navbar.js";
 import { Footer }  from "../../components/Footer.js";
-import { db, login, verifyPassword } from "../../store/db.js";
+import { supabase } from "../../store/supabase.js";
 import { toast }   from "../../lib/toast.js";
 
 const META = {
-  school:  { title:"School Login",     icon:"🏫", color:"#004f8a", grad:"135deg,#004f8a,#003860", redirect:"#/school/dashboard" },
-  gov:     { title:"Government Login", icon:"🏛️", color:"#003860", grad:"135deg,#003860,#002540", redirect:"#/gov/dashboard"    },
-  student: { title:"Student Login",    icon:"🎓", color:"#7c3aed", grad:"135deg,#7c3aed,#5b21b6", redirect:"#/student/dashboard" },
+  school:  { title:"School Login",     icon:"🏫", color:"#334155", grad:"135deg,#475569,#334155", redirect:"#/school/dashboard" },
+  gov:     { title:"Government Login", icon:"🏛️", color:"#334155", grad:"135deg,#334155,#1e293b", redirect:"#/gov/dashboard"    },
+  student: { title:"Student Login",    icon:"🎓", color:"#334155", grad:"135deg,#64748b,#475569", redirect:"#/student/dashboard" },
 };
-
-function demoCreds(role) {
-  if (role === "school")
-    return db.getSchools().slice(0,3).map(s =>
-      `<div style="padding:4px 0;font-size:12px">🏫 <b>${s.name.split(" ").slice(0,3).join(" ")}</b> — <code>${s.username}</code> / <code>••••••</code></div>`).join("");
-  if (role === "gov")
-    return db.getGovUsers().map(u =>
-      `<div style="padding:4px 0;font-size:12px">🏛️ <b>${u.name.split(" ").slice(0,2).join(" ")}</b> — <code>${u.username}</code> / <code>••••••</code></div>`).join("");
-  if (role === "student")
-    return db.getStudents().slice(0,3).map(st =>
-      `<div style="padding:4px 0;font-size:12px">🎓 <b>${st.fullname.split(" ").slice(0,2).join(" ")}</b> — <code>${st.credentials.username}</code> / <code>••••••</code></div>`).join("");
-  return "";
-}
 
 export function LoginView(role) {
   role = role || "school";
@@ -42,7 +29,7 @@ export function LoginView(role) {
           display:flex;align-items:center;justify-content:center;
           font-size:28px;margin:0 auto 12px">${m.icon}</div>
         <h2 style="font-size:20px;font-weight:900;color:#0f172a;margin-bottom:4px">${m.title}</h2>
-        <p style="font-size:13px;color:#64748b">Enter your credentials to continue</p>
+        <p style="font-size:13px;color:#64748b">Sign in with your email and password</p>
       </div>
 
       <!-- Role tabs -->
@@ -58,10 +45,10 @@ export function LoginView(role) {
 
       <div style="margin-bottom:14px">
         <label style="display:block;font-size:12px;font-weight:700;color:#374151;margin-bottom:5px">
-          Username / TSID
+          Email Address
         </label>
-        <input id="loginUser" type="text" autocomplete="username"
-          placeholder="${role==="student"?"TSID-2026-XXXXXXX":role==="gov"?"gov":"mwangaza"}"
+        <input id="loginEmail" type="email" autocomplete="email"
+          placeholder="you@example.com"
           style="width:100%;padding:12px 14px;border:1.5px solid #d1d5db;border-radius:10px;
             font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;
             transition:border-color .15s">
@@ -86,15 +73,6 @@ export function LoginView(role) {
         Sign In →
       </button>
 
-      <div style="margin-top:18px;background:#f8fafc;border:1px solid #e2e8f0;
-        border-radius:12px;padding:12px 14px">
-        <div style="font-size:10.5px;font-weight:800;color:#94a3b8;
-          text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">
-          Demo credentials
-        </div>
-        ${demoCreds(role)}
-      </div>
-
       <div style="text-align:center;margin-top:14px">
         <a href="#/" style="font-size:12px;color:#94a3b8;text-decoration:none">← Back to home</a>
       </div>
@@ -105,42 +83,88 @@ export function LoginView(role) {
 }
 
 export function initLogin(role) {
-  setTimeout(() => document.getElementById("loginUser")?.focus(), 80);
+  setTimeout(() => document.getElementById("loginEmail")?.focus(), 80);
   const btn = document.getElementById("loginBtn");
   if (!btn) return;
 
   async function doLogin() {
-    const u = (document.getElementById("loginUser")?.value || "").trim();
-    const p =  document.getElementById("loginPass")?.value || "";
-    if (!u || !p) { toast("Please enter your username and password.", "error"); return; }
+    const email = (document.getElementById("loginEmail")?.value || "").trim();
+    const pass  = document.getElementById("loginPass")?.value || "";
+    if (!email || !pass) { toast("Please enter your email and password.", "error"); return; }
 
     btn.textContent = "Signing in…";
     btn.style.opacity = ".7";
 
-    let identity = null;
-    if (role === "school") {
-      const s = db.getSchools().find(s => s.username===u);
-      if (s && await verifyPassword(p, s.password)) identity = { name:s.name, ref:s.code };
-    } else if (role === "gov") {
-      const g = db.getGovUsers().find(g => g.username===u);
-      if (g && await verifyPassword(p, g.password)) identity = { name:g.name, ref:g.id };
-    } else if (role === "student") {
-      const st = db.getStudents().find(s => s.credentials?.username===u);
-      if (st && await verifyPassword(p, st.credentials?.password)) identity = { name:st.fullname, ref:st.tsid };
-    }
+    try {
+      // 1. Authenticate with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      if (authError) {
+        toast(authError.message || "Invalid email or password.", "error");
+        btn.textContent = "Sign In →";
+        btn.style.opacity = "1";
+        return;
+      }
 
-    if (!identity) {
-      toast("Invalid credentials. Check demo accounts below.", "error");
+      const userId = authData.user?.id;
+      if (!userId) {
+        toast("Authentication failed. No user ID returned.", "error");
+        btn.textContent = "Sign In →";
+        btn.style.opacity = "1";
+        return;
+      }
+
+      // 2. Fetch the user's role from user_profiles
+      const { data: profiles, error: profileError } = await supabase
+        .from("user_profiles")
+        .select("role, display_name, ref")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+      if (profileError || !profiles) {
+        // No profile yet — this shouldn't happen if admin created the account properly
+        toast("No TSID profile found. Contact your administrator.", "error");
+        await supabase.auth.signOut();
+        btn.textContent = "Sign In →";
+        btn.style.opacity = "1";
+        return;
+      }
+
+      const profileRole = profiles.role;
+      const displayName = profiles.display_name || authData.user?.email || "User";
+      const ref = profiles.ref || "";
+
+      // 3. Check that the user is logging into the correct role portal
+      if (profileRole !== role) {
+        toast(`This account is registered as "${profileRole}", not "${role}". Redirecting...`, "error");
+        btn.textContent = "Sign In →";
+        btn.style.opacity = "1";
+        setTimeout(() => { window.location.hash = `#/login/${profileRole}`; }, 1200);
+        return;
+      }
+
+      // 4. Store session in localStorage (compatible with existing session system)
+      const session = {
+        role: profileRole,
+        name: displayName,
+        ref: ref,
+        loginAt: new Date().toISOString(),
+        email: email,
+        userId: userId,
+      };
+      localStorage.setItem("tsid:session", JSON.stringify(session));
+
+      toast(`Karibu, ${displayName}!`, "success");
+      setTimeout(() => { window.location.hash = META[role].redirect; }, 400);
+
+    } catch (err) {
+      console.error("[TSID Login]", err);
+      toast("An error occurred during login.", "error");
       btn.textContent = "Sign In →";
       btn.style.opacity = "1";
-      return;
     }
-    await login(role, identity);
-    toast(`Karibu, ${identity.name}!`, "success");
-    setTimeout(() => { window.location.hash = META[role].redirect; }, 400);
   }
 
   btn.addEventListener("click", doLogin);
-  document.getElementById("loginUser")?.addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
+  document.getElementById("loginEmail")?.addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
   document.getElementById("loginPass")?.addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
 }

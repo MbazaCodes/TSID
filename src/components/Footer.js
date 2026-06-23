@@ -88,11 +88,11 @@ export function Footer() {
     </div>`).join("");
 
   return `
-  <footer style="background:#0f172a;padding:0;margin-top:40px">
+  <footer style="background:#f8fafc;padding:0;margin-top:40px">
 
     <!-- Partners header -->
     <div style="
-      border-bottom:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid #e2e8f0;
       padding:24px 24px 0">
       <div style="max-width:1100px;margin:0 auto">
         <div style="
@@ -101,12 +101,12 @@ export function Footer() {
             width:2px;height:20px;
             background:linear-gradient(180deg,#004f8a,#003860);
             border-radius:99px"></div>
-          <div style="font-size:12px;font-weight:800;color:#fff;
+          <div style="font-size:12px;font-weight:800;color:#1e293b;
             text-transform:uppercase;letter-spacing:.6px">
             Taasisi za Elimu Tanzania
           </div>
-          <div style="height:1px;flex:1;background:rgba(255,255,255,.08)"></div>
-          <div style="font-size:11px;color:#475569">Tanzania Education Bodies</div>
+          <div style="height:1px;flex:1;background:#e2e8f0"></div>
+          <div style="font-size:11px;color:#94a3b8">Tanzania Education Bodies</div>
         </div>
 
         <!-- Links grid -->
@@ -122,12 +122,12 @@ export function Footer() {
 
     <!-- Quick links bar -->
     <div style="
-      border-bottom:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid #e2e8f0;
       padding:14px 24px">
       <div style="
         max-width:1100px;margin:0 auto;
         display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-        <span style="font-size:11px;font-weight:700;color:#475569;
+        <span style="font-size:11px;font-weight:700;color:#64748b;
           text-transform:uppercase;letter-spacing:.4px">TSID</span>
         ${[
           ["#/",             "Home"],
@@ -139,7 +139,7 @@ export function Footer() {
           <a href="${href}" style="
             font-size:12px;color:#64748b;text-decoration:none;
             transition:color .15s;font-weight:500"
-            onmouseover="this.style.color='#004f8a'"
+            onmouseover="this.style.color='#1B8F3A'"
             onmouseout="this.style.color='#64748b'">
             ${label}
           </a>`).join(`<span style="color:#1e293b">·</span>`)}
@@ -153,16 +153,16 @@ export function Footer() {
         display:flex;align-items:center;justify-content:space-between;
         flex-wrap:wrap;gap:10px">
         <div>
-          <div style="font-size:12.5px;font-weight:700;color:#fff;margin-bottom:2px">
+          <div style="font-size:12.5px;font-weight:700;color:#1e293b;margin-bottom:2px">
             Tanzania Student Identification System
           </div>
-          <div style="font-size:11px;color:#475569">
+          <div style="font-size:11px;color:#94a3b8">
             © 2026 Jamhuri ya Muungano wa Tanzania · For official use only
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <a href="https://www.moe.go.tz" target="_blank" rel="noopener" style="
-            font-size:11px;color:#475569;text-decoration:none">
+            font-size:11px;color:#64748b;text-decoration:none">
             🌐 verify.tsid.go.tz
           </a>
           <span style="
@@ -178,7 +178,7 @@ export function Footer() {
   </footer>
 
   <style>
-    footer a:hover .footer-link-text { color:#fff !important; }
+    footer a:hover .footer-link-text { color:#1e293b !important; }
   </style>
   `;
 }

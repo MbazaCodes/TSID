@@ -6,28 +6,11 @@
 //  Write methods (save*, approve*, reject*, addRemark, saveLetter, etc.)
 //  write to Supabase AND update the cache immediately so views stay consistent.
 //  This preserves the original sync API — zero view changes needed.
+//
+//  Auth is handled by Supabase Auth. Password hashing is no longer needed.
 // ============================================================================
 
 import { supabase } from "./supabase.js";
-
-// ── Password hashing (SHA-256) ──────────────────────────────────────────────
-async function hashPassword(password) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-}
-
-// Check if a password matches a stored hash
-export async function verifyPassword(password, storedHash) {
-  // Support legacy plaintext passwords during migration
-  if (!storedHash || storedHash.length < 64) {
-    return password === storedHash;
-  }
-  const hash = await hashPassword(password);
-  return hash === storedHash;
-}
 
 // ── Session (localStorage) ────────────────────────────────────────────────────
 const SESSION_KEY = "tsid:session";
@@ -292,17 +275,12 @@ export const db = {
 // ── Session ───────────────────────────────────────────────────────────────────
 export function currentSession() { return readSession(); }
 
-export async function login(role, identity) {
-  const session = { role, name: identity.name, ref: identity.ref, loginAt: new Date().toISOString() };
-  writeSession(session);
-  log("auth:login", `${role} ${identity.name} logged in`);
-  return session;
-}
-
-export function logout() {
+export async function logout() {
   const s = currentSession();
   if (s) log("auth:logout", `${s.role} ${s.name} logged out`);
   clearSession();
+  // Also sign out from Supabase Auth to clear the JWT session
+  try { await supabase.auth.signOut(); } catch (_) { /* ignore */ }
 }
 
 // ── Log (fire-and-forget) ─────────────────────────────────────────────────────
@@ -315,5 +293,5 @@ export function log(action, message) {
   supabase.from("activity_logs").insert(row).then(() => {});
 }
 
-// ── ensureSeed — no-op (seed lives in supabase-schema.sql) ───────────────────
+// ── ensureSeed — no-op (admin creates all data via the dashboard) ────────────
 export function ensureSeed() {}

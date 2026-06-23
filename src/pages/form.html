@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TSID Registration Form</title>
+<link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>TSID Registration Form</h1>
+
+<form id="tsidForm">
+
+<h3>Student Information</h3>
+
+<input id="tsid" placeholder="TSID Number" required>
+
+<input id="fullname" placeholder="Full Name" required>
+
+<input id="dob" type="date" required>
+
+<select id="gender" required>
+<option value="">Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<input id="nationality" value="Tanzanian">
+
+<h3>School Information</h3>
+
+<input id="schoolName" placeholder="School Name">
+
+<input id="schoolId" placeholder="School ID">
+
+<input id="region" placeholder="Region">
+
+<input id="district" placeholder="District">
+
+<input id="ward" placeholder="Ward">
+
+<input id="schoolContact" placeholder="School Contact">
+
+<h3>Student Academic Information</h3>
+
+<input id="enrollmentDate" type="date">
+
+<input id="level" placeholder="Current Level">
+
+<input id="bloodGroup" placeholder="Blood Group">
+
+<h3>Parent / Guardian</h3>
+
+<input id="parentName" placeholder="Parent Name">
+
+<input id="parentNida" placeholder="Parent NIDA">
+
+<input id="relationship" placeholder="Relationship">
+
+<input id="parentPhone" placeholder="Parent Phone">
+
+<h3>Student Photo</h3>
+
+<input
+type="file"
+id="studentPhoto"
+accept="image/*">
+
+<h3>Card Information</h3>
+
+<input id="issueDate" type="date">
+
+<button type="submit">
+Generate TSID Card
+</button>
+
+<button
+type="button"
+onclick="window.open('index.html','_blank')">
+Print Last TSID
+</button>
+
+</form>
+
+</div>
+
+<script src="../js/form.js"></script>
+
+</body>
+</html>
+
+
+

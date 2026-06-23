@@ -4,7 +4,7 @@
    ============================================================================ */
 
 :root {
-  /* ── Core palette derived from logo background #003860 ── */
+  /* ── Core palette ── */
   --tz-primary:       #003860;   /* logo navy — main interactive colour      */
   --tz-primary-dark:  #002540;   /* darker shade for hover / headings        */
   --tz-primary-light: #dce8f5;   /* very light tint for hover backgrounds    */
@@ -16,8 +16,8 @@
   --tz-yellow-accent:#F5C400;    /* Tanzania flag yellow                     */
   --tz-blue-light:   #0070b0;    /* lighter navy derived from logo           */
 
-  /* ── Kept for any legacy references ── */
-  --tz-green-primary:#003860;    /* was green, now navy                      */
+  /* ── Legacy aliases (kept for backward compat) ── */
+  --tz-green-primary: #1B8F3A;   /* actual Tanzania flag green                */
 
   /* ── Neutral surface colours ── */
   --bg-page:    #f0f4f8;
@@ -35,13 +35,13 @@ body.tsid-app {
 
 /* ---------------- Top navbar -------------------------------------------- */
 .tsid-navbar {
-  background: var(--tz-primary);          /* navy navbar from logo             */
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
+  background: #ffffff;
+  color: var(--text-dark);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--border-soft);
 }
 .tsid-navbar .inner {
   max-width: 1280px;
@@ -60,17 +60,17 @@ body.tsid-app {
   font-weight: 900;
   font-size: 22px;
   letter-spacing: -0.3px;
-  color: #ffffff;
+  color: var(--tz-primary);
 }
 .tsid-navbar .brand .badge {
   font-size: 10px;
   font-weight: 700;
-  background: rgba(255,255,255,0.18);
-  color: #fff;
+  background: #f1f5f9;
+  color: var(--text-muted);
   padding: 2px 8px;
   border-radius: 999px;
   text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--border-soft);
 }
 .tsid-navbar .nav-links {
   display: flex;
@@ -79,7 +79,7 @@ body.tsid-app {
   flex-wrap: wrap;
 }
 .tsid-navbar .nav-links a {
-  color: rgba(255,255,255,0.75);
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
   padding: 7px 12px;
@@ -88,11 +88,11 @@ body.tsid-app {
   transition: all 0.15s;
 }
 .tsid-navbar .nav-links a:hover {
-  background: rgba(255,255,255,0.12);
-  color: #ffffff;
+  background: #f1f5f9;
+  color: var(--text-dark);
 }
 .tsid-navbar .nav-links a.active {
-  background: rgba(255,255,255,0.20);
+  background: var(--tz-primary);
   color: #ffffff;
   font-weight: 700;
 }
@@ -101,18 +101,18 @@ body.tsid-app {
   align-items: center;
   gap: 10px;
   font-size: 13px;
-  background: rgba(255,255,255,0.12);
+  background: #f1f5f9;
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #fff;
+  border: 1px solid var(--border-soft);
+  color: var(--text-dark);
 }
 .tsid-navbar .session-chip .avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--tz-yellow-accent);
-  color: var(--tz-primary-dark);
+  background: var(--tz-green);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -344,8 +344,8 @@ body.tsid-app {
 }
 .btn-primary         { background: var(--tz-primary); color: #fff; }
 .btn-primary:hover   { background: var(--tz-primary-dark); }
-.btn-green           { background: var(--tz-primary); color: #fff; }
-.btn-green:hover     { background: var(--tz-primary-dark); }
+.btn-green           { background: var(--tz-green); color: #fff; }
+.btn-green:hover     { background: #156e2e; }
 .btn-red             { background: #DC2626; color: #fff; }
 .btn-red:hover       { background: #b21d1d; }
 .btn-outline {
@@ -639,7 +639,7 @@ body.tsid-app {
 .mini-id-card .footer .green  { background: var(--tz-green); flex: 4.5; }
 .mini-id-card .footer .yellow { background: var(--tz-yellow-accent); flex: 1; }
 .mini-id-card .footer .black  { background: #000; flex: 1; }
-.mini-id-card .footer .blue   { background: var(--tz-primary); flex: 3.5; }
+.mini-id-card .footer .blue   { background: var(--tz-blue-light); flex: 3.5; }
 
 /* ---------------- Print tweaks ------------------------------------------ */
 @media print {
@@ -718,24 +718,24 @@ body.tsid-app {
     display: flex !important;
     align-items: center; justify-content: center;
     width: 36px; height: 36px; border-radius: 8px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    cursor: pointer; color: #fff;
+    background: #f1f5f9;
+    border: 1px solid var(--border-soft);
+    cursor: pointer; color: var(--text-dark);
     font-size: 18px; flex-shrink: 0;
   }
   /* Mobile nav drawer */
   .tsid-mobile-nav {
     display: none;
     position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,24,40,.65); backdrop-filter: blur(4px);
+    background: rgba(0,0,0,.35); backdrop-filter: blur(4px);
   }
   .tsid-mobile-nav.open { display: block; }
   .tsid-mobile-nav-panel {
     position: absolute; top: 0; right: 0;
     width: min(300px, 85vw); height: 100vh;
-    background: var(--tz-primary-dark);
+    background: #ffffff;
     padding: 0; overflow-y: auto;
-    box-shadow: -8px 0 32px rgba(0,0,0,.3);
+    box-shadow: -8px 0 32px rgba(0,0,0,.12);
     transform: translateX(100%);
     transition: transform .25s cubic-bezier(.4,0,.2,1);
   }
@@ -743,31 +743,31 @@ body.tsid-app {
   .tsid-mobile-nav-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 18px;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid var(--border-soft);
   }
   .tsid-mobile-nav-header .brand-text {
-    font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -.3px;
+    font-size: 20px; font-weight: 900; color: var(--text-dark); letter-spacing: -.3px;
   }
   .tsid-mobile-nav-close {
     width: 32px; height: 32px; border-radius: 8px;
-    background: rgba(255,255,255,.15); border: none;
-    cursor: pointer; color: #fff; font-size: 18px;
+    background: #f1f5f9; border: none;
+    cursor: pointer; color: var(--text-dark); font-size: 18px;
     display: flex; align-items: center; justify-content: center;
   }
   .tsid-mobile-nav-panel a {
     display: flex; align-items: center; gap: 12px;
-    padding: 14px 18px; color: #bdd4e8;
+    padding: 14px 18px; color: var(--text-dark);
     font-size: 14px; font-weight: 600; text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid var(--border-soft);
     transition: background .15s;
   }
   .tsid-mobile-nav-panel a:hover,
-  .tsid-mobile-nav-panel a.active { background: rgba(255,255,255,.12); color: #fff; }
+  .tsid-mobile-nav-panel a.active { background: #f1f5f9; color: var(--tz-primary); }
   .tsid-mobile-nav-panel a .ic { font-size: 16px; width: 20px; text-align: center; }
   .tsid-mobile-nav-section {
     padding: 10px 18px 4px;
     font-size: 10px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: .6px; color: rgba(255,255,255,.4);
+    letter-spacing: .6px; color: var(--text-muted);
   }
 }
 
