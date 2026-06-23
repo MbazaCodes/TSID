@@ -46,17 +46,24 @@ CREATE TABLE IF NOT EXISTS applications (
   photo            TEXT,             -- base64 or Storage URL
   status           application_status NOT NULL DEFAULT 'pending',
   reject_reason    TEXT,
-  tsid             TEXT,             -- Assigned when approved
+  tsid             TEXT,             -- Assigned on approval. Soft link (no FK) because
+                                    -- TSID doesn't exist when application is created.
+                                    -- Validated by check constraint below.
   submitted_at     TIMESTAMPTZ       NOT NULL DEFAULT now(),
   decided_at       TIMESTAMPTZ,
 
   CONSTRAINT applications_nida_valid CHECK (parent_nida IS NULL OR parent_nida ~* '^[0-9]{20}$'),
   CONSTRAINT applications_phone_valid CHECK (parent_phone IS NULL OR parent_phone ~* '^\+?[0-9\s]{10,20}$'),
-  CONSTRAINT applications_level_not_empty CHECK (length(trim(level)) > 0)
+  CONSTRAINT applications_level_not_empty CHECK (length(trim(level)) > 0),
+  -- tsid must be NULL (pending) or reference an actual student (approved)
+  CONSTRAINT applications_tsid_valid CHECK (
+    tsid IS NULL
+    OR EXISTS (SELECT 1 FROM students WHERE students.tsid = applications.tsid)
+  )
 );
 
 COMMENT ON TABLE  applications IS 'Student ID card applications submitted to schools';
-COMMENT ON COLUMN applications.tsid IS 'Assigned TSID when application is approved';
+COMMENT ON COLUMN applications.tsid IS 'Assigned on approval — validated by constraint against students.tsid';
 COMMENT ON COLUMN applications.reject_reason IS 'Required when status = rejected';
 
 -- Indexes

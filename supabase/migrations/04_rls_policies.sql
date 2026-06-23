@@ -161,9 +161,10 @@ RETURNS TEXT AS $$
     INSERT INTO schools (code, name, type, region, district, ward, contact, email, address, username, password)
     VALUES (v_code, p_name, p_type, p_region, p_district, p_ward, p_contact, p_email, p_address, v_username, v_hash_pw);
 
+    -- Log action WITHOUT plaintext password (send credentials out-of-band)
     INSERT INTO activity_logs (action, message, by_name, by_role, by_ref)
     VALUES ('school:create',
-      format('Created school: %s (%s) — username: %s / password: %s', p_name, v_code, v_username, v_plain_pw),
+      format('Created school: %s (%s) — username: %s', p_name, v_code, v_username),
       COALESCE(p_admin_email, 'admin'), 'admin', v_code);
 
     RETURN v_code;
@@ -211,9 +212,10 @@ RETURNS TEXT AS $$
       current_date, 'active', '[]', v_tsid, v_hash_pw
     );
 
+    -- Log action WITHOUT plaintext password (send credentials out-of-band)
     INSERT INTO activity_logs (action, message, by_name, by_role, by_ref)
     VALUES ('student:register',
-      format('Registered student: %s (%s) — credentials: %s / %s', p_fullname, v_tsid, v_tsid, v_plain_pw),
+      format('Registered student: %s (%s) — username: %s', p_fullname, v_tsid, v_tsid),
       COALESCE(p_admin_email, 'admin'), 'admin', v_tsid);
 
     RETURN v_tsid;
@@ -240,9 +242,10 @@ RETURNS UUID AS $$
     INSERT INTO admin_users (id, email, name, role, password, phone, region, ministry)
     VALUES (v_id, p_email, p_name, 'gov', v_hash_pw, p_phone, p_region, p_ministry);
 
+    -- Log action WITHOUT plaintext password (send credentials out-of-band)
     INSERT INTO activity_logs (action, message, by_name, by_role, by_ref)
     VALUES ('gov:create',
-      format('Created gov user: %s — email: %s / password: %s', p_name, p_email, v_plain_pw),
+      format('Created gov user: %s — email: %s', p_name, p_email),
       COALESCE(p_admin_email, 'admin'), 'admin', v_id::text);
 
     RETURN v_id;
@@ -301,6 +304,11 @@ $$ LANGUAGE sql SECURITY DEFINER STABLE;
 
 -- ============================================================================
 --  4. TRIGGER: Auto-approve student request letters on insert
+--
+--  NOTE: This matches the current TSID app behavior where all student
+--  letter requests are auto-approved. If you need a school-review
+--  workflow in the future, drop this trigger:
+--    DROP TRIGGER trg_auto_approve_letter ON request_letters;
 -- ============================================================================
 CREATE OR REPLACE FUNCTION auto_approve_letter()
 RETURNS TRIGGER AS $$
@@ -316,6 +324,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_auto_approve_letter
   BEFORE INSERT ON request_letters
   FOR EACH ROW EXECUTE FUNCTION auto_approve_letter();
+
+COMMENT ON FUNCTION auto_approve_letter IS 'Auto-approves new letter requests. Drop trigger trg_auto_approve_letter if school review is needed.';
 
 
 -- ============================================================================
