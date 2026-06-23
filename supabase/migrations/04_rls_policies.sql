@@ -140,10 +140,10 @@ $$ LANGUAGE SQL VOLATILE STRICT;
 -- Returns the school code. Credentials are logged in activity_logs.
 CREATE OR REPLACE FUNCTION admin_create_school(
   p_name        TEXT,
-  p_type        school_type DEFAULT 'Secondary School',
   p_region      TEXT,
   p_district    TEXT,
   p_ward        TEXT,
+  p_type        school_type DEFAULT 'Secondary School',
   p_contact     TEXT DEFAULT NULL,
   p_email       TEXT DEFAULT NULL,
   p_address     TEXT DEFAULT NULL,
@@ -177,12 +177,12 @@ $$ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE FUNCTION admin_register_student(
   p_fullname      TEXT,
   p_dob           DATE,
-  p_gender        gender_type DEFAULT NULL,
   p_school_code   TEXT,
   p_region        TEXT,
   p_district      TEXT,
   p_ward          TEXT,
   p_level         TEXT,
+  p_gender        gender_type DEFAULT NULL,
   p_blood_group   TEXT DEFAULT NULL,
   p_parent_name   TEXT DEFAULT NULL,
   p_parent_nida   TEXT DEFAULT NULL,
@@ -228,10 +228,10 @@ CREATE OR REPLACE FUNCTION admin_create_gov_user(
   p_name        TEXT,
   p_email       TEXT,
   p_gov_role    TEXT DEFAULT 'Government Officer',
+  p_admin_email TEXT DEFAULT NULL,
   p_ministry    TEXT DEFAULT NULL,
   p_region      TEXT DEFAULT NULL,
-  p_phone       TEXT DEFAULT NULL,
-  p_admin_email TEXT DEFAULT NULL
+  p_phone       TEXT DEFAULT NULL
 )
 RETURNS UUID AS $$
   DECLARE
