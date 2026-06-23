@@ -12,6 +12,15 @@
 --  NO seed data — admin writes everything.
 -- ============================================================================
 
+-- ── Drop old tables (removes any prior schema including supabase-schema.sql) ──
+-- CASCADE ensures dependent tables from old schema are also removed.
+-- These tables are recreated with the correct schema below.
+DROP TABLE IF EXISTS activity_logs    CASCADE;
+DROP TABLE IF EXISTS schools          CASCADE;
+DROP TABLE IF EXISTS admin_users      CASCADE;
+DROP TABLE IF EXISTS gov_users        CASCADE;  -- legacy table from old schema
+DROP TABLE IF EXISTS user_profiles    CASCADE;  -- legacy table from old schema
+
 -- ============================================================================
 --  1. ADMIN USERS
 --  Stores admin accounts and government officers.
@@ -22,7 +31,7 @@
 --    - gov:    Read most, manage schools/students/applications
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS admin_users (
+CREATE TABLE admin_users (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email       TEXT    NOT NULL UNIQUE,
   name        TEXT    NOT NULL,
@@ -67,7 +76,7 @@ CREATE TRIGGER trg_admin_users_updated_at
 --    - school:     Read own row, UPDATE own row only
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS schools (
+CREATE TABLE schools (
   code        TEXT    PRIMARY KEY,
   name        TEXT    NOT NULL,
   type        school_type     NOT NULL DEFAULT 'Secondary School',
@@ -114,7 +123,7 @@ CREATE TRIGGER trg_schools_updated_at
 --    - anon:      No access
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS activity_logs (
+CREATE TABLE activity_logs (
   id          TEXT    PRIMARY KEY DEFAULT 'LOG-' || to_char(now(), 'YYYYMMDDHH24MISS') || '-' || upper(substr(encode(gen_random_bytes(4), 'hex'), 1, 6)),
   action      TEXT    NOT NULL,
   message     TEXT,

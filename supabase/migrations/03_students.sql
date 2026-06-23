@@ -12,6 +12,11 @@
 --  NO seed data — schools write student data.
 -- ============================================================================
 
+-- ── Drop old tables ────────────────────────────────────────────────────────────
+DROP TABLE IF EXISTS request_letters  CASCADE;
+DROP TABLE IF EXISTS certificates    CASCADE;
+DROP TABLE IF EXISTS students        CASCADE;
+
 -- ============================================================================
 --  1. STUDENTS
 --  Core table. Each student gets a unique TSID.
@@ -24,7 +29,7 @@
 --    - anon:       No direct access (public search uses view in 04)
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS students (
+CREATE TABLE students (
   tsid             TEXT              PRIMARY KEY DEFAULT 'TSID-' || to_char(now(), 'YYYY') || '-' || upper(substr(encode(gen_random_bytes(4), 'hex'), 1, 7)),
   fullname         TEXT              NOT NULL,
   dob              DATE,
@@ -95,7 +100,7 @@ CREATE TRIGGER trg_students_updated_at
 --    - anon:       No access
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS certificates (
+CREATE TABLE certificates (
   id           TEXT         PRIMARY KEY DEFAULT 'CRT-' || to_char(now(), 'YYYYMMDDHH24MISS') || '-' || upper(substr(encode(gen_random_bytes(3), 'hex'), 1, 4)),
   tsid         TEXT         NOT NULL REFERENCES students(tsid) ON DELETE CASCADE,
   student_name TEXT         NOT NULL,
@@ -127,7 +132,7 @@ CREATE INDEX IF NOT EXISTS idx_certificates_school_code  ON certificates (school
 --    - anon:       No access
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS request_letters (
+CREATE TABLE request_letters (
   ref          TEXT              PRIMARY KEY DEFAULT 'LTR-' || to_char(now(), 'YYYYMMDDHH24MISS') || '-' || upper(substr(encode(gen_random_bytes(3), 'hex'), 1, 4)),
   tsid         TEXT              NOT NULL REFERENCES students(tsid) ON DELETE CASCADE,
   student_name TEXT              NOT NULL,

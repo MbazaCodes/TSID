@@ -11,6 +11,10 @@
 --  NO seed data — schools write everything.
 -- ============================================================================
 
+-- ── Drop old tables ────────────────────────────────────────────────────────────
+DROP TABLE IF EXISTS payments      CASCADE;
+DROP TABLE IF EXISTS applications  CASCADE;
+
 -- ============================================================================
 --  1. APPLICATIONS
 --  Students apply for TSID through a school.
@@ -24,7 +28,7 @@
 --    - anon:       No access
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS applications (
+CREATE TABLE applications (
   id               TEXT              PRIMARY KEY DEFAULT 'APP-' || to_char(now(), 'YYYYMMDDHH24MISS') || '-' || upper(substr(encode(gen_random_bytes(3), 'hex'), 1, 4)),
   fullname         TEXT              NOT NULL,
   dob              DATE,
@@ -84,7 +88,7 @@ CREATE INDEX IF NOT EXISTS idx_applications_tsid        ON applications (tsid) W
 --    - anon:       No access
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS payments (
+CREATE TABLE payments (
   ref          TEXT              PRIMARY KEY DEFAULT 'PAY-' || to_char(now(), 'YYYYMMDDHH24MISS') || '-' || upper(substr(encode(gen_random_bytes(2), 'hex'), 1, 4)),
   tsid         TEXT              NOT NULL,
   school_code  TEXT              NOT NULL REFERENCES schools(code) ON DELETE SET NULL,
