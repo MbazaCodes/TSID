@@ -180,27 +180,18 @@ CREATE POLICY "admin_gov_select_students" ON students
 CREATE POLICY "school_all_own_students" ON students
   FOR ALL TO authenticated
   USING (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   )
   WITH CHECK (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   );
 
 -- student: SELECT own record only
+-- admin_users.ref stores the TSID for student-role users
 CREATE POLICY "student_select_own" ON students
   FOR SELECT TO authenticated
   USING (
-    cred_username = (
-      SELECT au.username FROM admin_users au WHERE au.auth_uid = auth.uid() AND au.role = 'student'
-    )
+    tsid = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'student')
   );
 
 -- service_role: full access
@@ -229,29 +220,17 @@ CREATE POLICY "admin_gov_select_certificates" ON certificates
 CREATE POLICY "school_all_own_certificates" ON certificates
   FOR ALL TO authenticated
   USING (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   )
   WITH CHECK (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   );
 
 -- student: SELECT own certificates
 CREATE POLICY "student_select_own_certificates" ON certificates
   FOR SELECT TO authenticated
   USING (
-    tsid = (
-      SELECT st.tsid FROM students st
-      JOIN admin_users au ON au.username = st.cred_username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'student'
-    )
+    tsid = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'student')
   );
 
 -- service_role: full access
@@ -285,39 +264,24 @@ CREATE POLICY "admin_gov_update_request_letters" ON request_letters
 CREATE POLICY "school_all_own_request_letters" ON request_letters
   FOR ALL TO authenticated
   USING (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   )
   WITH CHECK (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   );
 
--- student: SELECT own, INSERT own
+-- student: SELECT own letters
 CREATE POLICY "student_select_own_letters" ON request_letters
   FOR SELECT TO authenticated
   USING (
-    tsid = (
-      SELECT st.tsid FROM students st
-      JOIN admin_users au ON au.username = st.cred_username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'student'
-    )
+    tsid = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'student')
   );
 
+-- student: INSERT own letters
 CREATE POLICY "student_insert_own_letters" ON request_letters
   FOR INSERT TO authenticated
   WITH CHECK (
-    tsid = (
-      SELECT st.tsid FROM students st
-      JOIN admin_users au ON au.username = st.cred_username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'student'
-    )
+    tsid = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'student')
   );
 
 -- service_role: full access

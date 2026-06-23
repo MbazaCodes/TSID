@@ -146,18 +146,10 @@ CREATE POLICY "admin_gov_select_applications" ON applications
 CREATE POLICY "school_all_own_applications" ON applications
   FOR ALL TO authenticated
   USING (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   )
   WITH CHECK (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   );
 
 -- service_role: full access
@@ -186,29 +178,18 @@ CREATE POLICY "admin_gov_select_payments" ON payments
 CREATE POLICY "school_all_own_payments" ON payments
   FOR ALL TO authenticated
   USING (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   )
   WITH CHECK (
-    school_code = (
-      SELECT s.code FROM schools s
-      JOIN admin_users au ON au.username = s.username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'school'
-    )
+    school_code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school')
   );
 
 -- student: SELECT own payments by TSID
+-- admin_users.ref stores the TSID for student-role users
 CREATE POLICY "student_select_own_payments" ON payments
   FOR SELECT TO authenticated
   USING (
-    tsid = (
-      SELECT st.tsid FROM students st
-      JOIN admin_users au ON au.username = st.cred_username
-      WHERE au.auth_uid = auth.uid() AND au.role = 'student'
-    )
+    tsid = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'student')
   );
 
 -- service_role: full access

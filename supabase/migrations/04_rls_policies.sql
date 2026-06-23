@@ -254,11 +254,13 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 
 -- ── Grant role to a Supabase Auth user ────────────────────────────────────────
+-- p_ref: school code for schools, TSID for students, null for admin/gov
 CREATE OR REPLACE FUNCTION grant_role(
   p_auth_uid  UUID,
   p_role      user_role,
   p_name      TEXT,
   p_email     TEXT,
+  p_ref       TEXT DEFAULT NULL,
   p_password  TEXT DEFAULT NULL,
   p_phone     TEXT DEFAULT NULL,
   p_region    TEXT DEFAULT NULL,
@@ -277,10 +279,11 @@ RETURNS UUID AS $$
       v_hash_pw := hash_password('admin123');
     END IF;
 
-    INSERT INTO admin_users (auth_uid, email, name, role, password, phone, region, ministry)
-    VALUES (p_auth_uid, p_email, p_name, p_role, v_hash_pw, p_phone, p_region, p_ministry)
+    INSERT INTO admin_users (auth_uid, email, name, role, ref, password, phone, region, ministry)
+    VALUES (p_auth_uid, p_email, p_name, p_role, p_ref, v_hash_pw, p_phone, p_region, p_ministry)
     ON CONFLICT (auth_uid) DO UPDATE SET
-      email = EXCLUDED.email, name = EXCLUDED.name, role = EXCLUDED.role, updated_at = now();
+      email = EXCLUDED.email, name = EXCLUDED.name, role = EXCLUDED.role,
+      ref = EXCLUDED.ref, updated_at = now();
 
     RETURN p_auth_uid;
   END;
@@ -288,15 +291,10 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 
 -- ── Get current user's profile (for app-side role checking) ───────────────────
+-- admin_users.ref: school code for schools, TSID for students, null for admin/gov
 CREATE OR REPLACE FUNCTION get_user_profile()
 RETURNS TABLE (user_id UUID, role TEXT, name TEXT, email TEXT, ref TEXT) AS $$
-  SELECT au.id, au.role::text, au.name, au.email,
-    CASE au.role
-      WHEN 'school' THEN (SELECT code FROM schools WHERE username = au.username)
-      WHEN 'gov'    THEN au.id::text
-      WHEN 'admin'  THEN au.id::text
-      ELSE NULL
-    END
+  SELECT au.id, au.role::text, au.name, au.email, au.ref
   FROM admin_users au
   WHERE au.auth_uid = auth.uid() AND au.status = 'active';
 $$ LANGUAGE sql SECURITY DEFINER STABLE;

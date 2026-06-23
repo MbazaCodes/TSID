@@ -50,8 +50,19 @@ These SQL migration files set up the complete database for the **Tanzania Studen
 | `admin_create_school(...)` | School code |
 | `admin_register_student(...)` | TSID |
 | `admin_create_gov_user(...)` | Gov user UUID |
-| `grant_role(auth_uid, role, name, email)` | Auth UID |
+| `grant_role(auth_uid, role, name, email, ref)` | Auth UID |
 | `get_user_profile()` | Current user's role + metadata |
+
+### The `ref` column in `admin_users`
+
+All roles (except admin/gov) use the `ref` column to link to their resource:
+
+| Role | `ref` value | Example |
+|------|-------------|---------|
+| admin | `null` | — |
+| gov | `null` | — |
+| school | School code | `DS1024` |
+| student | TSID | `TSID-2026-A7K9P2X` |
 
 ## Admin Bootstrap
 

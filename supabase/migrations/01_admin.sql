@@ -36,6 +36,7 @@ CREATE TABLE admin_users (
   email       TEXT    NOT NULL UNIQUE,
   name        TEXT    NOT NULL,
   role        user_role       NOT NULL DEFAULT 'admin',
+  ref         TEXT,            -- school code for schools, null for admin/gov
   phone       TEXT,
   region      TEXT,
   ministry    TEXT,
@@ -53,10 +54,11 @@ CREATE TABLE admin_users (
   CONSTRAINT admin_users_password_hash CHECK (length(password) = 64)
 );
 
-COMMENT ON TABLE  admin_users IS 'System administrators and government officers';
+COMMENT ON TABLE  admin_users IS 'System administrators, gov officers, and school accounts';
 COMMENT ON COLUMN admin_users.password IS 'SHA-256 hash — never store plaintext';
 COMMENT ON COLUMN admin_users.auth_uid IS 'Link to Supabase auth.users when using Supabase Auth';
-COMMENT ON COLUMN admin_users.role IS 'admin = full control; gov = government supervisor';
+COMMENT ON COLUMN admin_users.role IS 'admin = full control; gov = government supervisor; school = school account';
+COMMENT ON COLUMN admin_users.ref IS 'School code for school-role users, null for admin/gov';
 
 -- Auto-update updated_at
 CREATE OR REPLACE FUNCTION trg_admin_users_ts() RETURNS TRIGGER AS $$
@@ -206,8 +208,8 @@ CREATE POLICY "school_read_schools" ON schools
 
 CREATE POLICY "school_update_own" ON schools
   FOR UPDATE TO authenticated
-  USING (username = (SELECT username FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school'))
-  WITH CHECK (username = (SELECT username FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school'));
+  USING (code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school'))
+  WITH CHECK (code = (SELECT ref FROM admin_users WHERE auth_uid = auth.uid() AND role = 'school'));
 
 -- service_role: full CRUD
 CREATE POLICY "service_all_schools" ON schools
