@@ -58,17 +58,28 @@ CREATE TABLE applications (
 
   CONSTRAINT applications_nida_valid CHECK (parent_nida IS NULL OR parent_nida ~* '^[0-9]{20}$'),
   CONSTRAINT applications_phone_valid CHECK (parent_phone IS NULL OR parent_phone ~* '^\+?[0-9\s]{10,20}$'),
-  CONSTRAINT applications_level_not_empty CHECK (length(trim(level)) > 0),
-  -- tsid must be NULL (pending) or reference an actual student (approved)
-  CONSTRAINT applications_tsid_valid CHECK (
-    tsid IS NULL
-    OR EXISTS (SELECT 1 FROM students WHERE students.tsid = applications.tsid)
-  )
+  CONSTRAINT applications_level_not_empty CHECK (length(trim(level)) > 0)
 );
 
 COMMENT ON TABLE  applications IS 'Student ID card applications submitted to schools';
-COMMENT ON COLUMN applications.tsid IS 'Assigned on approval — validated by constraint against students.tsid';
+COMMENT ON COLUMN applications.tsid IS 'Assigned on approval — validated by trigger against students.tsid';
 COMMENT ON COLUMN applications.reject_reason IS 'Required when status = rejected';
+
+-- ── Trigger: validate applications.tsid references a real student ───────────────
+-- PostgreSQL CHECK constraints cannot contain subqueries, so we use a trigger.
+CREATE OR REPLACE FUNCTION trg_applications_tsid_check()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.tsid IS NOT NULL AND NOT EXISTS (SELECT 1 FROM students WHERE tsid = NEW.tsid) THEN
+    RAISE EXCEPTION 'applications.tsid "%" does not exist in students table', NEW.tsid;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_applications_validate_tsid
+  BEFORE INSERT OR UPDATE OF tsid ON applications
+  FOR EACH ROW EXECUTE FUNCTION trg_applications_tsid_check();
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_applications_school_code ON applications (school_code);
